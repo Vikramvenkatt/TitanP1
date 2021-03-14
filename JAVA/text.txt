@@ -1,0 +1,56 @@
+ System.out.println("enter the sentence");
+        String text=sc.nextLine()+" ";
+        //hello welcome to laal 
+        int c=0;
+        for(int i=0;i<text.length();i++ )
+        {
+            if(text.charAt(i)==' ')
+            {
+                c++;
+            }
+        }
+        int pos=0;
+        int index=0;
+        String[] arr=new String[c];
+        for(int i=0;i<text.length();i++)
+        {
+            if(text.charAt(i)==' ')
+            {
+                String word=text.substring(pos,i);
+                arr[index]=word;
+                pos=i+1;
+                index++;
+                
+                //String word=text.substring(pos,i);==>hello==>welcome==>to===>java
+               // arr[index]=word;arr[0]==>hello==>arr[1]==>welcome==>arr[2]==>to==>arr[3]=java
+                //pos=i+1;==>6==>14==>18==>24
+               // index++;==>1==>2==>3==>4
+            }
+        }
+        int count=0;
+        for(int i=0;i<arr.length;i++ )
+        {
+            
+            String word=arr[i];
+            String s="";
+            for(int x=word.length()-1;x>=0;x--)
+            {
+                s+=word.charAt(x);
+            }
+            if(word.equals(s))
+            {
+                count++;
+                }
+            
+        }
+        System.out.println("Count is "+count);
+        
+        
+        for(int i=0;i<arr.length;i++ )
+        {
+            
+            String word=arr[i];
+            String s=(word.charAt(word.length()-1))+(word.substring(1,word.length()-1))+(word.charAt(0));
+             System.out.println(s);
+            
+        }
