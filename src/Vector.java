@@ -1,4 +1,3 @@
-package titan;
 
 public class Vector {
 
