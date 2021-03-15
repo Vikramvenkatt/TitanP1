@@ -1,6 +1,6 @@
 import interfaces.Vector3dInterface;
 
-public class Vector {
+public class Vector implements Vector3dInterface {
 
 	private double x;
 	private double y;
@@ -48,16 +48,8 @@ public class Vector {
 	
 	
 	public double distance (Vector v ) {
-		
-		
-
-		
 		double distance = Math.sqrt(Math.pow(v.getX()-this.x, 2)+Math.pow(v.getY()-this.y, 2)+Math.pow(v.getZ()-this.z, 2));
-		
-		
 		return distance;
-		
-		
 	}
 	
 	
@@ -73,6 +65,11 @@ public class Vector {
 	public double norm () {
 		return Math.sqrt(dot(this));
 		
+	}
+
+	@Override
+	public double dist(Vector3dInterface other) {
+		return Math.sqrt(Math.pow(other.getX()-this.x, 2)+Math.pow(other.getY()-this.y, 2)+Math.pow(other.getZ()-this.z, 2));
 	}
 
 
@@ -109,6 +106,27 @@ public class Vector {
 
 	public void setZ(double z) {
 		this.z = z;
+	}
+
+	@Override
+	public Vector3dInterface add(Vector3dInterface other) {
+		return new Vector(x + other.getX(), y + other.getY(), z + other.getZ());
+	}
+
+	@Override
+	public Vector3dInterface sub(Vector3dInterface other) {
+		return new Vector(x - other.getX(), y - other.getY(), z - other.getZ());
+	}
+
+	@Override
+	public Vector3dInterface mul(double scalar) {
+		return new Vector(getX() * scalar, getY() * scalar, getZ() * scalar);
+	}
+
+	@Override
+	public Vector3dInterface addMul(double scalar, Vector3dInterface other) {
+		//TODO: CREATE THIS METHOD
+		return null;
 	}
 
 	public String toString() {
