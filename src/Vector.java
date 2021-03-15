@@ -70,11 +70,7 @@ public class Vector {
 	
 	
 	public double norm () {
-		
-		
-		
-		
-		return Math.sqrt(this.dot(this));
+		return Math.sqrt(dot(this));
 		
 	}
 	
