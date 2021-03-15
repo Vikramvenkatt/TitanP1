@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-public class Body {
+public abstract class Body {
     /*so we are gonna need some global variables that define the parameters of the body of the spaceship
     such as name, mass,color etc
     idk how many we need tho and whether stuff like colour is important but i think it prob is
@@ -39,6 +39,12 @@ public class Body {
     public Body(double mass, Vector position, Vector velocity)
     {
         this.mass = mass;
+        this.position = position;
+        this.velocity = velocity;
+    }
+
+    public Body(Vector position, Vector velocity)
+    {
         this.position = position;
         this.velocity = velocity;
     }
