@@ -38,7 +38,7 @@ public class Bdata{
         return Color;
     }
 
-    //Body Data Constructor assignments-Sahil
+    //Body Data Constructor assignments-Jan
     public Bdata(Bdata orbitsAround,String name, double mass,Vector initialPosition, Vector initialVelocity, double radius, Color Color){
 		this.orbitsAround = orbitsAround;
 		this.Name = name;
