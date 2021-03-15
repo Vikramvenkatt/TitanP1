@@ -1,3 +1,4 @@
+import interfaces.Vector3dInterface;
 
 public class Vector {
 
@@ -73,8 +74,8 @@ public class Vector {
 		return Math.sqrt(dot(this));
 		
 	}
-	
-	
+
+
 	public double getX() {
 
 		return x;
