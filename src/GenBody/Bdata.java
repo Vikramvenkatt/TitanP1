@@ -1,4 +1,6 @@
 
+import GenBody.Vector;
+
 import java.awt.Color;
 
 public class Bdata{

@@ -28,9 +28,9 @@ public interface Vector3dInterface {
      * @return the result of the multiplication step added to this vector,
      * for example:
      *
-     *       Vector3d a = Vector();
+     *       Vector3d a = GenBody.Vector();
      *       double h = 2;
-     *       Vector3d b = Vector();
+     *       Vector3d b = GenBody.Vector();
      *       ahb = a.addMul(h, b);
      *
      * ahb should now contain the result of this mathematical operation:

@@ -1,3 +1,5 @@
+package GenBody;
+
 import interfaces.*;
 
 public class SolarSystem implements StateInterface, ODEFunctionInterface, ProbeSimulatorInterface, ODESolverInterface {

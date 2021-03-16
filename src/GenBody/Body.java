@@ -1,6 +1,6 @@
+import GenBody.Vector;
+
 import java.awt.Color;
-import java.util.LinkedList;
-import java.util.List;
 
 
 public abstract class Body {
@@ -13,7 +13,7 @@ public abstract class Body {
     public String bodyName;//name of the body, like in general, we have spaceship defined in another class
     public double radius;
     public double mass;
-    public Vector position;//is of type Vector class, which was created drawing from the interface provided in API
+    public Vector position;//is of type GenBody.Vector class, which was created drawing from the interface provided in API
     public Vector velocity;//same thing I guess
     public Color color;
 
