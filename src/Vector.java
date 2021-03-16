@@ -1,5 +1,3 @@
-import interfaces.Vector3dInterface;
-
 public class Vector implements Vector3dInterface {
 
 	private double x;
