@@ -1,6 +1,5 @@
-package GenBody;
-import java.awt.*;
-import java.util.Vector;
+
+import java.awt.Color;
 
 public class Bdata{
     /*
