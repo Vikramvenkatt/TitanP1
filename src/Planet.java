@@ -1,18 +1,13 @@
-package titan;
-
 import java.awt.*;
+import java.util.Vector;
 public class Planet extends Bdata {
-	public Planet(String name, double mass, Vector initialPosition, Vector initialVelocity,double radius , Color Color)
-	/**
-	 * Needs a fix . 
-	 * 
-	 */
-	
-	{
-		super(name, mass, initialPosition, initialVelocity, radius , Color );
 
+	public Planet(Bdata orbitsAround, String name, double mass, Vector initialPosition, Vector initialVelocity,
+			double radius, java.awt.Color Color) {
+		super(orbitsAround, name, mass, initialPosition, initialVelocity, radius, Color);
 	}
 
+	
 
 
 }
