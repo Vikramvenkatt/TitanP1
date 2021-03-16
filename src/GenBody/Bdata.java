@@ -38,6 +38,10 @@ public abstract class Bdata{
         return Color;
     }
 
+    public Bdata getOrbitsAround() {
+        return orbitsAround;
+    }
+
     //Body Data Constructor assignments-Jan
     public Bdata(Bdata orbitsAround,String name, double mass,Vector initialPosition, Vector initialVelocity, double radius, Color Color){
 		this.orbitsAround = orbitsAround;

@@ -61,7 +61,15 @@ public class Body {
     /*now we need a few more methods but idk what they are
     Both Vikram and Sahil will work on this method
      */
+    public Body(Bdata x){
 
+        this.bodyName = x.getName();
+        this.radius = x.getRadius();
+        this.mass = x.getMass();
+        this.position = x.getInitialPosition();
+        this.velocity = x.getInitialVelocity();
+        this.color = x.getColor();
+    }
 
 
 }
