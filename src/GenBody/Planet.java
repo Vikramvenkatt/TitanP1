@@ -1,5 +1,5 @@
 package GenBody;
-
+import java.awt.Graphics;
 public class Planet extends Bdata {
 
 	public Planet(Bdata orbitsAround, String name, double mass, Vector initialPosition, Vector initialVelocity,
@@ -8,9 +8,7 @@ public class Planet extends Bdata {
 		
 			
 	}
-	    public Color getColor(){
-        return Color;
-    }
+
 	    public void draw(Graphics g){
         g.setColor(this.getColor());
         g.fillOval((int)initialPosition.getX(),(int)initialPosition.getY(),(int)getRadius()*2,(int)getRadius()*2);

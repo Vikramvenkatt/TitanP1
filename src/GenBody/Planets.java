@@ -1,5 +1,6 @@
 package GenBody;
 
+import java.awt.Graphics;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -97,7 +98,6 @@ public class Planets  {
 
         for(int i=0;i<planets.size();i++){
             planets.get(i).draw(g);
-
         }
     }
 

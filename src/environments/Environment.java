@@ -20,7 +20,7 @@ public class Environment {
     Calendar current;
     private Planets planetsList;
 
-    public void paintComponent(Graphics2D g){
+    public void paintComponent(Graphics g){
         planetsList.addPlanets();
         planetsList.draw(g);
         //What is completed till now
