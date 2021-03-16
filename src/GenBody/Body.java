@@ -1,9 +1,9 @@
-import GenBody.Vector;
+package GenBody;
 
 import java.awt.Color;
 
 
-public abstract class Body {
+public class Body {
     /*so we are gonna need some global variables that define the parameters of the body of the spaceship
     such as name, mass,color etc
     idk how many we need tho and whether stuff like colour is important but i think it prob is

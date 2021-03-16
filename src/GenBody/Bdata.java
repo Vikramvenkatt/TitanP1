@@ -1,9 +1,8 @@
-
-import GenBody.Vector;
+package GenBody;
 
 import java.awt.Color;
 
-public class Bdata{
+public abstract class Bdata{
     /*
     defining parameters of this thingy, which will be used in the Body class duh
     IMP:can and should be used for both body and spaceship!
