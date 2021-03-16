@@ -15,13 +15,7 @@ public class Planets {
 
 	private ArrayList<Planet> planets;
 
-	public void updateVelocity()
-	{
-		for(Planet p : planets)
-		{
-			//TODO: write the formula
-		}
-	}
+
 	
 
 	public ArrayList<Planet> getPlanets() {
@@ -29,7 +23,7 @@ public class Planets {
 	}
 
 	public void addPlanets() {
-		// Create a new "planet" (Sun is a star) with the given parameters
+		// Create a new "planet" (Sun is a star but who cares) with the given parameters
 		// of the text file given to us
 		// the vectors need to be added later so set them all to null for now and set
 		// appropriate colors for the planets

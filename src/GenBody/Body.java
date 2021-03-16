@@ -1,8 +1,7 @@
-package GenBody;
-import java.awt.*;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
+
 
 public abstract class Body {
     /*so we are gonna need some global variables that define the parameters of the body of the spaceship
