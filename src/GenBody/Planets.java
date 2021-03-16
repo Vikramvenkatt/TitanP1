@@ -93,5 +93,12 @@ public class Planets  {
 	public Planet getTitan() {
 		return titan;
 	}
+	    public void draw(Graphics g){
+
+        for(int i=0;i<planets.size();i++){
+            planets.get(i).draw(g);
+
+        }
+    }
 
 }
