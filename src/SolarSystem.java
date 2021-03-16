@@ -1,8 +1,6 @@
-import interfaces.ODEFunctionInterface;
-import interfaces.RateInterface;
-import interfaces.StateInterface;
+import interfaces.*;
 
-public class SolarSystem implements StateInterface, ODEFunctionInterface {
+public class SolarSystem implements StateInterface, ODEFunctionInterface, ProbeSimulatorInterface, ODESolverInterface {
 
     private Planets planets;
     @Override

@@ -13,6 +13,7 @@ package interfaces;
  *     y(t) describes the state of the system at time t
  *     f(t,y(t)) defines the derivative of y(t) with respect to time t
  */
+//CLASS FOR EULER METHOD
 public interface ODESolverInterface {
 
     /*
