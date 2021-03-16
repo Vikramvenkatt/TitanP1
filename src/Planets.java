@@ -15,7 +15,13 @@ public class Planets {
 
 	private ArrayList<Planet> planets;
 
-
+	public void updateVelocity()
+	{
+		for(Planet p : planets)
+		{
+			//TODO: write the formula
+		}
+	}
 	
 
 	public ArrayList<Planet> getPlanets() {
