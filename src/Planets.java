@@ -50,4 +50,40 @@ public class Planets {
 
 	}
 
+	public Planet getSun() {
+		return sun;
+	}
+
+	public Planet getVenus() {
+		return venus;
+	}
+
+	public Planet getMercury() {
+		return mercury;
+	}
+
+	public Planet getJupiter() {
+		return jupiter;
+	}
+
+	public Planet getMars() {
+		return mars;
+	}
+
+	public Planet getEarth() {
+		return earth;
+	}
+
+	public Planet getUranus() {
+		return uranus;
+	}
+
+	public Planet getSaturn() {
+		return saturn;
+	}
+
+	public Planet getTitan() {
+		return titan;
+	}
+
 }
