@@ -23,7 +23,8 @@ public class Spaceship extends Body{
         return launchData;
     }
 
-    public void setLaunchData(LaunchData launchData) {
-        this.launchData = launchData;
+    public void setLaunchData(int x, int y) {
+        LaunchData launchPositon = new LaunchData(new Vector(x,y,0));
+        this.launchData = launchPositon;
     }
 }

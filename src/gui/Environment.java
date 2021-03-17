@@ -3,7 +3,7 @@ import GenBody.Planet;
 import GenBody.Planets;
 import GenBody.Spaceship;
 import GenBody.Vector;
-
+import GenBody.LaunchData;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +22,12 @@ public class Environment {
         planetsList.addPlanets();
         planetsList.draw(g);
         ship.draw(g,(int) ship.getPosition().getX(), (int) ship.getPosition().getY());
+    }
+
+
+    public void setLaunchInfo(Vector startPosition)
+    {
+        ship.setLaunchData((int) startPosition.getX(),(int) startPosition.getY());
     }
 
 
