@@ -10,31 +10,33 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
         Vector3dInterface[] positionOfPlanets = position.getPositionOfPlanets();
 
-        Vector3dInterface[] velocity = new Vector3dInterface[11];
+        Vector3dInterface[] accelaration = new Vector3dInterface[11];
 
         double[] mass = position.getMass();
 
         double distance =0;
 
-        //double force =0;
+        Vector3dInterface a =null;
 
-        double accelaration =0;
+        for(int i = 0; i < positionOfPlanets.length; i++){
 
-        for(int i = 0; i < velocity.length; i++){
-
-            for(int m = 0; m< velocity.length;m++){
+            for(int m = 0; m< positionOfPlanets.length;m++){
 
                 if(i!=m){
 
-                    distance = Math.pow(positionOfPlanets[i].dist(positionOfPlanets[m]), 2);
+                    distance = Math.pow(positionOfPlanets[i].dist(positionOfPlanets[m]), 3);
 
-                    accelaration = ( mass[m] * G ) / distance;
+                    Vector3dInterface d = positionOfPlanets[i].sub(positionOfPlanets[m]);
 
-                    velocity[i] = accelaration*t;
+                    a = d.mul( (mass[m]* mass[i] * G)/distance ); //force
+
+                    a = a.mul(1/mass[i]);
+
+                    accelaration[i] = a;
                 }
             }
         }
 
-        return new VelocityOfPlanets(velocity);
+        return new Change(accelaration);
     }
 }

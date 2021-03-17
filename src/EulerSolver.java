@@ -4,11 +4,26 @@ public class EulerSolver implements ODESolverInterface {
 
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double[] ts) {
-        return new StateInterface[0];
+
+
+
+        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[ts.length];
+
+        double h = ts[1]-ts[0];
+
+        for(int i =0 ; i< solarSystemOverCourseOfTime.length; i++){
+
+            solarSystemOverCourseOfTime[i] = step(f,ts[i],y0,h);
+
+        }
+
+        return solarSystemOverCourseOfTime;
     }
 
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
+
+
         return new StateInterface[0];
     }
 
@@ -19,19 +34,12 @@ public class EulerSolver implements ODESolverInterface {
 
         RateInterface q = n.call(h,y);
 
-        StateOfSolarSystem solarSystem = (StateOfSolarSystem) y;
+        StateOfSolarSystem solarSystem = new StateOfSolarSystem ((StateOfSolarSystem) y);
 
-        Vector3dInterface[] formerPositions = solarSystem.formerPositionOfPlanets;
+        StateInterface Tn =  solarSystem.addMul(h,q);
 
-        VelocityOfPlanets k = (VelocityOfPlanets) q;
-
-        Vector3dInterface[] velocity = k.velocityOfPlanets;
-
-        Vector3dInterface[] positions = new Vector3dInterface[11];
-
-        for(int i =0; i < velocity.length;i++)
-            positions[i] = formerPositions[i].addMul(t,velocity[i]);
+        return Tn;
     }
 
-    return new StateOfSolarSystem(positions);
+
 }
