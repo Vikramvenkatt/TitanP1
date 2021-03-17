@@ -20,6 +20,10 @@ public class Planets  {
 
 	private ArrayList<Planet> planets;
 
+	public Planets(){
+		addPlanets();
+	}
+
 	public ArrayList<Planet> getPlanets() {
 		return planets;
 	}
