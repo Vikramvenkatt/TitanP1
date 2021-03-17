@@ -31,7 +31,9 @@ public class EulerSolver implements ODESolverInterface {
 
         for(int i =0; i < velocity.length;i++)
             positions[i] = formerPositions[i].addMul(t,velocity[i]);
+
+
+        return new StateOfSolarSystem(positions);
     }
 
-    return new StateOfSolarSystem(positions);
 }
