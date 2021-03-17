@@ -21,7 +21,7 @@ public class UserInterface extends JFrame {
         //Draw our universe on a black background
         g.setColor(Color.black);
         g.fillRect(0,0,getWidth(),getHeight());
-
+        environment.paintComponent(g);
     }
 
     public void setEnvironment(Environment e)

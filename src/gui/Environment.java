@@ -1,7 +1,8 @@
 package gui;
-import GenBody.Body;
+import GenBody.Planet;
 import GenBody.Planets;
 import GenBody.Spaceship;
+import GenBody.Vector;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,18 +10,19 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Environment {
-    List<Spaceship> spaceShip=new ArrayList<>();//contains the list of spaceships
-    List<Body> all=new ArrayList<>();
-
+    private Spaceship ship = new Spaceship(new Vector(,2,3),new Vector(1,2,3));
+    private Planets planetsList;
     boolean running=false;
     Thread runner=null;
     Calendar startDate;
     long start;
     Calendar current;
-    private Planets planetsList;
 
     public void paintComponent(Graphics g){
         planetsList.addPlanets();
         planetsList.draw(g);
+        ship.draw(g,(int) ship.getPosition().getX(), (int) ship.getPosition().getY());
     }
+
+
 }
