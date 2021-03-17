@@ -1,5 +1,8 @@
-import GenBody.Vector;
+package GenBody;
+
 import interfaces.*;
+
+import java.util.ArrayList;
 
 
 public class StateOfSolarSystem implements StateInterface {
@@ -21,9 +24,20 @@ public class StateOfSolarSystem implements StateInterface {
         previousV = s.getVelocityOfPlanets();
     }
 
+    public StateOfSolarSystem(){
+
+    }
+
     public void addFormerData(StateOfSolarSystem s){
         previousP = s.getPositionOfPlanets();
         previousV = s.getVelocityOfPlanets();
+    }
+
+    public void addOrigin(ArrayList<Planet> list){
+        for(int i =0; i< list.size();i++){
+          p[i] =list.get(i).getInitialPosition();
+          v[i] = list.get(i).getInitialVelocity();
+        }
     }
 
     public Vector3dInterface[] getPositionOfPlanets(){
@@ -65,6 +79,13 @@ public class StateOfSolarSystem implements StateInterface {
 
 
         return this;
+    }
+
+   public void print(){
+       for (int i = 0; i < p.length; i++) {
+           System.out.println("Position " + i + " : " + p[i].toString());
+           System.out.println("Position " + i + " : " + v[i].toString());
+       }
     }
 }
 

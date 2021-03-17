@@ -1,3 +1,6 @@
+package GenBody;
+
+import GenBody.Change;
 import interfaces.*;
 
 public class NewtonsLawofGravity implements ODEFunctionInterface {

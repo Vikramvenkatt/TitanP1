@@ -18,7 +18,7 @@ public class Planets  {
 	private Planet moon;
 	private Planet neptune;
 
-	private ArrayList<Planet> planets;
+	private ArrayList<Planet> planets = new ArrayList<Planet>();
 
 	public Planets(){
 		addPlanets();

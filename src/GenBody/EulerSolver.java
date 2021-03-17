@@ -1,3 +1,5 @@
+package GenBody;
+
 import interfaces.*;
 
 public class EulerSolver implements ODESolverInterface {
@@ -34,7 +36,7 @@ public class EulerSolver implements ODESolverInterface {
 
         RateInterface q = n.call(h,y);
 
-        StateOfSolarSystem solarSystem = new StateOfSolarSystem ((StateOfSolarSystem) y);
+        StateOfSolarSystem solarSystem = new StateOfSolarSystem((StateOfSolarSystem) y);
 
         StateInterface Tn =  solarSystem.addMul(h,q);
 
