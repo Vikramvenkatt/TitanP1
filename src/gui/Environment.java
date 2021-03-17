@@ -29,7 +29,7 @@ public class Environment {
     //this method should be called before paintComponent as it sets the position of our ship on earth
     public void setLaunchInfo(Vector startPosition)
     {
-        ship.setLaunchData((int) startPosition.getX(),(int) startPosition.getY());
+        ship.setLaunchData(new Vector((int) startPosition.getX(),(int) startPosition.getY(),0));
     }
 
 

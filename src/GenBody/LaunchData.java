@@ -25,7 +25,6 @@ public class LaunchData implements Comparable<LaunchData>{
     }
 
 
-
     public void setPosition(Vector position) {
         this.position = position;
     }
