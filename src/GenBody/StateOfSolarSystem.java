@@ -84,7 +84,7 @@ public class StateOfSolarSystem implements StateInterface {
    public void print(){
        for (int i = 0; i < p.length; i++) {
            System.out.println("Position " + i + " : " + p[i].toString());
-           System.out.println("Position " + i + " : " + v[i].toString());
+           System.out.println("Velocity " + i + " : " + v[i].toString());
        }
     }
 }
