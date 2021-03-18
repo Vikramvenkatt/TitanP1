@@ -152,7 +152,6 @@ public class UserInterface extends Canvas implements ActionListener, Runnable {
     }
 
     private void update() {
-
     }
 
     public synchronized void start() {

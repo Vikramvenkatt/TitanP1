@@ -1,9 +1,6 @@
 package gui;
 
-import GenBody.Planet;
-import GenBody.Planets;
-import GenBody.Spaceship;
-import GenBody.Vector;
+import GenBody.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +16,8 @@ public class Environment extends Canvas  {
     Calendar startDate;
     long start;
     Calendar current;
+    private Simulation sim = new Simulation();
+    private TestPhysic tp = new TestPhysic();
 
     public Environment(){
         Planets planets = new Planets();
@@ -32,8 +31,9 @@ public class Environment extends Canvas  {
 //        g.setColor(Color.WHITE);
 //        g.drawString("hello",100,100);
 
-
         for (Planet planet : this.planetsList) {
+            //sim.trajectory(planet.getInitialPosition(),planet.getInitialVelocity(),100,10);
+
             planet.draw(g);
 
         }
