@@ -2,27 +2,18 @@ package GenBody;
 
 import interfaces.*;
 
+/**
+ *
+ *
+ * Euler function
+ */
+
 public class EulerSolver implements ODESolverInterface {
 
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double[] ts) {
 
-        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[ts.length];
-
-        double h = ts[1]-ts[0];
-
-        StateInterface yn = null;
-
-        solarSystemOverCourseOfTime[0] = y0;
-
-        for(int i =1 ; i< solarSystemOverCourseOfTime.length; i++){
-
-
-            solarSystemOverCourseOfTime[i] = step(f,ts[i],solarSystemOverCourseOfTime[i-1], h);
-
-        }
-
-        return solarSystemOverCourseOfTime;
+        return new StateInterface[0];
     }
 
     @Override
@@ -51,6 +42,10 @@ public class EulerSolver implements ODESolverInterface {
     }
 
     @Override
+    /**return state of the solar system at the time t
+     *
+     *
+     */
     public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 
         NewtonsLawofGravity n = (NewtonsLawofGravity) f;
@@ -64,6 +59,15 @@ public class EulerSolver implements ODESolverInterface {
         return Tn;
     }
 
+    /**
+     *
+     * @param f newtons gravity law
+     * @param t time at which position of spaceship is calculated
+     * @param y state of solar system at that before that point
+     * @param ship state of ship before that time
+     * @param h stepsize
+     * @return postion of spaceship at time t
+     */
     public StateInterface stepShip(ODEFunctionInterface f, double t, StateInterface y, StateInterface ship, double h) {
 
         NewtonsLawofGravity n = (NewtonsLawofGravity) f;
@@ -77,6 +81,15 @@ public class EulerSolver implements ODESolverInterface {
         return Tn;
     }
 
+    /**
+     *
+     * @param f newtons gravitylaw
+     * @param y0 intitial state of solar system
+     * @param launchData initial position of spaceship
+     * @param tf final time: 1 year
+     * @param h stepsize
+     * @return array containing the position of the ship at each step size
+     */
     public StateInterface[] solveShip(ODEFunctionInterface f, StateInterface[] y0, StateInterface launchData, double tf, double h) {
 
 

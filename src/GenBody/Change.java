@@ -1,7 +1,9 @@
 package GenBody;
 
 import interfaces.*;
-
+/**
+ * stores only the acceleration resulting from the gravitational forces.
+ */
 public class Change implements RateInterface{
 
     public Vector3dInterface[] a = new Vector3dInterface[11];
