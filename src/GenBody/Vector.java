@@ -127,10 +127,10 @@ public class Vector implements Vector3dInterface {
 
 	@Override
 	public Vector3dInterface addMul(double scalar, Vector3dInterface other) {
-		return new Vector(this.getX()*scalar*other.getX(),this.getY()*scalar*other.getY(),this.getZ()*scalar*other.getZ());
+		return new Vector(this.getX()+(scalar*other.getX()),this.getY()+(scalar*other.getY()),this.getZ()+(scalar*other.getZ()));
 	}
 
 	public String toString() {
-		return x + " " + y + " " + z;
+		return "( "+x + ", " + y + ", " + z+" )";
 	}
 }

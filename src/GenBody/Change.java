@@ -25,4 +25,9 @@ public class Change implements RateInterface{
         return newA;
     }
 
+    public Vector3dInterface getAShip(){
+        return a[0];
+    }
+
+
 }
