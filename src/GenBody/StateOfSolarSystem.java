@@ -63,6 +63,13 @@ public class StateOfSolarSystem implements StateInterface {
     }
 
     @Override
+    /**
+     *
+     * returns new position at that point in time, by first computing the new velocity: multiply the acceleration on ship by step size
+     * (time) to get the added velocity. Add new velocity to old one to get the new resulting velocity. Multiply the new velocity by time
+     * to get the added position and add it on top of the old position to obtain the new position.
+     * return the new position.
+     */
     public StateInterface addMul(double step, RateInterface rate) {
 
         Change v2 = (Change) rate;
@@ -83,12 +90,14 @@ public class StateOfSolarSystem implements StateInterface {
         return this;
     }
 
+    /**
+     * prints position of planets
+      */
    public void print(){
 
-       //System.out.println("Position earth: "+p[5] );
+
        for (int i = 0; i < p.length; i++) {
            System.out.println("Position "+names[i]+ " : " + p[i].toString());
-          // System.out.println("Velocity " + i + " : " + v[i].toString());
        }
     }
 }

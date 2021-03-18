@@ -11,6 +11,16 @@ public class Simulation implements ProbeSimulatorInterface {
         return new Vector3dInterface[0];
     }
 
+    /**
+     *Simulates trajectory of spaceship and planets.
+     *
+     * @param p0 start position of spaceship
+     * @param v0 start velocity
+     * @param tf final time: 1 year
+     * @param h stepsize
+     * @return coordinates in 3dvector form at each step
+     */
+
     @Override
     public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 

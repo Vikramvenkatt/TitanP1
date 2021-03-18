@@ -3,6 +3,10 @@ package GenBody;
 import GenBody.Change;
 import interfaces.*;
 
+/**
+ * computes the resulting gravitational forces from the planets and calculates and outputs the resulting
+ * acceleration on the spaceship and the planets
+ */
 public class NewtonsLawofGravity implements ODEFunctionInterface {
 
     private final double G = 6.674e-11;
