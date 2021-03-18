@@ -17,6 +17,8 @@ public class StateOfSolarSystem implements StateInterface {
 
     public final double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26};
 
+    public final String[] names= {"sun", "venus", " mercury", "jupiter", "mars", "earth", "uranus", "saturn","titan", "moon", "neptune"};
+
     //order of planets is sun[0],venus[1],mercury[2], jupiter[3], mars[4],earth[5], uranus[6], saturn[7],titan[8],moon[9],neptune[10]
 
     public StateOfSolarSystem(StateOfSolarSystem s){
@@ -82,9 +84,11 @@ public class StateOfSolarSystem implements StateInterface {
     }
 
    public void print(){
+
+       //System.out.println("Position earth: "+p[5] );
        for (int i = 0; i < p.length; i++) {
-           System.out.println("Position " + i + " : " + p[i].toString());
-           System.out.println("Position " + i + " : " + v[i].toString());
+           System.out.println("Position "+names[i]+ " : " + p[i].toString());
+          // System.out.println("Velocity " + i + " : " + v[i].toString());
        }
     }
 }
