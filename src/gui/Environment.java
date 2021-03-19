@@ -24,12 +24,11 @@ public class Environment extends Canvas  {
 
     public Environment(){
         Planets planets = new Planets();
-        planets.addPlanets();
-        this.planetsList=planets.getPlanets();
+        this.planetsList= planets.getPlanets();
     }
 
 
-    public void drawplease(Graphics g) {
+    public void paintComponent(Graphics g) {
         //Adds all our planets and calls every individual draw from each planet
 //        g.setColor(Color.WHITE);
 //        g.drawString("hello",100,100);
@@ -39,7 +38,7 @@ public class Environment extends Canvas  {
         StateOfSpaceShip[] arr3 = new StateOfSpaceShip[positionOfSpacechip.length];
         for (int m = 0; m < arr2.length; m++) {
             arr2[m] = (StateOfSolarSystem) positionOfPlanets[m];
-            arr3[m] = (StateOfSpaceShip) positionOfSpacechip[m];
+    //        arr3[m] = (StateOfSpaceShip) positionOfSpacechip[m];
         }
 
         Vector3dInterface[] pPlanets = new Vector3dInterface[11];
@@ -72,7 +71,7 @@ public class Environment extends Canvas  {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1500, 1000);
 
-        this.drawplease(g);
+        this.paintComponent(g);
 
         g.dispose();
         bs.show();
