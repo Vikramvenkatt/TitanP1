@@ -10,6 +10,15 @@ public class Planet extends Bdata {
 	}
 
 
+	public void setX(double x)
+	{
+		this.initialPosition.setX(x);
+	}
+
+	public void setY(double y)
+	{
+		this.initialPosition.setY(y);
+	}
 
 	public void draw(Graphics g) {
 

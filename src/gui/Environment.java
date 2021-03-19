@@ -1,6 +1,7 @@
 package gui;
 
 import GenBody.*;
+import interfaces.Vector3dInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,8 +33,9 @@ public class Environment extends Canvas  {
 //        g.drawString("hello",100,100);
 
         for (Planet planet : this.planetsList) {
-            //sim.trajectory(planet.getInitialPosition(),planet.getInitialVelocity(),100,10);
-
+            sim.trajectory(planet.getInitialPosition(),planet.getInitialVelocity(),100,10);
+            planet.setX();
+            planet.setY();
             planet.draw(g);
 
         }
