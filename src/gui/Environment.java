@@ -1,6 +1,7 @@
 package gui;
 
 import GenBody.*;
+import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class Environment extends Canvas  {
     Calendar current;
     private Simulation sim = new Simulation();
     private TestPhysic tp = new TestPhysic();
+    private StateInterface[] positionOfPlanets = null;
 
     public Environment(){
         Planets planets = new Planets();
@@ -31,13 +33,26 @@ public class Environment extends Canvas  {
         //Adds all our planets and calls every individual draw from each planet
 //        g.setColor(Color.WHITE);
 //        g.drawString("hello",100,100);
+        Vector3dInterface[] positionOfSpacechip = sim.trajectory( new Vector(-1.471922101663588e+11,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01),100,10);
+        positionOfPlanets = sim.getPositionOfPlanets();
+        StateOfSolarSystem[] arr2 = new StateOfSolarSystem[positionOfPlanets.length];
+        StateOfSpaceShip[] arr3 = new StateOfSpaceShip[positionOfSpacechip.length];
+        for (int m = 0; m < arr2.length; m++) {
+            arr2[m] = (StateOfSolarSystem) positionOfPlanets[m];
+            arr3[m] = (StateOfSpaceShip) positionOfSpacechip[m];
+        }
 
-        for (Planet planet : this.planetsList) {
-            sim.trajectory(planet.getInitialPosition(),planet.getInitialVelocity(),100,10);
-            planet.setX();
-            planet.setY();
-            planet.draw(g);
+        Vector3dInterface[] pPlanets = new Vector3dInterface[11];
 
+        for (int i = 0; i < arr2.length; i++) {
+            pPlanets = arr2[i].getPositionOfPlanets();
+            for (int m = 0 ; m< planetsList.size(); m++) {
+
+                planetsList.get(m).setX(pPlanets[m].getX());
+                planetsList.get(m).setY(pPlanets[m].getY());
+                planetsList.get(m).draw(g);
+
+            }
         }
 
         //draw the ship at the initial position
