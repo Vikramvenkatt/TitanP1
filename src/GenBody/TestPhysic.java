@@ -27,7 +27,7 @@ public class TestPhysic implements ProbeSimulatorInterface {
 
             StateOfSpaceShip launchData = new StateOfSpaceShip();
 
-            launchData.addLaunchData((Vector3dInterface) new Vector(-1.471922101663588e+11+6371e3,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01));
+            launchData.addLaunchData((Vector3dInterface) new Vector(-1.471922101663588e+11+6371e3,-2.860995816266412e+10,8.278183193596080e+06),new Vector(60000,0,0));
 
            StateInterface[] positionOfShip =  solve.solveShip(n,arr, launchData,31536000, 1000);
 
@@ -43,8 +43,8 @@ public class TestPhysic implements ProbeSimulatorInterface {
             Vector3dInterface[] vectorShip = new Vector3dInterface[arr.length];
 
             for (int g = 0; g < arr3.length; g++) {
-                arr3[g].print();
-                vectorShip[g] =  arr3[g].getP();
+                arr2[g].print();
+                System.out.println("");
             }
 
 
