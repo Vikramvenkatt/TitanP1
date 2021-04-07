@@ -10,6 +10,8 @@ import interfaces.*;
 
 public class EulerSolver implements ODESolverInterface {
 
+    StateOfSolarSystem d = null;
+
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double[] ts) {
 
@@ -19,8 +21,6 @@ public class EulerSolver implements ODESolverInterface {
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 
-
-
         StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)(tf/h)+1];
 
         StateInterface yn = null;
@@ -29,6 +29,8 @@ public class EulerSolver implements ODESolverInterface {
 
         double time = 0;
 
+        int day = -1;
+
         for(int i =1 ; i< solarSystemOverCourseOfTime.length; i++){
 
 
@@ -36,7 +38,16 @@ public class EulerSolver implements ODESolverInterface {
 
             time+=h;
 
+            d = (StateOfSolarSystem)  solarSystemOverCourseOfTime[i];
+
+            if((int) time/86400 > day) {
+                day = (int) time / 86400;
+                System.out.println("Day: "+day);
+                d.print();
+            }
+
         }
+
 
         return solarSystemOverCourseOfTime;
     }
@@ -58,63 +69,5 @@ public class EulerSolver implements ODESolverInterface {
 
         return Tn;
     }
-
-    /**
-     *
-     * @param f newtons gravity law
-     * @param t time at which position of spaceship is calculated
-     * @param y state of solar system at that before that point
-     * @param ship state of ship before that time
-     * @param h stepsize
-     * @return postion of spaceship at time t
-     */
-    public StateInterface stepShip(ODEFunctionInterface f, double t, StateInterface y, StateInterface ship, double h) {
-
-        NewtonsLawofGravity n = (NewtonsLawofGravity) f;
-
-        RateInterface q = n.callSpaceShip(ship,y,h);
-
-        StateOfSpaceShip spaceship = new StateOfSpaceShip((StateOfSpaceShip) ship);
-
-        StateInterface Tn =  spaceship.addMul(h,q);
-
-        return Tn;
-    }
-
-    /**
-     *
-     * @param f newtons gravitylaw
-     * @param y0 intitial state of solar system
-     * @param launchData initial position of spaceship
-     * @param tf final time: 1 year
-     * @param h stepsize
-     * @return array containing the position of the ship at each step size
-     */
-    public StateInterface[] solveShip(ODEFunctionInterface f, StateInterface[] y0, StateInterface launchData, double tf, double h) {
-
-
-
-        StateInterface[] spaceShipOverCourseOfTime = new StateInterface[y0.length];
-
-        StateInterface yn = null;
-
-        spaceShipOverCourseOfTime[0] = launchData;
-
-        double time = 0;
-
-        for(int i =1 ; i< spaceShipOverCourseOfTime.length; i++){
-
-
-            spaceShipOverCourseOfTime[i] = stepShip(f,time,y0[i-1], spaceShipOverCourseOfTime[i-1], h);
-
-            time+=h;
-
-        }
-
-        return spaceShipOverCourseOfTime;
-    }
-
-
-
 
 }

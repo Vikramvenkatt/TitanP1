@@ -19,7 +19,7 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
         Vector3dInterface[] positionOfPlanets = position.getPositionOfPlanets();
 
-        Vector3dInterface[] acceleration = new Vector3dInterface[11];
+        Vector3dInterface[] acceleration = new Vector3dInterface[12];
 
         for(int k =0;k< acceleration.length;k++){
             acceleration[k]= (Vector3dInterface) new Vector(0,0,0);
@@ -54,48 +54,6 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
         return new Change(acceleration);
     }
-
-    public RateInterface callSpaceShip(StateInterface Ship, StateInterface y, double t) {
-
-        StateOfSolarSystem position = (StateOfSolarSystem) y;
-
-        Vector3dInterface[] positionOfPlanets = position.getPositionOfPlanets();
-
-        StateOfSpaceShip castedShip = (StateOfSpaceShip) Ship;
-
-        Vector3dInterface pOfShip = castedShip.getP();
-
-        Vector3dInterface acceleration = (Vector3dInterface) new Vector(0,0,0);
-
-        double[] mass = position.getMass();
-
-        double distance =0;
-
-        Vector3dInterface a =null;
-
-        for(int i = 0; i < positionOfPlanets.length; i++){
-
-                    distance = Math.pow(pOfShip.dist(positionOfPlanets[i]), 2); // squared euclidean distance
-
-                    Vector3dInterface d = pOfShip.sub(positionOfPlanets[i]); // vector from planet i to m
-
-                    d = d.mul(1/d.norm()); // unit vector from i to m
-
-                    a = d.mul( (-1*massOfSpaceship* mass[i] * G)/distance ); //force
-
-                    a = a.mul(1/massOfSpaceship); // acceleration
-
-                    acceleration = acceleration.add(a); // acceleration gets summed
-
-            }
-
-        Vector3dInterface[] arr = new Vector3dInterface[1];
-
-        arr[0]= acceleration;
-
-        return (RateInterface) new Change(arr);
-        }
-
 
 }
 

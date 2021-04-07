@@ -19,32 +19,31 @@ public class Environment extends Canvas  {
     long start;
     Calendar current;
     private Simulation sim = new Simulation();
-    private TestPhysic tp = new TestPhysic();
-    private StateInterface[] positionOfPlanets = null;
+    private StateOfSolarSystem[] positionsOfPlanets;
+    private Vector3dInterface[] positionOfSpacechip;
 
     public Environment(){
         Planets planets = new Planets();
         this.planetsList=planets.getPlanets();
+        positionOfSpacechip = sim.trajectory( new Vector(-1.471922101663588e+12,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01),31556926, 1000);
+       StateInterface[] arr = sim.getPositionOfPlanets();
+        positionsOfPlanets = new StateOfSolarSystem[arr.length];
+        for (int m = 0; m < positionsOfPlanets.length; m++) {
+            positionsOfPlanets[m] = (StateOfSolarSystem) arr[m];
+        }
     }
 
 
-    public void drawplease(Graphics g) {
+    public void drawplease(Graphics g,int index) {
         //Adds all our planets and calls every individual draw from each planet
 //        g.setColor(Color.WHITE);
 //        g.drawString("hello",100,100);
-        Vector3dInterface[] positionOfSpacechip = sim.trajectory( new Vector(-1.471922101663588e+11,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01),31536000, 1000);
-        positionOfPlanets = sim.getPositionOfPlanets();
-        StateOfSolarSystem[] arr2 = new StateOfSolarSystem[positionOfPlanets.length];
-        StateOfSpaceShip[] arr3 = new StateOfSpaceShip[positionOfSpacechip.length];
-        for (int m = 0; m < arr2.length; m++) {
-            arr2[m] = (StateOfSolarSystem) positionOfPlanets[m];
-           // arr3[m] = (StateOfSpaceShip) positionOfSpacechip[m];
-        }
 
-        Vector3dInterface[] pPlanets = new Vector3dInterface[11];
 
-        for (int i = 0; i < arr2.length; i++) {
-            pPlanets = arr2[i].getPositionOfPlanets();
+
+        Vector3dInterface[] pPlanets = positionsOfPlanets[index].getPositionOfPlanets();
+
+
             for (int m = 0 ; m< planetsList.size(); m++) {
 
                 planetsList.get(m).setX(pPlanets[m].getX());
@@ -52,13 +51,13 @@ public class Environment extends Canvas  {
                 planetsList.get(m).draw(g);
 
             }
-        }
+
 
         //draw the ship at the initial position
         //ship.draw(g, (int) ship.getPosition().getX(), (int) ship.getPosition().getY());
     }
 
-    public void run(){
+    public void run(int frames){
 
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
@@ -71,7 +70,7 @@ public class Environment extends Canvas  {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1500, 1000);
 
-        this.drawplease(g);
+        this.drawplease(g,frames);
 
         g.dispose();
         bs.show();

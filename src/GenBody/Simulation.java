@@ -34,28 +34,19 @@ public class Simulation implements ProbeSimulatorInterface {
 
         StateOfSolarSystem state=  new StateOfSolarSystem();
 
-        state.addOrigin(planets.getPlanets());
+        state.addOrigin(planets.getPlanets(), p0,v0);
 
         StateInterface[] arr = (solve.solve(n,state, tf,h));// contains position of all planets every 1000 secs
 
-       positionOfPlanets = arr;
+        positionOfPlanets = arr;
 
-        StateOfSpaceShip launchData = new StateOfSpaceShip();
+        StateOfSolarSystem[] arr2 =  new StateOfSolarSystem[arr.length];
 
-        launchData.addLaunchData(p0,v0);
+        Vector3dInterface[] vectorShip = new Vector3dInterface[arr.length];
 
-        StateInterface[] positionOfShip =  solve.solveShip(n,arr, launchData,31536000, 1000); // contains position of spaceship every 1000 sec
-
-        StateOfSpaceShip[] arr3 = new StateOfSpaceShip[arr.length];
-
-        for (int m = 0; m < arr.length; m++) {                  // cast into vectorArray
-            arr3[m] = (StateOfSpaceShip) positionOfShip[m];
-        }
-
-        Vector3dInterface[] vectorShip = new Vector3dInterface[arr3.length];
-
-        for (int g = 0; g < arr3.length; g++) {
-            vectorShip[g] =  arr3[g].getP();
+        for (int g = 0; g < arr.length; g++) {
+            arr2[g] = (StateOfSolarSystem) arr[g];
+            vectorShip[g] =  arr2[g].getP();
         }
 
         return vectorShip;
