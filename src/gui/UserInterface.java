@@ -136,10 +136,10 @@ public class UserInterface extends Canvas implements ActionListener, Runnable {
         int frames = 0;
         while (true) {
             long now = System.nanoTime();
-            delta += (now - lastTime) / ns;
+            delta += (now - lastTime) ;
             lastTime = now;
             while (delta >= 1) {
-                render();
+                render(frames);
                 update();
                 delta--;
                 frames++;
@@ -147,8 +147,8 @@ public class UserInterface extends Canvas implements ActionListener, Runnable {
         }
     }
 
-    private void render() {
-        this.environment.run();
+    private void render(int frames) {
+        this.environment.run(frames);
     }
 
     private void update() {

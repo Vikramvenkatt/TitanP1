@@ -6,7 +6,7 @@ import interfaces.*;
  */
 public class Change implements RateInterface{
 
-    public Vector3dInterface[] a = new Vector3dInterface[11];
+    public Vector3dInterface[] a = new Vector3dInterface[12];
 
     //order of planets is sun[0],venus[1],mercury[2], jupiter[3], mars[4],earth[5], uranus[6], saturn[7],titan[8],moon[9],neptune[10]
 
@@ -18,7 +18,7 @@ public class Change implements RateInterface{
 
     public Vector3dInterface[] getA(){
 
-        Vector3dInterface[] newA = new Vector3dInterface[11];
+        Vector3dInterface[] newA = new Vector3dInterface[12];
 
         for(int i =0; i< a.length; i++){
             newA[i] = a[i];
