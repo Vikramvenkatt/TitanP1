@@ -12,7 +12,7 @@ public abstract class Bdata{
     protected final Vector initialVelocity;//final velocity??
     protected final Vector initialPosition;//initial for stationary as well as for spaceship in that vector position
     protected final double mass;//mass of object
-    protected final double radius;
+    protected double radius;
     protected final Color Color;//les go with neon gray lol
 	protected final Bdata orbitsAround;
     /*
@@ -33,6 +33,10 @@ public abstract class Bdata{
     }
     public double getRadius(){
         return radius;
+    }
+
+    public void setRadius(double size){
+        radius = size;
     }
     public Color getColor(){
         return Color;
