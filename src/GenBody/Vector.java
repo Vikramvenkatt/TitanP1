@@ -36,6 +36,7 @@ public class Vector implements Vector3dInterface {
 
 	}
 
+
 	public Vector substract(Vector v) {
 
 		return new Vector(x - v.x, y - v.y, z - v.z);
@@ -48,7 +49,7 @@ public class Vector implements Vector3dInterface {
 
 	}
 	
-	
+
 	public double distance (Vector v ) {
 		double distance = Math.sqrt(Math.pow(v.getX()-this.x, 2)+Math.pow(v.getY()-this.y, 2)+Math.pow(v.getZ()-this.z, 2));
 		return distance;
@@ -61,7 +62,7 @@ public class Vector implements Vector3dInterface {
 		return Math.sqrt(x * x + y * y + z * z);
 	}
 	
-	
+
 	
 	
 	public double norm () {
