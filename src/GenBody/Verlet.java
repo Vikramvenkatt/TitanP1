@@ -29,13 +29,15 @@ public class Verlet {
         Vector currentPos = body.getPosition();
         Vector currentVel = body.getVelocity();
 
-        //TODO: is it okay for substract to be of type Vector and not Vector3d?
+        //TODO: is it okay for substract to be of type Vector and not Vector3d? If it is of type vector, may not be shown in simulations
         // I need to cast it here to Vector, this may cause problems somewhere but I'm not sure if it does or not
         Vector previousPos =  currentPos.substract((Vector)currentVel.mul(stepSize));
     }
 
     public void calculateAcceleration(Vector pos, Vector vel)
-    {
+    {//formula for acceleration is dv/dt, velocity can be calculated/given
+        //how do i find the time at that position? do we need a method
+        
 
     }
 }
