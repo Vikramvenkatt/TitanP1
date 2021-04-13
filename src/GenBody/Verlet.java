@@ -3,7 +3,7 @@ package GenBody;
 import interfaces.Vector3dInterface;
 
 public class Verlet {
-    static double verlet(double currentPos, double acceleration, double changeT) {
+    public static double verlet(double currentPos, double acceleration, double changeT) {
 
         // Note that we are using a temp variable for the previous position
         double prev_pos, temp_pos, time;
@@ -20,7 +20,7 @@ public class Verlet {
         return time;
     }
 
-    static BasicVerlet calculations(double pos, double acc, double dt) {
+   public static BasicVerlet calculations(double pos, double acc, double dt) {
 
         // Note that we are using a temp variable for the previous position
         double prev_pos, temp_pos, time, vel;
@@ -40,7 +40,7 @@ public class Verlet {
         return new BasicVerlet(time, vel);
     }
 
-    static BasicVerlet velocity_verlet(double pos, double acc, double dt) {
+    public static BasicVerlet velocity_verlet(double pos, double acc, double dt) {
 
         // Note that we are using a temp variable for the previous position
         double time, vel;
