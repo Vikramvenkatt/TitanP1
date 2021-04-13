@@ -40,7 +40,7 @@ public class Verlet {
         return new BasicVerlet(time, vel);
     }
 
-    public static BasicVerlet velocity_verlet(double position, double acc, double dt) {
+    public static BasicVerlet velocitycalc(double position, double acc, double dt) {
 
         //i used a strategy to assign temp switching!
         double time, vel;
@@ -63,7 +63,7 @@ public class Verlet {
         System.out.println("Time for Stormer Verlet integration is: " + calculateVerlet.time);
         System.out.println("Velocity for Stormer Verlet integration is: " + calculateVerlet.vel);
 
-        BasicVerlet vVerlet = velocity_verlet(5.0, -10, 0.01);
+        BasicVerlet vVerlet = velocitycalc(5.0, -10, 0.01);
         System.out.println("Time for velocity Verlet integration is: " + vVerlet.time);
         System.out.println("Velocity for velocity Verlet integration is: " + vVerlet.vel);
     }
