@@ -4,7 +4,7 @@ import interfaces.Vector3dInterface;
 
 public class RungeKutta {
 
-    private Ne calculateA
+    private NewtonsLawofGravity calculateA = new NewtonsLawofGravity();
 
     /* Copy pasting an example of how RungeKutta works method wise:
     Processes the shot using the Classical 4th-order Runge-Kutta Method. This method takes four samples of the
@@ -32,68 +32,42 @@ public class RungeKutta {
     //for loop iterating through the startX to the finalX by stepSize
 
 
-
     public ShotInfo process(double dtime, StateOfSolarSystem formerstate) {
-        Vector3dInterface[] formePosition = formerstate.getPositionOfPlanets(); //p1
+        Vector3dInterface[] formerPosition = formerstate.getPositionOfPlanets(); //p1
         Vector3dInterface[] formerVelocity = formerstate.getVelocityOfPlanets(); //v1
-        boolean hitWater = false;
 
-        for(double timer = 0; timer < dtime; timer += step){
+        Change v2 = (Change) calculateA.call(dtime, formerstate);
+
+        Vector3dInterface[] a = v2.getA();
+
+        for (int i = 0; i < formerPosition.length; i++) {
             //STEP 1
-            Vector2d currentAcceleration = acceleration(currentPosition, currentVelocity); //a1
+            ; //a1
 
             //STEP 2
-            Vector2d intermediatePosition1 = currentPosition.add(currentVelocity.multiply(step / 2.0)); //p2 = p1 + v1 * 1/2 * step
-            Vector2d intermediateVelocity1 = currentVelocity.add(currentAcceleration.multiply(step / 2.0)); //v2 = v1 + a1 * 1/2 * step
-            Vector2d intermediateAcceleration1 = acceleration(intermediatePosition1, intermediateVelocity1); //a2 = acceleration(p2,v2)
+            Vector3dInterface intermediatePosition1 = formerPosition[i].add(formerVelocity[i].mul(step / 2.0)); //p2 = p1 + v1 * 1/2 * step
+            Vector3dInterface intermediateVelocity1 = formerVelocity[i].add(a[i].mul(step / 2.0)); //v2 = v1 + a1 * 1/2 * step
+            Vector3dInterface intermediateAcceleration1 = acceleration(intermediatePosition1, intermediateVelocity1); //a2 = acceleration(p2,v2)
 
             //STEP 3
-            Vector2d intermediatePosition2 = currentPosition.add(intermediateVelocity1.multiply(step / 2.0)); //p3 = p1 + v2 * 1/2 * step
-            Vector2d intermediateVelocity2 = currentVelocity.add(intermediateAcceleration1.multiply(step / 2.0)); //v3 = v1 + a2 * 1/2 * step
-            Vector2d intermediateAcceleration2 = acceleration(intermediatePosition2, intermediateVelocity2); //a3 = acceleration(p3,v3)
+            Vector3dInterface intermediatePosition2 = formerPosition[i].add(intermediateVelocity1.mul(step / 2.0)); //p3 = p1 + v2 * 1/2 * step
+            Vector3dInterface intermediateVelocity2 = formerVelocity[i].add(intermediateAcceleration1.mul(step / 2.0)); //v3 = v1 + a2 * 1/2 * step
+            Vector3dInterface intermediateAcceleration2 = acceleration(intermediatePosition2, intermediateVelocity2); //a3 = acceleration(p3,v3)
 
             //STEP 4
-            Vector2d endPosition = currentPosition.add(intermediateVelocity2.multiply(step)); //p4 = p1 + v3 * step
-            Vector2d endVelocity = currentVelocity.add(intermediateAcceleration2.multiply(step)); //v4 = v1 + a3 * step
-            Vector2d endAcceleration = acceleration(endPosition, endVelocity); //a4 = acceleration(p4,v4)
+            Vector3dInterface endPosition = formerPosition[i].add(intermediateVelocity2.mul(step)); //p4 = p1 + v3 * step
+            Vector3dInterface endVelocity = formerVelocity[i].add(intermediateAcceleration2.mul(step)); //v4 = v1 + a3 * step
+            Vector3dInterface endAcceleration = acceleration(endPosition, endVelocity); //a4 = acceleration(p4,v4)
 
             //positionStep = 1/6 * step * (v1 + 2*v2 + 2*v3 + v4);
-            Vector2d positionStep = currentVelocity.add(intermediateVelocity1.multiply(2.0)).add(intermediateVelocity2.multiply(2.0)).add(endVelocity).multiply(step / 6.0);
+            Vector3dInterface positionStep = formerVelocity[i].add(intermediateVelocity1.mul(2.0)).add(intermediateVelocity2.mul(2.0)).add(endVelocity).mul(step / 6.0);
             //velocityStep = 1/6 * step (a1 + 2*a2 + 2*a3 + a4)
-            Vector2d velocityStep = currentAcceleration.add(intermediateAcceleration1.multiply(2.0)).add(intermediateAcceleration2.multiply(2.0)).add(endAcceleration).multiply(step / 6.0);
+            Vector3dInterface velocityStep = a[i].add(intermediateAcceleration1.mul(2.0)).add(intermediateAcceleration2.mul(2.0)).add(endAcceleration).mul(step / 6.0);
 
             //Calculate next position and velocity and update current position and velocity
-            currentPosition = checkOutOfBounds(currentPosition.add(positionStep));
-            currentVelocity = limitVelocity(currentVelocity.add(velocityStep));
+            formerPosition[i] = formerPosition[i].add(positionStep);
+            formerVelocity[i] = formerVelocity[i].add(velocityStep);
 
-            //Check for collisions and react accordingly
-            Vector3f ballPosition = new Vector3f((float) currentPosition.x, (float) course.height.evaluate(currentPosition), (float) currentPosition.y);
-            if (!botMod) {
-                Vector3d collisionNormal = CheckCollision.checkForCollision(game.getTrees().getTrees(), course.goal, course.ball, ballPosition);
-                if(collisionNormal!=null){
-                    System.out.println("YEE");
-
-                    double A = (currentVelocity.dotProduct(collisionNormal.getVector2D()))/(currentVelocity.length()*collisionNormal.getVector2D().length());
-                    double angle = Math.acos(A);
-                    currentVelocity = currentVelocity.rotate(angle);
-                }
-            }
-
-            if (!botMod) {
-                //Check for water 'collision'
-                hitWater = WaterHit.hitWater(ballPosition);
-                if(hitWater){
-                    WaterHit.showWaterHitUI(game, ballPosition);
-                    course.ball.setVelocity(new Vector3d(0, 0, 0));
-                    currentVelocity = new Vector2d(0, 0);
-                    timer = dtime;
-                }
-            }
-        }
-
-        if(!hitWater){
-            shotInfo.setPosition3D(new Vector3d(currentPosition.x, course.height.evaluate(currentPosition), currentPosition.y));
-            shotInfo.setVelocity3D(new Vector3d(currentVelocity.x, 0, currentVelocity.y));
         }
 
         return new ShotInfo(shotInfo);
@@ -101,23 +75,25 @@ public class RungeKutta {
 
     /**
      * Calculates the current acceleration given the position and velocity
+     *
      * @param position the current position of the ball
      * @param velocity the current velocity of the ball
      * @return the current acceleration
      */
-    private Vector2d acceleration(Vector2d position, Vector2d velocity) {
-        Vector2d gradient = course.height.gradient(position);
-        double accelerationX =  -GRAVITY * (gradient.x + course.getFriction() * velocity.x / velocity.length());
-        double accelerationY =  -GRAVITY * (gradient.y + course.getFriction() * velocity.y / velocity.length());
-        return (new Vector2d(accelerationX,accelerationY)).multiply(1./3.);
+    private Vector3dInterface acceleration(Vector3dInterface position, Vector3dInterface velocity) {
+        Vector3dInterface gradient = course.height.gradient(position);
+        double accelerationX = -GRAVITY * (gradient.x + course.getFriction() * velocity.x / velocity.length());
+        double accelerationY = -GRAVITY * (gradient.y + course.getFriction() * velocity.y / velocity.length());
+        return (new Vector3dInterface(accelerationX, accelerationY)).mul(1. / 3.);
     }
 
     /**
      * Checks if the position is out of bounds, if so, then the ball is set at the particular bound
+     *
      * @param position
      * @return the (not-out-of-bounds) position
      */
-    private Vector2d checkOutOfBounds(Vector2d position) {
+    private Vector3dInterface checkOutOfBounds(Vector3dInterface position) {
         //Check for x
         if (position.x < 0) position.x = 0;
         if (position.x > course.TERRAIN_SIZE) position.x = course.TERRAIN_SIZE;
@@ -125,18 +101,19 @@ public class RungeKutta {
         if (position.y < 0) position.y = 0;
         if (position.y > course.TERRAIN_SIZE) position.y = course.TERRAIN_SIZE;
 
-        return new Vector2d(position.x,position.y);
+        return new Vector3dInterface(position.x, position.y);
     }
 
     /**
      * Scale the velocity down to the maximum velocity if it is bigger than the maximum
+     *
      * @param velocity
      * @return the (scaled) velocity
      */
-    private Vector2d limitVelocity(Vector2d velocity) {
-        double currentVelocity = velocity.length();
-        if (course.maxVelocity < currentVelocity) {
-            return velocity.divide(currentVelocity).multiply(course.maxVelocity);
+    private Vector3dInterface limitVelocity(Vector3dInterface velocity) {
+        double formerVelocity[i] = velocity.length();
+        if (course.maxVelocity < formerVelocity[i]) {
+            return velocity.divide(formerVelocity[i]).mul(course.maxVelocity);
         }
         return velocity;
     }

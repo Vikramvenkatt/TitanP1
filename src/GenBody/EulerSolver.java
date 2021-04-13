@@ -33,7 +33,6 @@ public class EulerSolver implements ODESolverInterface {
 
         for(int i =1 ; i< solarSystemOverCourseOfTime.length; i++){
 
-
             solarSystemOverCourseOfTime[i] = step(f,time,solarSystemOverCourseOfTime[i-1], h);
 
             time+=h;

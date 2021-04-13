@@ -23,9 +23,9 @@ public class Planets  {
 
 	public Planets(){
 		addPlanets();
-		for (int i = 0; i < planets.size() ; i++) {
+		/*for (int i = 0; i < planets.size() ; i++) {
 			planets.get(i).setRadius(20);
-		}
+		}*/
 	}
 
 	public ArrayList<Planet> getPlanets() {
@@ -103,12 +103,5 @@ public class Planets  {
 	public Planet getTitan() {
 		return titan;
 	}
-
-	/*public void draw(Graphics g){
-
-        for(int i=0;i<planets.size();i++){
-            planets.get(i).draw(g);
-        }
-    }*/
 
 }
