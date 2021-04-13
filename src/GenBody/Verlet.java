@@ -40,13 +40,13 @@ public class Verlet {
         return new BasicVerlet(time, vel);
     }
 
-    public static BasicVerlet velocity_verlet(double pos, double acc, double dt) {
+    public static BasicVerlet velocity_verlet(double position, double acc, double dt) {
 
-        // Note that we are using a temp variable for the previous position
+        //i used a strategy to assign temp switching!
         double time, vel;
         vel = 0;
         time = 0;
-        while (pos > 0) {
+        while (position > 0) {
             time += dt;
             pos += vel*dt + 0.5*acc * dt * dt;
             vel += acc*dt;
@@ -56,16 +56,16 @@ public class Verlet {
 
     public static void main(String[] args) {
 
-        double verletTime = verlet(5.0, -10, 0.01);
-        System.out.println("Time for Verlet integration is: " + verletTime);
+        double verletT = verlet(5.0, -10, 0.01);
+        System.out.println("Time for integration in statesolar class: " + verletT);
 
-        BasicVerlet stormerVerlet = calculations(5.0, -10, 0.01);
-        System.out.println("Time for Stormer Verlet integration is: " + stormerVerlet.time);
-        System.out.println("Velocity for Stormer Verlet integration is: " + stormerVerlet.vel);
+        BasicVerlet calculateVerlet = calculations(5.0, -10, 0.01);
+        System.out.println("Time for Stormer Verlet integration is: " + calculateVerlet.time);
+        System.out.println("Velocity for Stormer Verlet integration is: " + calculateVerlet.vel);
 
-        BasicVerlet velocityVerlet = velocity_verlet(5.0, -10, 0.01);
-        System.out.println("Time for velocity Verlet integration is: " + velocityVerlet.time);
-        System.out.println("Velocity for velocity Verlet integration is: " + velocityVerlet.vel);
+        BasicVerlet vVerlet = velocity_verlet(5.0, -10, 0.01);
+        System.out.println("Time for velocity Verlet integration is: " + vVerlet.time);
+        System.out.println("Velocity for velocity Verlet integration is: " + vVerlet.vel);
     }
 }
 
