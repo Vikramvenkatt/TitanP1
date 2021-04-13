@@ -1,7 +1,7 @@
 package GenBody;
 
 public class Verlet {
-    private double stepSize = 100; //TODO: implement good initial step size
+    private double stepSize = 1000; //TODO: implement good initial step size
 
     public void setStepSize(double stepSize)
     {
