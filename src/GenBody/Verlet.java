@@ -6,15 +6,15 @@ public class Verlet {
     public static double verlet(double currentPos, double acceleration, double changeT) {
 
         // Note that we are using a temp variable for the previous position
-        double prev_pos, temp_pos, time;
-        prev_pos =currentPos;
+        double prevPos, temp_pos, time;
+        prevPos =currentPos;
         time = 0;
 
         while (currentPos > 0) {
             time += changeT;
             temp_pos = currentPos;
-            currentPos = currentPos*2 - prev_pos + acceleration * changeT * changeT;
-            prev_pos = temp_pos;
+            currentPos = currentPos*2 - prevPos + acceleration * changeT * changeT;
+            prevPos = temp_pos;
         }
 
         return time;
@@ -22,16 +22,16 @@ public class Verlet {
 
    public static BasicVerlet calculations(double pos, double acc, double dt) {
 
-        // Note that we are using a temp variable for the previous position
-        double prev_pos, temp_pos, time, vel;
+        
+        double prev_pos, temporaryPos, time, vel;
         prev_pos = pos;
         vel = 0;
         time = 0;
         while (pos > 0) {
             time += dt;
-            temp_pos = pos;
+            temporaryPos = pos;
             pos = pos*2 - prev_pos + acc * dt * dt;
-            prev_pos = temp_pos;
+            prev_pos = temporaryPos;
 
             // The acceleration is constant, so the velocity is straightforward
             vel += acc*dt;
@@ -48,7 +48,7 @@ public class Verlet {
         time = 0;
         while (position > 0) {
             time += dt;
-            pos += vel*dt + 0.5*acc * dt * dt;
+            position += vel*dt + 0.5*acc * dt * dt;
             vel += acc*dt;
         }
         return new BasicVerlet(time, vel);
