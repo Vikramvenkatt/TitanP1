@@ -23,17 +23,19 @@ public class Planet extends Bdata {
 	public void draw(Graphics g) {
 
 		double scale = 1e8;
-		//double radius = getRadius()*2e2;
+		double radius = getRadius()*2e2;
 
-		if(this.getName().equals("spaceship")){
-			//radius/=2e1;
-			g.drawRect((int) (changePosX(initialPosition)-radius/scale) ,(int) (changePosY(initialPosition)-radius/scale) , (int) (radius), (int) (radius));
+		if(this.getName().equals("Sun")){
+			radius/=2e1;
+			//g.fillOval((int) (changePosX(initialPosition)-radius/scale) ,(int) (changePosY(initialPosition)-radius/scale) , (int) (radius/scale), (int) (radius/scale));
+		}else {
+
 		}
 
-		g.setColor(this.getColor());
-		g.fillOval((int) (changePosX(initialPosition)-radius/scale) ,(int) (changePosY(initialPosition)-radius/scale) , (int) (radius), (int) (radius));
-		//(int) (changePosX(initialPosition)+getRadius())
-		//(int) (changePosY(initialPosition)-getRadius())
+			g.setColor(this.getColor());
+			g.fillOval((int) (changePosX(initialPosition) - radius / scale), (int) (changePosY(initialPosition) - radius / scale), (int) (radius / scale), (int) (radius / scale));
+			//(int) (changePosX(initialPosition)+getRadius())
+			//(int) (changePosY(initialPosition)-getRadius())
 
 
 	}
