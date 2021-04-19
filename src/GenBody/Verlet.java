@@ -37,6 +37,7 @@ public class Verlet {
     public void calculateAcceleration(Vector pos, Vector vel)
     {//formula for acceleration is dv/dt, velocity can be calculated/given
         //how do i find the time at that position? do we need a method
+
         
 
     }
