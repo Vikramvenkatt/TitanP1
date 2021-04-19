@@ -97,6 +97,7 @@ public class StateOfSolarSystem implements StateInterface {
         System.out.println("Position SpaceShip" + " : " + p[11].toString());
 
     }
+
 }
 
 
