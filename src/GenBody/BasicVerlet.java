@@ -1,7 +1,7 @@
 package GenBody;
 
 public class BasicVerlet {
-    //base class
+    //base class for verlet solver
 
     public double time;
     public double vel;
