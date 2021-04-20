@@ -32,7 +32,7 @@ public class RungeKutta {
     //for loop iterating through the startX to the finalX by stepSize
 
 
-    public ShotInfo process(double dtime, StateOfSolarSystem formerstate) {
+   /* public ShotInfo process(double dtime, StateOfSolarSystem formerstate) {
         Vector3dInterface[] formerPosition = formerstate.getPositionOfPlanets(); //p1
         Vector3dInterface[] formerVelocity = formerstate.getVelocityOfPlanets(); //v1
 
@@ -71,70 +71,6 @@ public class RungeKutta {
         }
 
         return new ShotInfo(shotInfo);
-    }
-
-    /**
-     * Calculates the current acceleration given the position and velocity
-     *
-     * @param position the current position of the ball
-     * @param velocity the current velocity of the ball
-     * @return the current acceleration
-     */
-    private Vector3dInterface acceleration(Vector3dInterface position, Vector3dInterface velocity) {
-        Vector3dInterface gradient = course.height.gradient(position);
-        double accelerationX = -GRAVITY * (gradient.x + course.getFriction() * velocity.x / velocity.length());
-        double accelerationY = -GRAVITY * (gradient.y + course.getFriction() * velocity.y / velocity.length());
-        return (new Vector3dInterface(accelerationX, accelerationY)).mul(1. / 3.);
-    }
-
-    /**
-     * Checks if the position is out of bounds, if so, then the ball is set at the particular bound
-     *
-     * @param position
-     * @return the (not-out-of-bounds) position
-     */
-    private Vector3dInterface checkOutOfBounds(Vector3dInterface position) {
-        //Check for x
-        if (position.x < 0) position.x = 0;
-        if (position.x > course.TERRAIN_SIZE) position.x = course.TERRAIN_SIZE;
-        //Check for y
-        if (position.y < 0) position.y = 0;
-        if (position.y > course.TERRAIN_SIZE) position.y = course.TERRAIN_SIZE;
-
-        return new Vector3dInterface(position.x, position.y);
-    }
-
-    /**
-     * Scale the velocity down to the maximum velocity if it is bigger than the maximum
-     *
-     * @param velocity
-     * @return the (scaled) velocity
-     */
-    private Vector3dInterface limitVelocity(Vector3dInterface velocity) {
-        double formerVelocity[i] = velocity.length();
-        if (course.maxVelocity < formerVelocity[i]) {
-            return velocity.divide(formerVelocity[i]).mul(course.maxVelocity);
-        }
-        return velocity;
-    }
-
-    @Override
-    public void setStepSize(double h) {
-        this.step = h;
-    }
-
-    @Override
-    public double getStepSize() {
-        return this.step;
-    }
-}
-
-
-
+    }*/
 
 }
-
-
-
-
-
