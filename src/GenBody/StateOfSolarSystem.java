@@ -34,7 +34,40 @@ public class StateOfSolarSystem implements StateInterface {
     public Vector3dInterface[] endAcceleration = new Vector3dInterface[12];
 
 
+    private Vector position;
+    private Vector velocity;
 
+    public StateOfSolarSystem(Vector position, Vector velocity){
+        this.position = new Vector(position.getX(), position.getY(), position.getZ());
+        this.velocity = new Vector(velocity.getX(),velocity.getY(),velocity.getZ());
+    }
+
+    /*public StateOfSolarSystem(BasicRungeKutta basicRungeKutta){
+        this.position = basicRungeKutta.getPosition3D();
+        this.velocity = basicRungeKutta.getVelocity3D();
+    }*/
+
+
+
+
+    public Vector getPosition3D() {
+        return new Vector(position.getX(),position.getY(),position.getZ());
+    }
+
+
+    public Vector getVelocity3D() {
+        return new Vector(velocity.getX(),velocity.getY(),velocity.getZ());
+    }
+
+
+    public void setPosition3D(Vector position) {
+        this.position = new Vector(position.getX(),position.getY(),position.getZ());
+    }
+
+
+    public void setVelocity3D(Vector velocity) {
+        this.velocity = new Vector(velocity.getX(),velocity.getY(),velocity.getZ());
+    }
     public final double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 1500};
 
     public final String[] names = {"sun", "venus", " mercury", "jupiter", "mars", "earth", "uranus", "saturn", "titan", "moon", "neptune", "spaceship"};
@@ -108,7 +141,7 @@ public class StateOfSolarSystem implements StateInterface {
         return this;
     }
 
-    public StateInterface RungeKutta(double step, RateInterface rate ){
+    /*public StateInterface RungeKutta(double step, RateInterface rate ){
 
         Change v2 = (Change) rate;
 
@@ -148,7 +181,7 @@ public class StateOfSolarSystem implements StateInterface {
     }
 
 
-    }
+}*/
 
     /**
      * prints position of planets
@@ -159,6 +192,7 @@ public class StateOfSolarSystem implements StateInterface {
         System.out.println("Position SpaceShip" + " : " + p[11].toString());
 
     }
+
 }
 
 

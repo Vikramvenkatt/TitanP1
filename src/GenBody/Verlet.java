@@ -1,71 +1,43 @@
 package GenBody;
 
-import interfaces.Vector3dInterface;
-
 public class Verlet {
-    public static double verlet(double currentPos, double acceleration, double changeT) {
+    private double stepSize = 100; //TODO: implement good initial step size
 
-        // Note that we are using a temp variable for the previous position
-        double prevPos, temp_pos, time;
-        prevPos =currentPos;
-        time = 0;
+    public void setStepSize(double stepSize)
+    {
+        this.stepSize = stepSize;
+    }
+    //TODO: - add comments
+    //      - Verlet requires the information from spaceship's and planet's Body variable, ideally we should create a class
+    //      celestialBody so we can use that as parameter instead of calling the getBody function of every different class
+    //      -Kai
+    // Here's how the verlet solver is supposed to work copy pasted
+    //      The method initially calculates the previous position as follows:
+    //     *      previousPosition = currentPosition - currentVelocity * step + 1/2 * currentAcceleration * step^2
+    //     * Then, in a loop, the next position and the currentVelocity are calculated as follows:
+    //     *      nextPosition = 2 * currentPosition - previousPosition + currentAcceleration * step^2
+    //     *      currentVelocity = (nextPosition + previousPosition) / (2 * step)
+    //     * After which, in the same loop, the previousPosition and currentPosition are updated:
+    //     *      previousPosition = currentPosition
+    //     *      currentPosition = nextPosition
+    //     *
+    //     * The velocity is always one step behind, because it is calculated using the Centered Difference formula.
+    //     * To get the current velocity in the end, one extra step is performed.
+    //     * In this step only the velocity is updated and not the position.
+    public void verletSolve(Body body)
+    {
+        Vector currentPos = body.getPosition();
+        Vector currentVel = body.getVelocity();
 
-        while (currentPos > 0) {
-            time += changeT;
-            temp_pos = currentPos;
-            currentPos = currentPos*2 - prevPos + acceleration * changeT * changeT;
-            prevPos = temp_pos;
-        }
-
-        return time;
+        //TODO: is it okay for substract to be of type Vector and not Vector3d? If it is of type vector, may not be shown in simulations
+        // I need to cast it here to Vector, this may cause problems somewhere but I'm not sure if it does or not
+        Vector previousPos =  currentPos.substract((Vector)currentVel.mul(stepSize));
     }
 
-   public static BasicVerlet calculations(double pos, double acc, double dt) {
-
+    public void calculateAcceleration(Vector pos, Vector vel)
+    {//formula for acceleration is dv/dt, velocity can be calculated/given
+        //how do i find the time at that position? do we need a method
         
-        double prev_pos, temporaryPos, time, vel;
-        prev_pos = pos;
-        vel = 0;
-        time = 0;
-        while (pos > 0) {
-            time += dt;
-            temporaryPos = pos;
-            pos = pos*2 - prev_pos + acc * dt * dt;
-            prev_pos = temporaryPos;
 
-            // The acceleration is constant, so the velocity is straightforward
-            vel += acc*dt;
-        }
-
-        return new BasicVerlet(time, vel);
-    }
-
-    public static BasicVerlet velocitycalc(double position, double acc, double dt) {
-
-        //i used a strategy to assign temp switching!
-        double time, vel;
-        vel = 0;
-        time = 0;
-        while (position > 0) {
-            time += dt;
-            position += vel*dt + 0.5*acc * dt * dt;
-            vel += acc*dt;
-        }
-        return new BasicVerlet(time, vel);
-    }
-
-    public static void main(String[] args) {
-
-        double verletT = verlet(5.0, -10, 0.01);
-        System.out.println("Time for integration in statesolar class: " + verletT);
-
-        BasicVerlet calculateVerlet = calculations(5.0, -10, 0.01);
-        System.out.println("Time for Stormer Verlet integration is: " + calculateVerlet.time);
-        System.out.println("Velocity for Stormer Verlet integration is: " + calculateVerlet.vel);
-
-        BasicVerlet vVerlet = velocitycalc(5.0, -10, 0.01);
-        System.out.println("Time for velocity Verlet integration is: " + vVerlet.time);
-        System.out.println("Velocity for velocity Verlet integration is: " + vVerlet.vel);
     }
 }
-
