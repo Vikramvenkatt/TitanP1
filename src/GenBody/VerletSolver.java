@@ -5,6 +5,8 @@ import interfaces.ODESolverInterface;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 
+//TO-DO:BOOTSTRAPPING-RUNGE KUTTA, TESTING PATH TRAJECTORY WITHIN 1, 10, 1000 M ETC
+
 public class VerletSolver implements ODESolverInterface {
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double[] ts) {
