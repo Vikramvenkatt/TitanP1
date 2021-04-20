@@ -1,6 +1,5 @@
 package GenBody;
 
-import interfaces.ODEFunctionInterface;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
@@ -75,6 +74,11 @@ public class StateVerlet implements StateInterface {
         }
 
         return this;
+    }
+
+    @java.lang.Override
+    public String toString() {
+        return null;
     }
 
     public double[] getMass() {

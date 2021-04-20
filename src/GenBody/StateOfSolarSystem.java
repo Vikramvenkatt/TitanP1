@@ -15,23 +15,7 @@ public class StateOfSolarSystem implements StateInterface {
 
     public Vector3dInterface[] previousV = new Vector3dInterface[12];
 
-    public Vector3dInterface[] intermediatePosition1 = new Vector3dInterface[12];
 
-    public Vector3dInterface[] intermediatePosition2 = new Vector3dInterface[12];
-
-    public Vector3dInterface[] endPosition = new Vector3dInterface[12];
-
-    public Vector3dInterface[] intermediateVelocity1 = new Vector3dInterface[12];
-
-    public Vector3dInterface[] intermediateVelocity2 = new Vector3dInterface[12];
-
-    public Vector3dInterface[] endVelocity = new Vector3dInterface[12];
-
-    public Vector3dInterface[] intermediateAcceleration1 = new Vector3dInterface[12];
-
-    public Vector3dInterface[] intermediateAcceleration2 = new Vector3dInterface[12];
-
-    public Vector3dInterface[] endAcceleration = new Vector3dInterface[12];
 
 
     private Vector position;
@@ -141,11 +125,29 @@ public class StateOfSolarSystem implements StateInterface {
         return this;
     }
 
-    /*public StateInterface RungeKutta(double step, RateInterface rate ){
+    public StateInterface RungeKutta(double step, RateInterface rate ){
 
         Change v2 = (Change) rate;
 
         Vector3dInterface[] a = v2.getA();
+
+    Vector3dInterface[] intermediatePosition1 = new Vector3dInterface[12];
+
+    Vector3dInterface[] intermediatePosition2 = new Vector3dInterface[12];
+
+    Vector3dInterface[] endPosition = new Vector3dInterface[12];
+
+    Vector3dInterface[] intermediateVelocity1 = new Vector3dInterface[12];
+
+    Vector3dInterface[] intermediateVelocity2 = new Vector3dInterface[12];
+
+    Vector3dInterface[] endVelocity = new Vector3dInterface[12];
+
+    Vector3dInterface[] intermediateAcceleration1 = new Vector3dInterface[12];
+
+    Vector3dInterface[] intermediateAcceleration2 = new Vector3dInterface[12];
+
+    Vector3dInterface[] endAcceleration = new Vector3dInterface[12];
 
         for (int i = 0; i < previousP.length; i++) {
             //STEP 1
@@ -154,34 +156,30 @@ public class StateOfSolarSystem implements StateInterface {
             //STEP 2
             intermediatePosition1[i] = previousP[i].add(previousV[i].mul(step / 2.0)); //p2 = p1 + v1 * 1/2 * step
             intermediateVelocity1[i] = previousV[i].add(a[i].mul(step / 2.0)); //v2 = v1 + a1 * 1/2 * step
-            intermediateAcceleration1 = acceleration(intermediatePosition1, intermediateVelocity1); //a2 = acceleration(p2,v2)
+          //  intermediateAcceleration1 = acceleration(intermediatePosition1, intermediateVelocity1); //a2 = acceleration(p2,v2)
 
             //STEP 3
             intermediatePosition2[i] = previousP[i].add(intermediateVelocity1[i].mul(step / 2.0)); //p3 = p1 + v2 * 1/2 * step
-            intermediateVelocity2[i] = previousV[i].add(intermediateAcceleration1.mul(step / 2.0)); //v3 = v1 + a2 * 1/2 * step
-            intermediateAcceleration2 = acceleration(intermediatePosition2, intermediateVelocity2); //a3 = acceleration(p3,v3)
+            intermediateVelocity2[i] = previousV[i].add(intermediateAcceleration1[i].mul(step / 2.0)); //v3 = v1 + a2 * 1/2 * step
+           // intermediateAcceleration2 = acceleration(intermediatePosition2, intermediateVelocity2); //a3 = acceleration(p3,v3)
 
             //STEP 4
             endPosition[i] = previousP[i].add(intermediateVelocity2[i].mul(step)); //p4 = p1 + v3 * step
             endVelocity[i] = previousV[i].add(intermediateAcceleration2[i].mul(step)); //v4 = v1 + a3 * step
-            endAcceleration = acceleration(endPosition, endVelocity); //a4 = acceleration(p4,v4)
+          //  endAcceleration = acceleration(endPosition, endVelocity); //a4 = acceleration(p4,v4)
 
             //positionStep = 1/6 * step * (v1 + 2*v2 + 2*v3 + v4);
-            Vector3dInterface positionStep = previousV[i].add(intermediateVelocity1.mul(2.0)).add(intermediateVelocity2.mul(2.0)).add(endVelocity).mul(step / 6.0);
+            Vector3dInterface positionStep = previousV[i].add(intermediateVelocity1[i].mul(2.0)).add(intermediateVelocity2[i].mul(2.0)).add(endVelocity[i]).mul(step / 6.0);
             //velocityStep = 1/6 * step (a1 + 2*a2 + 2*a3 + a4)
-            Vector3dInterface velocityStep = a[i].add(intermediateAcceleration1.mul(2.0)).add(intermediateAcceleration2.mul(2.0)).add(endAcceleration).mul(step / 6.0);
+            Vector3dInterface velocityStep = a[i].add(intermediateAcceleration1[i].mul(2.0)).add(intermediateAcceleration2[i].mul(2.0)).add(endAcceleration[i]).mul(step / 6.0);
 
             //Calculate next position and velocity and update current position and velocity
-            previousP[i] = previousP[i].add(positionStep);
-            previousV[i] = previousV[i].add(velocityStep);
+            p[i] = previousP[i].add(positionStep);
+            v[i] = previousV[i].add(velocityStep);
 
         }
-
-        return new ShotInfo(shotInfo);
+        return this;
     }
-
-
-}*/
 
     /**
      * prints position of planets
