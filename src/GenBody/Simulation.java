@@ -28,11 +28,11 @@ public class Simulation implements ProbeSimulatorInterface {
 
         Planets planets = new Planets();
 
-        EulerSolver solve = new EulerSolver();
+        RungeKutta solve = new RungeKutta();
 
         NewtonsLawofGravity n = new NewtonsLawofGravity();
 
-        StateOfSolarSystem state=  new StateOfSolarSystem();
+        StateOfSolarSystem state =  new StateOfSolarSystem();
 
         state.addOrigin(planets.getPlanets(), p0,v0);
 
