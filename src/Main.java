@@ -1,4 +1,5 @@
 
+import GenBody.StateOfSolarSystem;
 import gui.UserInterface;
 
 public class Main {

@@ -15,14 +15,14 @@ public class RungeKutta implements ODESolverInterface {
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 
-        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)(tf/h)+1];
+        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)Math.ceil(tf/h)+1];
         solarSystemOverCourseOfTime[0] = y0;
 
         double time = 0;
         for(int i = 1 ; i< solarSystemOverCourseOfTime.length; i++){
             double left_time = tf - time;
             if( left_time < h ) {
-                System.out.println("time left!");
+                //System.out.println("time left!");
                 h = left_time;
             }
             solarSystemOverCourseOfTime[i] = step(f,time,solarSystemOverCourseOfTime[i-1], h);

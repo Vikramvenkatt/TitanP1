@@ -68,7 +68,7 @@ public class Environment extends Canvas  {
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.black);
         g.fillRect(0, 0, 1500, 1000);
 
         this.drawplease(g,frames);
