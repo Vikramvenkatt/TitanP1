@@ -21,7 +21,7 @@ public class EulerSolver implements ODESolverInterface {
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 
-        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)(tf/h)+1];
+        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[((int)(tf/h))+2];
 
         StateInterface yn = null;
 
@@ -39,11 +39,11 @@ public class EulerSolver implements ODESolverInterface {
 
             d = (StateOfSolarSystem)  solarSystemOverCourseOfTime[i];
 
-            if((int) time/86400 > day) {
+           /* if((int) time/86400 > day) {
                 day = (int) time / 86400;
                 System.out.println("Day: "+day);
                 d.print();
-            }
+            }*/
 
         }
 

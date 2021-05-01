@@ -15,6 +15,8 @@ public class StateOfSolarSystem implements StateInterface {
 
     public Vector3dInterface[] previousV = new Vector3dInterface[12];
 
+    public Vector3dInterface[] formerPos2;
+
     public final double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 1500};
 
     public final String[] names = {"sun", "venus", " mercury", "jupiter", "mars", "earth", "uranus", "saturn", "titan", "moon", "neptune", "spaceship"};
@@ -24,10 +26,12 @@ public class StateOfSolarSystem implements StateInterface {
     public StateOfSolarSystem(StateOfSolarSystem s) {
         Vector3dInterface[] previousP = s.getPositionOfPlanets();
         Vector3dInterface[] previousV = s.getVelocityOfPlanets();
-        for(int i = 0; i < 12; i++) {
+        //formerPos2 = s.getFormerPos2();
+        for(int i = 0; i < previousP.length; i++) {
             this.previousP[i] = new Vector((Vector) previousP[i]);
             this.previousV[i] = new Vector((Vector) previousV[i]);
         }
+        formerPos2 = s.getFormerPos2();
         p = new Vector[12];
         v = new Vector[12];
     }
@@ -41,10 +45,10 @@ public class StateOfSolarSystem implements StateInterface {
 
     public void addOrigin(ArrayList<Planet> list, Vector3dInterface p0, Vector3dInterface v0) {
         for (int i = 0; i < list.size(); i++) {
-            p[i] = new Vector((Vector) list.get(i).getInitialPosition());
-            v[i] = new Vector((Vector) list.get(i).getInitialVelocity());
+            p[i] = new Vector( list.get(i).getInitialPosition());
+            v[i] = new Vector( list.get(i).getInitialVelocity());
         }
-        p[11] = p0.add(p[5]);
+        p[11] = p0.add(p[5]); // add earth
         v[11] = v0.add(v[5]);
     }
 
@@ -75,6 +79,17 @@ public class StateOfSolarSystem implements StateInterface {
         return mass;
     }
 
+    public Vector3dInterface[] getFormerPos2() {
+        Vector3dInterface[] newp = new Vector3dInterface[12];
+        if(previousP[1] != null) {
+            for (int i = 0; i < newp.length; i++) {
+                newp[i] = new Vector((Vector) previousP[i]);
+            }
+        }
+        return newp;
+
+    }
+
     @Override
     /**
      *
@@ -99,13 +114,33 @@ public class StateOfSolarSystem implements StateInterface {
         return this;
     }
 
+    public StateInterface addMulVerlet(double step, RateInterface rate) {
+
+        Change v2 = (Change) rate;
+
+        Vector3dInterface[] a = v2.getA();
+
+        double t2;
+
+        for (int i = 0; i < p.length ; i++) {
+            p[i] = previousP[i].mul(2);
+            p[i] = p[i].sub(formerPos2[i]);
+            t2 = step*step;
+            p[i] = p[i].addMul(t2,a[i]);
+            v[i] = p[i].sub(previousP[i]);
+            v[i] = v[i].mul(1/(2*step));
+        }
+
+        return this;
+    }
+
     public void print() {
         System.out.println("print");
         System.out.println("Position Titan" + " : " + p[8].toString());
         System.out.println("Position SpaceShip" + " : " + p[11].toString());
         System.out.println("Position Earth" + " : " + p[5].toString());
         System.out.println("Velocity Titan" + " : " + v[8].toString());
-        System.out.println("Velocity SpaceShip" + " : " + v[11].toString());
+        System.out.println("Position SpaceShip" + " : " + p[11].toString());
         System.out.println("Velocity Earth" + " : " + v[5].toString());
     }
 }

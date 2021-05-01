@@ -16,11 +16,15 @@ public class VerletSolver implements ODESolverInterface {
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 
-        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)(tf/h)+1];
+        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)(tf/h)+2];
 
         solarSystemOverCourseOfTime[0] = y0;
 
-        //solarSystemOverCourseOfTime[1] = RungeKutta bootstrap
+        RungeKutta bootstrap = new RungeKutta();
+
+        StateInterface[] temp =  bootstrap.solve(f,y0, 10000,h); // ones step
+
+        solarSystemOverCourseOfTime[1] = temp[1];
 
         double time = 0;
 
@@ -33,7 +37,7 @@ public class VerletSolver implements ODESolverInterface {
         }
 
 
-        return new StateInterface[0];
+        return solarSystemOverCourseOfTime;
     }
 
     @Override
@@ -41,11 +45,11 @@ public class VerletSolver implements ODESolverInterface {
 
         NewtonsLawofGravity n = (NewtonsLawofGravity) f;
 
-        RateInterface q = n.callVerlet(h,y);
+        RateInterface q = n.call(h,y);
 
-        StateVerlet solarSystem = new StateVerlet((StateVerlet) y);
+        StateOfSolarSystem solarSystem = new StateOfSolarSystem((StateOfSolarSystem) y);
 
-        StateInterface Tn =  solarSystem.addMul(h,q);
+        StateInterface Tn =  solarSystem.addMulVerlet(h,q);
 
         return Tn;
     }

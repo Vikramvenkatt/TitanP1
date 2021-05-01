@@ -28,6 +28,8 @@ public class Simulation implements ProbeSimulatorInterface {
 
         Planets planets = new Planets();
 
+      // VerletSolver solve = new VerletSolver();
+
         RungeKutta solve = new RungeKutta();
 
         NewtonsLawofGravity n = new NewtonsLawofGravity();
@@ -36,7 +38,7 @@ public class Simulation implements ProbeSimulatorInterface {
 
         state.addOrigin(planets.getPlanets(), p0,v0);
 
-        StateInterface[] arr = (solve.solve(n,state, tf,h));// contains position of all planets every 1000 secs
+        StateInterface[] arr = solve.solve(n,state, tf,h);// contains position of all planets every 1000 secs
 
         positionOfPlanets = arr;
 
@@ -47,6 +49,7 @@ public class Simulation implements ProbeSimulatorInterface {
         for (int g = 0; g < arr.length; g++) {
             arr2[g] = (StateOfSolarSystem) arr[g];
             vectorShip[g] =  arr2[g].getP();
+           //System.out.println(" INdex: "+g+vectorShip[g].toString());
         }
 
         return vectorShip;
