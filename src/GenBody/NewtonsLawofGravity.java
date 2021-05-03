@@ -97,6 +97,10 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
         return new Change(acceleration);
     }
 
+
+
+
+
 }
 
 
