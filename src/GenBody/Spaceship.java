@@ -10,6 +10,7 @@ public class Spaceship extends Body{
         super(position, (Vector) velocity);
     }
     //variable for fuel
+    //StateOfSolarSystem fuell;
 
     private LaunchData launchData;
 
