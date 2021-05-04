@@ -9,6 +9,7 @@ public class Spaceship extends Body{
     public Spaceship(Vector position, Vector3dInterface velocity) {
         super(position, (Vector) velocity);
     }
+    //variable for fuel
 
     private LaunchData launchData;
 

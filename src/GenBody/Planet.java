@@ -71,6 +71,16 @@ public class Planet extends Bdata {
 		}*/
 		return pointOnScreenY;
 	}
+	/*public boolean inRange(StateofSolarSystem spaceship){//make sure that spaceship is the elemnt being called
+
+		MAKE AN IF STATEMENT THAT CHECKS THAT SPACESHIP IS THE ELEMENT BEING CALLED(IT IS THE LAST ONE)
+		get position of current planets
+		add 100 and 300 km, 2 variables, outside and inside range of 300 and 100 km
+		use circle formula whatever to calculate cos its circular
+		 */
+
+
+	}
 
 
 
