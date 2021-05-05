@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class StateOfSolarSystem implements StateInterface {
 
-    public Vector3dInterface[] p;
+    public Vector3dInterface[] p;//position of titan is in this list and of spaceship
 
     public Vector3dInterface[] v;
 

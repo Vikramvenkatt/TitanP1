@@ -9,6 +9,13 @@ public class Spaceship extends Body{
     public Spaceship(Vector position, Vector3dInterface velocity) {
         super(position, (Vector) velocity);
     }
+    //variable for fuel
+    //StateOfSolarSystem fuell; should it be of type spaceship?
+
+    /*
+    HOW TO CALCULATE POSITION AND TRAJECTORY OF SPACESHIP:
+        CALL ON CHANGE CLASS, WHICH CALCULATES ACCELERATION USING GRAVITATIONAL FORCES
+     */
 
     private LaunchData launchData;
 
