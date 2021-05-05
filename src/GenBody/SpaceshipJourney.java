@@ -6,5 +6,8 @@ public class SpaceshipJourney {
     as of now, make a separate method just for position of spaceship, and take out of for loop
     fuel efficiency also depends on this class, create a variable inside spaceship
     variable for fuel
+
      */
+    //should fuel variable be of type spaceship class or state of solar system
+    StateOfSolarSystem fuel;
 }
