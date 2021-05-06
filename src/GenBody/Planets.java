@@ -52,7 +52,7 @@ public class Planets  {
 		neptune = new Planet(null, "Neptune", 1.02413e26, new Vector(4.382692942729203e+12,-9.093501655486243e+11,-8.227728929479486e+10), new Vector(1.068410720964204e+03,5.354959501569486e+03,-1.343918199987533e+02), 2.46e7, Color.blue);
 		spaceship = new Planet(null, "spaceship", 1500, new Vector(-1.471922101663588e+11,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01), 50, Color.pink);
 
-
+// dont change order of this list!!
 		planets.add(sun);
 		planets.add(venus);
 		planets.add(mercury);
