@@ -71,7 +71,7 @@ public class Planet extends Bdata {
 		}*/
 		return pointOnScreenY;
 	}
-	/*public boolean inRange(StateofSolarSystem spaceship){//make sure that spaceship is the element being called
+	/*public boolean inRange(StateofSolarSystem spaceship){}//make sure that spaceship is the element being called
 
 		MAKE AN IF STATEMENT THAT CHECKS THAT SPACESHIP IS THE ELEMENT BEING CALLED(IT IS THE LAST ONE)
 		get position of current planets
@@ -85,5 +85,5 @@ public class Planet extends Bdata {
 
 
 
-}
+
  
