@@ -14,22 +14,14 @@ public class RateChange implements RateInterface
     public ArrayList<Vector> velocityChange = new ArrayList<Vector>();
     public ArrayList<Vector> positionChange = new ArrayList<Vector>();
 
-    /**
-     * Constructor
-     * @param cv Change in velocity arrayList
-     * @param cp Change in position arrayList
-     */
+
     public RateChange(ArrayList<Vector> cv, ArrayList<Vector> cp)
     {
         this.velocityChange = cv;
         this.positionChange = cp;
     }
 
-    /**
-     * Find the average values between this interface and the parameter
-     * @param comp
-     * @return the mean values between this and comp
-     */
+
     public RateChange average(RateChange comp)
     {
         ArrayList<Vector> compareVelocity = comp.velocityChange;
@@ -50,10 +42,6 @@ public class RateChange implements RateInterface
         return new RateChange(averageVelocity, averagePosition);
     }
 
-    /**
-     * toString returns Rate as a String
-     * @return String value representing Rate
-     */
     public String toString()
     {
         String sum = "";
@@ -64,10 +52,6 @@ public class RateChange implements RateInterface
         return sum;
     }
 
-    /**
-     * Adds the argument with this state and returns the answer
-     * @return sum of the two states
-     */
     public RateChange add(RateChange rate)
     {
         for(int i = 0; i < positionChange.size(); i++)
@@ -78,11 +62,7 @@ public class RateChange implements RateInterface
         return rate;
     }
 
-    /**
-     * Multiplies this class by the scalar argument
-     * @param scalar
-     * @return a scaled copy of this class
-     */
+
     public RateChange scale(double scalar)
     {
         ArrayList<Vector> vCopy = velocityChange;
