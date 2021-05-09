@@ -5,7 +5,7 @@ import interfaces.RateInterface;
 
 import java.util.ArrayList;
 
-//TODO (Travis Dawson) Clean up Rate
+
 /**
  * Derivative of y, such that it reflects the rate of change of velocity and position
  */
