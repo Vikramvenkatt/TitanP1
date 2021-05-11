@@ -1,8 +1,9 @@
-package GenBody;
+package test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import GenBody.Vector;
 import org.junit.jupiter.api.Test;
 
 public class TestVector {

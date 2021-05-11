@@ -1,10 +1,9 @@
-package GenBody;
+package test;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-
+import GenBody.Change;
+import GenBody.NewtonsLawofGravity;
+import GenBody.Vector;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
@@ -18,7 +17,7 @@ class TestNewtonGravityFunction
     {
         /*Setup*/
         Vector3dInterface[] vel = new Vector3dInterface[2];																//Initialize arrayList of velocity vectors (First two planets)
-        vel[0] = new Vector(-1.420511669610689e+01, -4.954714716629277e+00,  3.994237625449041e-01));
+        vel[0] = new Vector(-1.420511669610689e+01, -4.954714716629277e+00,  3.994237625449041e-01);
         vel[1]= (new Vector( 3.892585189044652e+04,  2.978342247012996e+03, -3.327964151414740e+03));
         Vector3dInterface[] pos = new Vector3dInterface[2];																//Initialize arrayList of position vectors (First two planets)
         pos[0] = (new Vector( -6.806783239281648e+08,   1.080005533878725e+09,   6.564012751690170e+06));

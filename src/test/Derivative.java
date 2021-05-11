@@ -1,7 +1,8 @@
-package GenBody;
+package test;
 
 
 
+import GenBody.Vector;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
@@ -15,7 +16,7 @@ public class Derivative implements StateInterface
     public ArrayList<Vector> position = new ArrayList<Vector>();//containing the velocities for the same
     public double time;
 
-    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position)//1ST Constructor without velocity to make it compatible with physics engine
+    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position,double time)//1ST Constructor without velocity to make it compatible with physics engine
     {
         this.velocity = velocity;
         this.position = position;
@@ -29,6 +30,12 @@ public class Derivative implements StateInterface
         this.p = position;
         this.time = time;
     }
+
+    public Derivative(Vector3dInterface[] velocity, Vector3dInterface[] position)
+    {
+        this.v = velocity;
+        this.p = position;
+    }
     public Vector3dInterface[] p;//position of titan is in this list and of spaceship
     public Vector3dInterface[] v;
     //RATE IS THE RATE OF CHANGE
@@ -36,13 +43,13 @@ public class Derivative implements StateInterface
     {
         RateChange change = (RateChange) rate;                                 //Cast RateInterface into rate
 
-        ArrayList<Vector> v = new ArrayList<Vector>();            //Initialise new ArrayLists to aid in construction of resultant StateInterface
-        ArrayList<Vector> p = new ArrayList<Vector>();
+        Vector3dInterface[] v = new Vector3dInterface[this.p.length];            //Initialise new ArrayLists to aid in construction of resultant StateInterface
+        Vector3dInterface[] p = new Vector3dInterface[this.p.length];
 
         for(int i=0; i< change.velocityChange.size(); i++)        //Iterate over Rate fields
         {
-            v.add((Vector) velocity.get(i).addMul(step,change.velocityChange.get(i)));
-            p.add((Vector) position.get(i).addMul(step,change.positionChange.get(i)));
+            v[i]=((Vector) v[i].addMul(step,change.velocityChange.get(i)));
+            p[i]=((Vector) p[i].addMul(step,change.positionChange.get(i)));
         }
         double time = this.time + step;                            //Calculate increase in time:
 
@@ -114,13 +121,13 @@ public class Derivative implements StateInterface
     //MULTIPLIES ALL ABOVE CO-ORDINATES BY THE SCALAR FOR THE WHOLE CLASS
     public Derivative scale(double scalar)
     {
-        ArrayList<Vector> vCopy = velocity;
-        ArrayList<Vector> pCopy = position;
+        Vector3dInterface[] vCopy = v;
+        Vector3dInterface[] pCopy = p;
 
         for(int i = 0; i < position.size(); i++)
         {
-            vCopy.get(i).mul(scalar);//SCALING METHODS
-            pCopy.get(i).mul(scalar);
+            vCopy[i].mul(scalar);//SCALING METHODS
+            pCopy[i].mul(scalar);
         }
         return new Derivative(vCopy, pCopy);
     }
