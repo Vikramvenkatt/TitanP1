@@ -4,69 +4,52 @@ package GenBody;
 
 import interfaces.RateInterface;
 import interfaces.StateInterface;
+import interfaces.Vector3dInterface;
 
 import java.util.ArrayList;
 
 public class Derivative implements StateInterface
 {
-    public ArrayList<Vector> velocity = new ArrayList<Vector>();
-    public ArrayList<Vector> position = new ArrayList<Vector>();
+    //PUTTING VELOCITY FROM CHANGE CLASS INTO AN ARRAYLIST
+    public ArrayList<Vector> velocity = new ArrayList<Vector>();//containing the array list for velocities of 12 objects
+    public ArrayList<Vector> position = new ArrayList<Vector>();//containing the velocities for the same
     public double time;
 
-    /**
-     * State constructor (No time parameter)
-     *  The velocity vector
-     * pos The position vector
-     */
-    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position)
+    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position)//1ST Constructor without velocity to make it compatible with physics engine
     {
         this.velocity = velocity;
         this.position = position;
-        this.time = 0;
+        this.time = 0;//starting from time 0
     }
 
-    /**
-     * State constructor (Time parameter)
-     *  vel The velocity vector
-     *  pos The position vector
-     * t The time quantity of the current state
-     */
+
     public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position, double time)
     {
         this.velocity = velocity;
         this.position = position;
         this.time = time;
     }
+    public Vector3dInterface[] p;//position of titan is in this list and of spaceship
 
-    /**
-     * Modifies state to yield the next sequential state
-     * @param step The time step
-     * @param rate The rate of change
-     * @return The next sequential state
-     */
+    //RATE IS THE RATE OF CHANGE
     public Derivative addmul(double step, RateInterface rate)     //Essentially carry out step yi+1 = yi + hif(ti, yi)
     {
-        RateChange changeInfo = (RateChange) rate;                                 //Cast RateInterface into rate
+        RateChange change = (RateChange) rate;                                 //Cast RateInterface into rate
 
         ArrayList<Vector> v = new ArrayList<Vector>();            //Initialise new ArrayLists to aid in construction of resultant StateInterface
         ArrayList<Vector> p = new ArrayList<Vector>();
 
-        for(int i=0; i< changeInfo.velocityChange.size(); i++)        //Iterate over Rate fields
+        for(int i=0; i< change.velocityChange.size(); i++)        //Iterate over Rate fields
         {
-            v.add((Vector) velocity.get(i).addMul(step,changeInfo.velocityChange.get(i)));
-            p.add((Vector) position.get(i).addMul(step,changeInfo.positionChange.get(i)));
+            v.add((Vector) velocity.get(i).addMul(step,change.velocityChange.get(i)));
+            p.add((Vector) position.get(i).addMul(step,change.positionChange.get(i)));
         }
         double time = this.time + step;                            //Calculate increase in time:
 
         return new Derivative(v,p,time);
     }
 
-    /**
-     * Adds a position and location vector change to each vector held in the state
-     * @param step - The time step to be taken
-     * @param rate - The rate of change
-     * @return a new state as at time+step
-     */
+
     public Derivative addMultiple(double step, RateInterface rate)
     {
         //Cast RateInterface into rate
@@ -91,26 +74,33 @@ public class Derivative implements StateInterface
         return null;
     }
 
-    /**
-     * Displays State in String format
-     * @return String representing state object
-     */
+
     public String toString()
     {
         String sum = "";
         for(int i=0; i< velocity.size(); i++)
         {
-            sum += "\n(V: "+ velocity.get(i).toString() + " |P: "+ position.get(i).toString()+ " | Time: "+ time + "),";
+            sum += "\n(V: "+ velocity.get(i).toString() + "Position "+ position.get(i).toString()+ " Time Taken: "+ time + "),";
         }
         return sum;
     }
 
+    public final double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 1500};
 
-    /**
-     * Adds the argument with this state and returns the answer
-     * @param state to be addd
-     * @return sum of the two states
-     */
+    public Vector3dInterface[] getPositionOfPlanets() {//called from State of Solar System
+        Vector3dInterface[] newp = new Vector3dInterface[12];
+        for (int i = 0; i < newp.length; i++) {
+            newp[i] = new Vector();
+            newp[i] = newp[i].add(p[i]);
+        }
+        return newp;
+    }
+    public double[] getMass() {
+        return mass;
+    }
+
+
+
     public Derivative add(Derivative state)
     {
         for(int i = 0; i < position.size(); i++)
@@ -121,11 +111,7 @@ public class Derivative implements StateInterface
         return state;
     }
 
-    /**
-     * Multiplies this class by the scalar argument
-     * @param scalar
-     * @return a scaled copy of this class
-     */
+    //MULTIPLIES ALL ABOVE CO-ORDINATES BY THE SCALAR FOR THE WHOLE CLASS
     public Derivative scale(double scalar)
     {
         ArrayList<Vector> vCopy = velocity;
@@ -133,7 +119,7 @@ public class Derivative implements StateInterface
 
         for(int i = 0; i < position.size(); i++)
         {
-            vCopy.get(i).mul(scalar);
+            vCopy.get(i).mul(scalar);//SCALING METHODS
             pCopy.get(i).mul(scalar);
         }
         return new Derivative(vCopy, pCopy);
