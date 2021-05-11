@@ -23,14 +23,14 @@ public class Derivative implements StateInterface
     }
 
 
-    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position, double time)
+    public Derivative(Vector3dInterface[] velocity, Vector3dInterface[] position, double time)
     {
-        this.velocity = velocity;
-        this.position = position;
+        this.v = velocity;
+        this.p = position;
         this.time = time;
     }
     public Vector3dInterface[] p;//position of titan is in this list and of spaceship
-
+    public Vector3dInterface[] v;
     //RATE IS THE RATE OF CHANGE
     public Derivative addmul(double step, RateInterface rate)     //Essentially carry out step yi+1 = yi + hif(ti, yi)
     {
