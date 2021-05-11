@@ -1,7 +1,8 @@
-package GenBody;
+package test;
 
 
 
+import GenBody.Vector;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
@@ -15,7 +16,7 @@ public class Derivative implements StateInterface
     public ArrayList<Vector> position = new ArrayList<Vector>();//containing the velocities for the same
     public double time;
 
-    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position)//1ST Constructor without velocity to make it compatible with physics engine
+    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position,double time)//1ST Constructor without velocity to make it compatible with physics engine
     {
         this.velocity = velocity;
         this.position = position;
@@ -23,28 +24,35 @@ public class Derivative implements StateInterface
     }
 
 
-    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position, double time)
+    public Derivative(Vector3dInterface[] velocity, Vector3dInterface[] position, double time)
     {
-        this.velocity = velocity;
-        this.position = position;
+        this.v = velocity;
+        this.p = position;
         this.time = time;
     }
-    public Vector3dInterface[] p;//position of titan is in this list and of spaceship
 
-    //RATE IS THE RATE OF CHANGE
-    public Derivative addmul(double step, RateInterface rate)     //Essentially carry out step yi+1 = yi + hif(ti, yi)
+    public Derivative(Vector3dInterface[] velocity, Vector3dInterface[] position)
     {
-        RateChange change = (RateChange) rate;                                 //Cast RateInterface into rate
+        this.v = velocity;
+        this.p = position;
+    }
+    public Vector3dInterface[] p;//position of titan is in this list and of spaceship
+    public Vector3dInterface[] v;
+    //RATE IS THE RATE OF CHANGE
+    public Derivative addmul(double step, RateInterface rate) //Essentially carry out this formula: yi+1 = yi + hif(ti, yi)
+    //Thanks Youtube!!
+    {
+        RateChange change = (RateChange) rate;//from the new class I made
 
-        ArrayList<Vector> v = new ArrayList<Vector>();            //Initialise new ArrayLists to aid in construction of resultant StateInterface
-        ArrayList<Vector> p = new ArrayList<Vector>();
+        Vector3dInterface[] v = new Vector3dInterface[this.p.length];
+        Vector3dInterface[] p = new Vector3dInterface[this.p.length];
 
-        for(int i=0; i< change.velocityChange.size(); i++)        //Iterate over Rate fields
+        for(int i=0; i< change.velocityChange.size(); i++)//looping through rate field arrays for time calculations
         {
-            v.add((Vector) velocity.get(i).addMul(step,change.velocityChange.get(i)));
-            p.add((Vector) position.get(i).addMul(step,change.positionChange.get(i)));
+            v[i]=((Vector) v[i].addMul(step,change.velocityChange.get(i)));
+            p[i]=((Vector) p[i].addMul(step,change.positionChange.get(i)));
         }
-        double time = this.time + step;                            //Calculate increase in time:
+        double time = this.time + step;
 
         return new Derivative(v,p,time);
     }
@@ -88,7 +96,7 @@ public class Derivative implements StateInterface
     public final double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 1500};
 
     public Vector3dInterface[] getPositionOfPlanets() {//called from State of Solar System
-        Vector3dInterface[] newp = new Vector3dInterface[12];
+        Vector3dInterface[] newp = new Vector3dInterface[2];
         for (int i = 0; i < newp.length; i++) {
             newp[i] = new Vector();
             newp[i] = newp[i].add(p[i]);
@@ -114,13 +122,13 @@ public class Derivative implements StateInterface
     //MULTIPLIES ALL ABOVE CO-ORDINATES BY THE SCALAR FOR THE WHOLE CLASS
     public Derivative scale(double scalar)
     {
-        ArrayList<Vector> vCopy = velocity;
-        ArrayList<Vector> pCopy = position;
+        Vector3dInterface[] vCopy = v;
+        Vector3dInterface[] pCopy = p;
 
         for(int i = 0; i < position.size(); i++)
         {
-            vCopy.get(i).mul(scalar);//SCALING METHODS
-            pCopy.get(i).mul(scalar);
+            vCopy[i].mul(scalar);//SCALING METHODS
+            pCopy[i].mul(scalar);
         }
         return new Derivative(vCopy, pCopy);
     }

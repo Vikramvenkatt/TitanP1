@@ -1,6 +1,7 @@
-package GenBody;
+package test;
 
 
+import GenBody.Vector;
 import interfaces.RateInterface;
 
 import java.util.ArrayList;
