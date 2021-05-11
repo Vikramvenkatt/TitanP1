@@ -15,9 +15,9 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
     @Override
     public RateInterface call(double t, StateInterface y) {
 
-        StateOfSolarSystem position = (StateOfSolarSystem) y;
+        //StateOfSolarSystem position = (StateOfSolarSystem) y;
 
-       // Derivative position = (Derivative) y;
+        Derivative position = (Derivative) y;
 
         Vector3dInterface[] positionOfPlanets = position.getPositionOfPlanets();
 
