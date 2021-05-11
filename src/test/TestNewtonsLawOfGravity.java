@@ -2,6 +2,7 @@ package test;
 
 
 import GenBody.Change;
+import GenBody.Derivative;
 import GenBody.NewtonsLawofGravity;
 import GenBody.Vector;
 import interfaces.RateInterface;
@@ -34,7 +35,7 @@ class TestNewtonGravityFunction
         RateInterface res = testing.call(1, test);
         Change outcome = (Change) res;
         System.out.println("Outcome:");
-        System.out.println(outcome.toString());
+        System.out.println(outcome);
 
         /*Testing*/
         //position and veocity changes

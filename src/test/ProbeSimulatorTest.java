@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProbeSimulatorTest {
 
-    static final double ACCURACY = 5; // 1 meter (might need to tweak that)
+    static final double ACCURACY = 1; // 1 meter (might need to tweak that)
 
     @Test
     public void testTrajectoryOneDayX() {

@@ -1,11 +1,11 @@
-package test;
+package GenBody;
 
 
 
-import GenBody.Vector;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
+import test.RateChange;
 
 import java.util.ArrayList;
 
