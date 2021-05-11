@@ -23,14 +23,14 @@ class TestNewtonGravityFunction
         pos.add(new Vector( -6.806783239281648e+08,   1.080005533878725e+09,   6.564012751690170e+06));
         pos.add( new Vector(  6.047855986424127e+06,  -6.801800047868888e+10,  -5.702742359714534e+09));
 
-        //HELP StateInterface test = new Change(vel, pos);																			//Generate the current state
+         StateInterface test = new Change(vel, pos);																			//Generate the current state
         //System.out.println(test.toString());																				//Display
         //System.out.println("------");
 
         double[] masses = {1.988500e30, 3.302e23};																			//Array of masses (first two planets)
 
         /*Calculation*/
-        NewtonsLawofGravity testing = new NewtonsLawofGravity(masses);
+        NewtonsLawofGravity testing = new NewtonsLawofGravity();
         RateInterface res = testing.call(1, test);
         Change outcome = (Change) res;
         System.out.println("Outcome:");
