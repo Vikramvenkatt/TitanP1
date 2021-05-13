@@ -2,7 +2,6 @@ package gui;
 
 import GenBody.AddZoomFactor;
 import GenBody.Planets;
-import GenBody.Spaceship;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +19,6 @@ public class UserInterface extends Canvas implements ActionListener, Runnable {
     private JButton zoomIn;
     private JButton zoomOut;
     private Planets planetsList;
-    private Spaceship ship;
     private JFrame frame;
     private Thread thread;
 

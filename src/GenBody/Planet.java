@@ -7,6 +7,14 @@ public class Planet extends Bdata {
     public static double zoomFactor = 0.95;
     public static double sizeFactor = 0.805;
 
+    //TODO:CHANGE
+    public double dryRocketMass;
+    public double massOfLander;
+    public double exhaustVelocity;
+    //in newton?
+    public double maximumThrust;
+
+    //Thrust : thrust = m * exhaust velocity < maximumThrust
 
     public Planet(Bdata orbitsAround, String name, double mass, Vector initialPosition, Vector initialVelocity,
                   double radius, java.awt.Color Color) {
@@ -15,6 +23,13 @@ public class Planet extends Bdata {
 
     }
 
+    public void initializeRocketVariables()
+    {
+        dryRocketMass = 7.8e4;
+        massOfLander = 6e3;
+        exhaustVelocity = 2e4;
+        maximumThrust = 3e7;
+    }
 
     public void setX(double x) {
         this.initialPosition.setX(x);
@@ -74,14 +89,10 @@ public class Planet extends Bdata {
     }
 
     public double changePosX(Vector x) {
-
-
         return 750 + this.initialPosition.getX() * 1500 / 4.382692942729203e+12/zoomFactor;
     }
 
     public double changePosY(Vector y) {
-
-
         return 500 + this.initialPosition.getY() * 1000 / 1.744450959214586e+12/zoomFactor;
     }
 
