@@ -30,7 +30,9 @@ public class Simulation implements ProbeSimulatorInterface {
 
       // VerletSolver solve = new VerletSolver();
 
-        RungeKutta solve = new RungeKutta();
+        //EulerSolver solve = new EulerSolver();
+
+       RungeKutta solve = new RungeKutta();
 
         NewtonsLawofGravity n = new NewtonsLawofGravity();
 
@@ -49,9 +51,9 @@ public class Simulation implements ProbeSimulatorInterface {
         for (int g = 0; g < arr.length; g++) {
             arr2[g] = (StateOfSolarSystem) arr[g];
             vectorShip[g] =  arr2[g].getP();
-           //System.out.println(" INdex: "+g+vectorShip[g].toString());
-        }
 
+        }
+        System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
         return vectorShip;
     }
 

@@ -7,15 +7,20 @@ import java.util.ArrayList;
 
 public class StateOfSolarSystem implements StateInterface {
 
+
     public Vector3dInterface[] p;//position of titan is in this list and of spaceship
 
     public Vector3dInterface[] v;
+
+    public Vector3dInterface[] a;
 
     public Vector3dInterface[] previousP = new Vector3dInterface[12];
 
     public Vector3dInterface[] previousV = new Vector3dInterface[12];
 
-    public Vector3dInterface[] formerPos2;
+    public Vector3dInterface[] previousA = new Vector3dInterface[12];
+
+   // public Vector3dInterface[] formerPos2;
 
     public final double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 1500};
 
@@ -26,14 +31,25 @@ public class StateOfSolarSystem implements StateInterface {
     public StateOfSolarSystem(StateOfSolarSystem s) {
         Vector3dInterface[] previousP = s.getPositionOfPlanets();
         Vector3dInterface[] previousV = s.getVelocityOfPlanets();
-        //formerPos2 = s.getFormerPos2();
+        Vector3dInterface[] previousA = s.getAccelerationOfPlanets();
         for(int i = 0; i < previousP.length; i++) {
             this.previousP[i] = new Vector((Vector) previousP[i]);
             this.previousV[i] = new Vector((Vector) previousV[i]);
+            this.previousA[i] = new Vector((Vector) previousA[i]);
         }
-        formerPos2 = s.getFormerPos2();
         p = new Vector[12];
         v = new Vector[12];
+    }
+
+    public Vector3dInterface[] getAccelerationOfPlanets() {
+        Vector3dInterface[] newA = new Vector3dInterface[12];
+
+        for (int i = 0; i < newA.length; i++) {
+            newA[i] = new Vector();
+            if(a!= null)
+            newA[i] = newA[i].add(a[i]);
+        }
+        return newA;
     }
 
     public StateOfSolarSystem() {
@@ -79,7 +95,7 @@ public class StateOfSolarSystem implements StateInterface {
         return mass;
     }
 
-    public Vector3dInterface[] getFormerPos2() {
+    /*public Vector3dInterface[] getFormerPos2() {
         Vector3dInterface[] newp = new Vector3dInterface[12];
         if(previousP[1] != null) {
             for (int i = 0; i < newp.length; i++) {
@@ -88,7 +104,7 @@ public class StateOfSolarSystem implements StateInterface {
         }
         return newp;
 
-    }
+    }*/
 
     @Override
     /**
@@ -118,17 +134,22 @@ public class StateOfSolarSystem implements StateInterface {
 
         Change v2 = (Change) rate;
 
-        Vector3dInterface[] a = v2.getA();
+        this.a = v2.getA();
 
-        double t2;
+        Vector3dInterface[] tempA = new Vector3dInterface[12];
+        Vector3dInterface[] tempA2 = new Vector3dInterface[12];
 
         for (int i = 0; i < p.length ; i++) {
-            p[i] = previousP[i].mul(2);
-            p[i] = p[i].sub(formerPos2[i]);
-            t2 = step*step;
-            p[i] = p[i].addMul(t2,a[i]);
-            v[i] = p[i].sub(previousP[i]);
-            v[i] = v[i].mul(1/(2*step));
+
+            p[i] = previousP[i].add(previousV[i].mul(step));
+            tempA[i] = previousA[i].mul(step*step);
+            tempA[i] = tempA[i].mul(0.5);
+            p[i] = p[i].add(tempA[i]);
+
+            tempA2[i] = previousA[i].add(a[i]);
+            tempA2[i] = tempA2[i].mul(step*0.5);
+            v[i] = previousV[i].add(tempA2[i]);
+
         }
 
         return this;

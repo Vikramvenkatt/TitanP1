@@ -1,7 +1,6 @@
 package test;
 
 import GenBody.Simulation;
-import GenBody.SimulationVerlet;
 import GenBody.Vector;
 import interfaces.ProbeSimulatorInterface;
 import interfaces.Vector3dInterface;
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProbeSimulatorTest {
 
-    static final double ACCURACY = 10; // 1 meter (might need to tweak that)
+    static final double ACCURACY = 1; // 1 meter (might need to tweak that)
 
     @Test
     public void testTrajectoryOneDayX() {
