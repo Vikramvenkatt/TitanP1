@@ -16,7 +16,7 @@ public class VerletSolver implements ODESolverInterface {
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 
-        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)(tf/h)+2];
+        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(int)Math.ceil(tf/h)+1];
 
         solarSystemOverCourseOfTime[0] = y0;
 
