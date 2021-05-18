@@ -1,7 +1,7 @@
 package GenBody;
 
 import interfaces.*;
-import test.Derivative;
+import test.StateObj;
 
 /**
  * computes the resulting gravitational forces from the planets and calculates and outputs the resulting
@@ -17,7 +17,7 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
         //StateOfSolarSystem position = (StateOfSolarSystem) y;
 
-        Derivative position = (Derivative) y;
+        StateObj position = (StateObj) y;
 
         Vector3dInterface[] positionOfPlanets = position.getPositionOfPlanets();
 

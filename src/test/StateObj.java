@@ -9,14 +9,14 @@ import interfaces.Vector3dInterface;
 
 import java.util.ArrayList;
 
-public class Derivative implements StateInterface
+public class StateObj implements StateInterface
 {
     //PUTTING VELOCITY FROM CHANGE CLASS INTO AN ARRAYLIST
     public ArrayList<Vector> velocity = new ArrayList<Vector>();//containing the array list for velocities of 12 objects
     public ArrayList<Vector> position = new ArrayList<Vector>();//containing the velocities for the same
     public double time;
 
-    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position,double time)//1ST Constructor without velocity to make it compatible with physics engine
+    public StateObj(ArrayList<Vector> velocity, ArrayList<Vector> position, double time)//1ST Constructor without velocity to make it compatible with physics engine
     {
         this.velocity = velocity;
         this.position = position;
@@ -24,14 +24,14 @@ public class Derivative implements StateInterface
     }
 
 
-    public Derivative(Vector3dInterface[] velocity, Vector3dInterface[] position, double time)
+    public StateObj(Vector3dInterface[] velocity, Vector3dInterface[] position, double time)
     {
         this.v = velocity;
         this.p = position;
         this.time = time;
     }
 
-    public Derivative(Vector3dInterface[] velocity, Vector3dInterface[] position)
+    public StateObj(Vector3dInterface[] velocity, Vector3dInterface[] position)
     {
         this.v = velocity;
         this.p = position;
@@ -39,7 +39,7 @@ public class Derivative implements StateInterface
     public Vector3dInterface[] p;//position of titan is in this list and of spaceship
     public Vector3dInterface[] v;
     //RATE IS THE RATE OF CHANGE
-    public Derivative addmul(double step, RateInterface rate) //Essentially carry out this formula: yi+1 = yi + hif(ti, yi)
+    public StateObj addmul(double step, RateInterface rate) //Essentially carry out this formula: yi+1 = yi + hif(ti, yi)
     //Thanks Youtube!!
     {
         RateChange change = (RateChange) rate;//from the new class I made
@@ -54,11 +54,11 @@ public class Derivative implements StateInterface
         }
         double time = this.time + step;
 
-        return new Derivative(v,p,time);
+        return new StateObj(v,p,time);
     }
 
 
-    public Derivative addMultiple(double step, RateInterface rate)
+    public StateObj addMultiple(double step, RateInterface rate)
     {
         //Cast RateInterface into rate
         RateChange changeInfo = (RateChange) rate;
@@ -74,7 +74,7 @@ public class Derivative implements StateInterface
             p.add((Vector) position.get(i).addMul(step,changeInfo.positionChange.get(i)));
         }
         double time = this.time + step;     //Calculate increase in time:
-        return new Derivative(v,p,time);
+        return new StateObj(v,p,time);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class Derivative implements StateInterface
 
 
 
-    public Derivative add(Derivative state)
+    public StateObj add(StateObj state)
     {
         for(int i = 0; i < position.size(); i++)
         {
@@ -120,7 +120,7 @@ public class Derivative implements StateInterface
     }
 
     //MULTIPLIES ALL ABOVE CO-ORDINATES BY THE SCALAR FOR THE WHOLE CLASS
-    public Derivative scale(double scalar)
+    public StateObj scale(double scalar)
     {
         Vector3dInterface[] vCopy = v;
         Vector3dInterface[] pCopy = p;
@@ -130,6 +130,6 @@ public class Derivative implements StateInterface
             vCopy[i].mul(scalar);//SCALING METHODS
             pCopy[i].mul(scalar);
         }
-        return new Derivative(vCopy, pCopy);
+        return new StateObj(vCopy, pCopy);
     }
 }
