@@ -38,12 +38,7 @@ public class EulerSolver implements ODESolverInterface {
             time+=h;
 
             d = (StateOfSolarSystem)  solarSystemOverCourseOfTime[i];
-
-           /* if((int) time/86400 > day) {
-                day = (int) time / 86400;
-                System.out.println("Day: "+day);
-                d.print();
-            }*/
+               // d.print();
 
         }
 

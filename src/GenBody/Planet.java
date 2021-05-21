@@ -48,7 +48,7 @@ public class Planet extends Bdata {
         int mercuryMarsMoonTitanSize = 5;
         int jupiterSaturnSize = 24;
         int uranusNeptuneSize = 25;
-        double spaceshipSize = 1.5;
+        double spaceshipSize = 4;
 
         Font myFont = new Font ("Aerial", 1, 8);
         g.setFont (myFont);

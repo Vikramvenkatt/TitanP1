@@ -22,7 +22,7 @@ public class StateOfSolarSystem implements StateInterface {
 
    // public Vector3dInterface[] formerPos2;
 
-    public final double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 1500};
+    public static double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 184000};
 
     public final String[] names = {"sun", "venus", " mercury", "jupiter", "mars", "earth", "uranus", "saturn", "titan", "moon", "neptune", "spaceship"};
 
@@ -37,11 +37,12 @@ public class StateOfSolarSystem implements StateInterface {
             this.previousV[i] = new Vector((Vector) previousV[i]);
             this.previousA[i] = new Vector((Vector) previousA[i]);
         }
-        p = new Vector[12];
-        v = new Vector[12];
+        p = new Vector[previousP.length];
+        v = new Vector[previousV.length];
     }
 
     public Vector3dInterface[] getAccelerationOfPlanets() {
+        //TODO change array length so it is dynamic
         Vector3dInterface[] newA = new Vector3dInterface[12];
 
         for (int i = 0; i < newA.length; i++) {
@@ -59,17 +60,21 @@ public class StateOfSolarSystem implements StateInterface {
         this.previousV = new Vector[12];
     }
 
+    public void updateMassShip(double newMass){
+        mass[11] = newMass;
+    }
+
     public void addOrigin(ArrayList<Planet> list, Vector3dInterface p0, Vector3dInterface v0) {
         for (int i = 0; i < list.size(); i++) {
             p[i] = new Vector( list.get(i).getInitialPosition());
             v[i] = new Vector( list.get(i).getInitialVelocity());
         }
-        p[11] = p0.add(p[5]); // add earth
-        v[11] = v0.add(v[5]);
+        p[p.length-1] = p0.add(p[5]); // add earth
+        v[v.length-1] = v0.add(v[5]);
     }
 
     public Vector3dInterface[] getPositionOfPlanets() {
-        Vector3dInterface[] newp = new Vector3dInterface[12];
+        Vector3dInterface[] newp = new Vector3dInterface[p.length];
         for (int i = 0; i < newp.length; i++) {
             newp[i] = new Vector();
             newp[i] = newp[i].add(p[i]);
@@ -78,7 +83,7 @@ public class StateOfSolarSystem implements StateInterface {
     }
 
     public Vector3dInterface[] getVelocityOfPlanets() {
-        Vector3dInterface[] newV = new Vector3dInterface[12];
+        Vector3dInterface[] newV = new Vector3dInterface[v.length];
         for (int i = 0; i < newV.length; i++) {
             newV[i] = new Vector();
             newV[i] = newV[i].add(v[i]);
@@ -87,24 +92,14 @@ public class StateOfSolarSystem implements StateInterface {
     }
 
     public Vector3dInterface getP() {
-
-        return p[11];
+        return p[p.length-1];
     }
 
     public double[] getMass() {
         return mass;
     }
 
-    /*public Vector3dInterface[] getFormerPos2() {
-        Vector3dInterface[] newp = new Vector3dInterface[12];
-        if(previousP[1] != null) {
-            for (int i = 0; i < newp.length; i++) {
-                newp[i] = new Vector((Vector) previousP[i]);
-            }
-        }
-        return newp;
-
-    }*/
+    public void updateMass(double massShip){mass[mass.length-1]=massShip;}
 
     @Override
     /**
@@ -136,8 +131,8 @@ public class StateOfSolarSystem implements StateInterface {
 
         this.a = v2.getA();
 
-        Vector3dInterface[] tempA = new Vector3dInterface[12];
-        Vector3dInterface[] tempA2 = new Vector3dInterface[12];
+        Vector3dInterface[] tempA = new Vector3dInterface[a.length];
+        Vector3dInterface[] tempA2 = new Vector3dInterface[a.length];
 
         for (int i = 0; i < p.length ; i++) {
 
@@ -156,13 +151,9 @@ public class StateOfSolarSystem implements StateInterface {
     }
 
     public void print() {
-        System.out.println("print");
-        System.out.println("Position Titan" + " : " + p[8].toString());
-        System.out.println("Position SpaceShip" + " : " + p[11].toString());
-        System.out.println("Position Earth" + " : " + p[5].toString());
-        System.out.println("Velocity Titan" + " : " + v[8].toString());
-        System.out.println("Position SpaceShip" + " : " + p[11].toString());
-        System.out.println("Velocity Earth" + " : " + v[5].toString());
+
+        System.out.println("Mass" + " : " + mass[11]);
+
     }
 }
 

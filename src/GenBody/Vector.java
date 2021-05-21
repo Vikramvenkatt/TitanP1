@@ -131,6 +131,11 @@ public class Vector implements Vector3dInterface {
 		return new Vector(this.getX()+(scalar*other.getX()),this.getY()+(scalar*other.getY()),this.getZ()+(scalar*other.getZ()));
 	}
 
+	public Vector3dInterface unitVector(){
+		double length= this.norm();
+		return new Vector(this.x/length,this.y/length,this.z/length);
+	}
+
 	public String toString() {
 		return "( "+x + ", " + y + ", " + z+" )";
 	}

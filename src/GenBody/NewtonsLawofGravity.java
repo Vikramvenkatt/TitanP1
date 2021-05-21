@@ -11,7 +11,8 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
     private final double G = 6.674e-11;
 
-    private double massOfSpaceship = 1500;
+    private double time =0;
+
     @Override
     public RateInterface call(double t, StateInterface y) {
 
@@ -19,6 +20,9 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
         //THIS IS CHANGED!!
         //Derivative position=(Derivative) y;
+        time+=t;
+
+        Change change = new Change(position);
 
         Vector3dInterface[] positionOfPlanets = (Vector3dInterface[]) position.getPositionOfPlanets();
 
@@ -51,11 +55,14 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
                     a = a.mul(1/mass[i]); // acceleration
 
                    acceleration[i] = acceleration[i].add(a); // acceleration gets summed
+
+                  /*  if(i==5 && m == 11)
+                        System.out.println("Time "+time+" acc: "+a.norm());*/
                 }
             }
         }
-
-        return new Change(acceleration);
+        change.addA(acceleration);
+        return change ;
     }
 
 }

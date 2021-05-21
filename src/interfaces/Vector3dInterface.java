@@ -19,6 +19,7 @@ public interface Vector3dInterface {
     public Vector3dInterface add(Vector3dInterface other);
     public Vector3dInterface sub(Vector3dInterface other);
     public Vector3dInterface mul(double scalar);
+    public Vector3dInterface unitVector();
 
     /**
      * Scalar x vector multiplication, followed by an addition
