@@ -1,13 +1,12 @@
-package GenBody;
+package test;
 
-
-
+import GenBody.Vector;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
-import test.RateChange;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Derivative implements StateInterface
 {
@@ -16,7 +15,7 @@ public class Derivative implements StateInterface
     public ArrayList<Vector> position = new ArrayList<Vector>();//containing the velocities for the same
     public double time;
 
-    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position,double time)//1ST Constructor without velocity to make it compatible with physics engine
+    public Derivative(ArrayList<Vector> velocity, ArrayList<Vector> position, double time)//1ST Constructor without velocity to make it compatible with physics engine
     {
         this.velocity = velocity;
         this.position = position;
@@ -36,7 +35,10 @@ public class Derivative implements StateInterface
         this.v = velocity;
         this.p = position;
     }
-    public Vector3dInterface[] p;//position of titan is in this list and of spaceship
+    //ERROR- FILL UP P
+    //public Vector3dInterface[] p;//position of titan is in this list and of spaceship
+    Vector3dInterface[] p = new Vector3dInterface[2];
+
     public Vector3dInterface[] v;
     //RATE IS THE RATE OF CHANGE
     public Derivative addmul(double step, RateInterface rate) //Essentially carry out this formula: yi+1 = yi + hif(ti, yi)
@@ -97,6 +99,9 @@ public class Derivative implements StateInterface
 
     public Vector3dInterface[] getPositionOfPlanets() {//called from State of Solar System
         Vector3dInterface[] newp = new Vector3dInterface[2];
+        p[0] = (new Vector( -6.806783239281648e+08,   1.080005533878725e+09,   6.564012751690170e+06));
+        p[1] = ( new Vector(  6.047855986424127e+06,  -6.801800047868888e+10,  -5.702742359714534e+09));
+        System.out.println(Arrays.stream(p).toArray());
         for (int i = 0; i < newp.length; i++) {
             newp[i] = new Vector();
             newp[i] = newp[i].add(p[i]);

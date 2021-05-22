@@ -2,7 +2,7 @@ package test;
 
 
 import GenBody.Change;
-import GenBody.Derivative;
+import test.Derivative;
 import GenBody.NewtonsLawofGravity;
 import GenBody.Vector;
 import interfaces.RateInterface;
