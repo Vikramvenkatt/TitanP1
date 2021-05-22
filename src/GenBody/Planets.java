@@ -33,11 +33,8 @@ public class Planets  {
 	}
 
 	public void addPlanets() {
-		// Create a new "planet" (Sun is a star but who cares) with the given parameters
+		// Create a new "planet" with the given parameters
 		// of the text file given to us
-		// the vectors need to be added later so set them all to null for now and set
-		// appropriate colors for the planets
-		// for the GUI team, so Color.blue for earth
 
 		sun = new Planet(null, "Sun", 1.9891e30, new Vector(-6.806783239281648e+08,1.080005533878725e+09,6.564012751690170e+06), new Vector(-1.420511669610689e+01,-4.954714716629277e+00,3.994237625449041e-01), 6.957e8, Color.yellow);
 		venus = new Planet(null, "Venus", 4.8685e24, new Vector(-9.435345478592035e+10,5.350359551033670e+10,6.131453014410347e+09), new Vector(-1.726404287724406e+04,-3.073432518238123e+04,5.741783385280979e-04), 6.0518e6, Color.white);
@@ -53,7 +50,7 @@ public class Planets  {
 		//set mass to dryRocketMass immeadietly
 		spaceship = new Planet(null, "spaceship", 1500, new Vector(-1.471922101663588e+11,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01), 50, Color.pink);
 
-// dont change order of this list!!
+	// dont change order of this list!!
 		planets.add(sun);
 		planets.add(venus);
 		planets.add(mercury);
@@ -104,5 +101,8 @@ public class Planets  {
 	public Planet getTitan() {
 		return titan;
 	}
+
+
+
 
 }
