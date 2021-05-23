@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Environment extends Canvas  {
-    private Spaceship ship;
     private List<Planet> planetsList;
     boolean running = false;
     Thread runner = null;
@@ -26,7 +25,7 @@ public class Environment extends Canvas  {
     public Environment(){
         Planets planets = new Planets();
         this.planetsList=planets.getPlanets();
-        positionOfSpacechip = sim.trajectory(  new Vector(6371e3,0,0), new Vector(52500.0,-27000.0,0),31556926*50, 10000);
+        positionOfSpacechip = sim.trajectory(  new Vector(6371e3,0,0), new Vector(52500.0,-27000.0,0),31556926, 1000);
        StateInterface[] arr = sim.getPositionOfPlanets(); // vector before  new Vector(-1.471922101663588e+11+6371e3,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01)
         positionsOfPlanets = new StateOfSolarSystem[arr.length];
         for (int m = 0; m < positionsOfPlanets.length; m++) {
@@ -101,10 +100,10 @@ public class Environment extends Canvas  {
     }
 
 
-    //this method should be called before paintComponent as it sets the position of our ship on earth
+/*    //this method should be called before paintComponent as it sets the position of our ship on earth
     public void setLaunchInfo(Vector startPosition) {
         ship.setLaunchData(new Vector((int) startPosition.getX(), (int) startPosition.getY(), 0));
-    }
+    } */
 
 
     public static boolean isInside(double circle_x, double circle_y,

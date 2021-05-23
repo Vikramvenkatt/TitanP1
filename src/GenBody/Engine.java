@@ -41,6 +41,35 @@ public class Engine {
         else{return null;}
     }
 
+    //Calculates the acceleration vector for the rocket so that it stays in circular orbit
+    public Vector3dInterface createOrbitalVector(Vector3dInterface posShip, Vector3dInterface posTitan)
+    {
+        //TODO: If there is a bug, is it because I didn't apply defensive copying to the params?
+        Vector3dInterface orbitalVector;
+
+        //Get the distance between Titan and the ship
+        double distance =  posTitan.dist(posShip);
+        double squareRootDistance = Math.sqrt(distance);
+        //The force of gravity is the same as the centrifugal force for our purposes here
+        Vector3dInterface direction = (posTitan.sub(posShip));
+        if(isPerpendicular((Vector) direction))
+        {
+            return new Vector(0,0,0);
+        }
+        else
+        {
+            Vector3dInterface force = direction.mul((state.a[11].norm() * (state.mass[8]/squareRootDistance)));
+            force = force.mul(1/state.mass[11]);
+            return force;
+        }
+    }
+
+    //Initially this was Vector3dInterface but it doesn't have the dot() method
+    private boolean isPerpendicular(Vector vector)
+    {
+        return (vector.dot((Vector) state.v[11]) == 0);
+    }
+
     public Vector3dInterface slowDown(Vector3dInterface posShip, Vector3dInterface posTarget, Vector3dInterface FG){
         Vector3dInterface  FResulting = posShip.sub(posTarget);
       //  FResulting = FResulting.sub(state.v[11]); // with velocity?
@@ -66,4 +95,5 @@ public class Engine {
         return totalMass;
     }
 
+    //TODO: State is public, do defensive copying
 }
