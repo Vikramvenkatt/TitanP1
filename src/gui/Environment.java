@@ -25,7 +25,7 @@ public class Environment extends Canvas  {
     public Environment(){
         Planets planets = new Planets();
         this.planetsList=planets.getPlanets();
-        positionOfSpacechip = sim.trajectory(  new Vector(6371e3,0,0), new Vector(52500.0,-27000.0,0),31556926, 1000);
+        positionOfSpacechip = sim.trajectory(  new Vector(6371e3,0,0), new Vector(0.5896979523584819, -0.8075660030972522, -0.00966827935790599),31556926, 1000);
        StateInterface[] arr = sim.getPositionOfPlanets(); // vector before  new Vector(-1.471922101663588e+11+6371e3,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01)
         positionsOfPlanets = new StateOfSolarSystem[arr.length];
         for (int m = 0; m < positionsOfPlanets.length; m++) {
@@ -67,14 +67,12 @@ public class Environment extends Canvas  {
                     System.out.println("its in the "+planetsList.get(m).getName());
                     System.out.println("");
                 }else{
-                    System.out.println(planetsList.get(m).getName()+" : "+planetsList.get(m).getInitialPosition());
-                    System.out.println(planetsList.get(11).getName()+" : "+planetsList.get(11).getInitialPosition());
+                  //  System.out.println(planetsList.get(m).getName()+" : "+planetsList.get(m).getInitialPosition());
+                    //System.out.println(planetsList.get(11).getName()+" : "+planetsList.get(11).getInitialPosition());
                 }
 
 
             }
-
-
         //draw the ship at the initial position
         //ship.draw(g, (int) ship.getPosition().getX(), (int) ship.getPosition().getY());
     }
@@ -112,6 +110,7 @@ public class Environment extends Canvas  {
         return (x - circle_x) * (x - circle_x) +
                 (y - circle_y) * (y - circle_y) <= rad * rad;
     }
+
 
 
 }

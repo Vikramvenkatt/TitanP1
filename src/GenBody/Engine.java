@@ -2,43 +2,43 @@ package GenBody;
 
 import interfaces.Vector3dInterface;
 
+import static java.lang.Math.abs;
+
 public class Engine {
 
     private final Vector startVector = new Vector(0.5896979523584819, -0.8075660030972522, -0.00966827935790599);
     private final double massOfCraft = 78000;
     private final double massOfLander = 6000;
-    private static double massOfFuel = 100000;
+    private static double massOfFuel = 3.5E8;
     private double totalMass = massOfCraft + massOfFuel + massOfLander;
     private final double effectiveExhaustVelocity = 2e4;
     private final double maxThrust = 3e7;
     private double fuelBurnedPerSecondMax = 1500;
     private StateOfSolarSystem state;
     private static int called = 0;
+    private double stepsize;
+    private Vector3dInterface forceOnShip;
 
-    public Engine(StateOfSolarSystem s){
+    public Engine(StateOfSolarSystem s, double h){
         this.state = s;
+        stepsize = h;
+        System.out.println(totalMass);
     }
 
     // F#resulting = F#G + F#engine
     // F#G = F#resulting - F#engine
-    public Vector3dInterface calculateAccelaration(Vector3dInterface posShip, Vector3dInterface posTarget, Vector3dInterface FG) {
+    public Vector3dInterface takeOff(Vector3dInterface posShip, Vector3dInterface posTarget) {
 
-        Vector3dInterface  FResulting = posTarget.sub(posShip);
-        double scalar = FResulting.norm();
-        FResulting = FResulting.unitVector();
-        double accScalar;
         called+=1;
         System.out.println("called:"+ called);
 
-        if (scalar > (maxThrust / totalMass)) {
-            accScalar = maxThrust / totalMass;
-            massOfFuel -= fuelBurnedPerSecondMax;
-            totalMass = massOfCraft + massOfFuel + massOfLander;
-            FResulting = FResulting.mul(accScalar);
-            Vector3dInterface FEngine = FResulting.sub(FG);
-            return FEngine;
-        }
-        else{return null;}
+       Vector3dInterface FResulting = posTarget.sub(posShip);
+
+
+       FResulting = FResulting.unitVector().mul(maxThrust);
+
+       return transformForceToAccelaration(FResulting);
+
     }
 
     //Calculates the acceleration vector for the rocket so that it stays in circular orbit
@@ -70,29 +70,41 @@ public class Engine {
         return (vector.dot((Vector) state.v[11]) == 0);
     }
 
-    public Vector3dInterface slowDown(Vector3dInterface posShip, Vector3dInterface posTarget, Vector3dInterface FG){
-        Vector3dInterface  FResulting = posShip.sub(posTarget);
-      //  FResulting = FResulting.sub(state.v[11]); // with velocity?
-        double scalar = FResulting.norm();
-        FResulting = FResulting.unitVector();
-        double accScalar;
-        called+=1;
-        System.out.println("called slowdown:"+ called);
-        System.out.println("v:"+ state.v[11].norm());
-
-        if (scalar > (maxThrust / totalMass)) {
-            accScalar = maxThrust / totalMass;
-            massOfFuel -= fuelBurnedPerSecondMax;
-            totalMass = massOfCraft + massOfFuel + massOfLander;
-            FResulting = FResulting.mul(accScalar);
-            Vector3dInterface FEngine = FResulting.sub(FG);
-            return FEngine;
-        }
-        return new Vector();
-    }
-
     public double getTotalMass(){
         return totalMass;
+    }
+
+    /*
+        Transforms vector to acceleration and updates the mass
+        @param force: scaled force vector in direction in which the ship should move
+        @return: accelaration vector
+     */
+    private Vector3dInterface transformForceToAccelaration(Vector3dInterface force){
+
+        double weight = totalMass;
+
+        massOfFuel -= stepsize*force.norm()/effectiveExhaustVelocity;
+        totalMass = abs(massOfCraft + massOfFuel + massOfLander);
+
+
+        double approxWeightOverTime = (weight + totalMass) / 2;
+
+        return force.mul(1/approxWeightOverTime);
+    }
+
+    /*
+      Calculates the vector in which the spaceship must accelerate to reach the direction vector, according to formulae:
+        F#resulting = F#G + F#engine
+        F#G = F#resulting - F#engine
+        @param direction: Takes a scaled force vector in which direction the ship should move
+        @return: Force vector
+     */
+    private Vector3dInterface calcFResulting(Vector3dInterface direction){
+        return direction.sub(forceOnShip);
+    }
+
+    public void addForceOnShip(Vector3dInterface accelerationOnShip) {
+        forceOnShip = accelerationOnShip.mul(totalMass);
     }
 
     //TODO: State is public, do defensive copying

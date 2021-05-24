@@ -21,11 +21,13 @@ public class Change implements RateInterface{
         for(int i =0; i < a.length; i++){
             this.a[i] = a[i];
         }
+        engine.addForceOnShip(a[11]);
     }
 
-    public Change(StateOfSolarSystem s){
+    public Change(StateOfSolarSystem s,double t){
         this.state = s;
-        engine = new Engine(state);
+        engine = new Engine(state,t);
+        earth = (Vector) earth.add(state.p[5]);
     }
 
 
@@ -36,16 +38,12 @@ public class Change implements RateInterface{
 
         Vector3dInterface[] newA = new Vector3dInterface[12];
         if(calculatedistance()) {
-            addAcceleration(engine.calculateAccelaration(earth, finaltitan, a[11]));
-            state.updateMass(engine.getTotalMass());
-        }
-        if(calculatedistanceSaturn()) {
-            addAcceleration(engine.slowDown(state.p[11], state.p[7], a[11]));
-            state.updateMass(engine.getTotalMass());
+            addAcceleration(engine.takeOff(earth, finaltitan));
+            state.updateMassShip(engine.getTotalMass());
         }
         if(distanceToTitan())
         {
-            addAcceleration(engine.createOrbitalVector(state.p[11],state.p[8]));
+           // addAcceleration(engine.createOrbitalVector(state.p[11],state.p[8]));
         }
         for(int i =0; i< a.length; i++){
             newA[i] = a[i];
@@ -60,7 +58,7 @@ public class Change implements RateInterface{
     }
 
     private boolean calculatedistance(){
-       if(state.p[5].sub(state.p[11]).norm() > 3e7) //3e7 meters, 30 000 km
+       if(state.p[5].sub(state.p[11]).norm() > 8e9) //3e7 meters, 30 000 km
            return false;
        else
            return true;
@@ -68,7 +66,7 @@ public class Change implements RateInterface{
     private boolean distanceToTitan()
     {
         //should be 3e5
-        if(state.p[8].sub(state.p[11]).norm() > 3e10)
+        if(state.p[8].sub(state.p[11]).norm() > 3e11)
         {
             return false;
         }

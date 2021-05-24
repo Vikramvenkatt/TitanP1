@@ -20,9 +20,9 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
         //THIS IS CHANGED!!
         //Derivative position=(Derivative) y;
-        time+=t;
 
-        Change change = new Change(position);
+
+        Change change = new Change(position,t);
 
         Vector3dInterface[] positionOfPlanets = (Vector3dInterface[]) position.getPositionOfPlanets();
 
@@ -56,8 +56,6 @@ public class NewtonsLawofGravity implements ODEFunctionInterface {
 
                    acceleration[i] = acceleration[i].add(a); // acceleration gets summed
 
-                  /*  if(i==5 && m == 11)
-                        System.out.println("Time "+time+" acc: "+a.norm());*/
                 }
             }
         }

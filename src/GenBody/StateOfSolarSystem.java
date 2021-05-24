@@ -22,7 +22,7 @@ public class StateOfSolarSystem implements StateInterface {
 
    // public Vector3dInterface[] formerPos2;
 
-    public static double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 184000};
+    public static double[] mass = {1.9891e30, 4.8685e24, 3.302e23, 1.89813e27, 6.4171e23, 5.97219e24, 8.6813e25, 5.6834e26, 1.34553e23, 7.349e22, 1.02413e26, 3.50084E8};
 
     public final String[] names = {"sun", "venus", " mercury", "jupiter", "mars", "earth", "uranus", "saturn", "titan", "moon", "neptune", "spaceship"};
 
@@ -39,6 +39,7 @@ public class StateOfSolarSystem implements StateInterface {
         }
         p = new Vector[previousP.length];
         v = new Vector[previousV.length];
+       // System.out.println(mass[11]);
     }
 
     public Vector3dInterface[] getAccelerationOfPlanets() {

@@ -53,7 +53,7 @@ public class Simulation implements ProbeSimulatorInterface {
             vectorShip[g] =  arr2[g].getP();
 
         }
-        System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
+       // System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
         return vectorShip;
     }
 
