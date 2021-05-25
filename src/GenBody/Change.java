@@ -33,7 +33,6 @@ public class Change implements RateInterface{
 
     //Gets triggered every time a step is taken
     //Checks distance for the spaceship & titan/saturn
-    //Method would also be good to implement the orbit check
     public Vector3dInterface[] getA(){
 
         Vector3dInterface[] newA = new Vector3dInterface[12];
@@ -43,12 +42,13 @@ public class Change implements RateInterface{
         }
         if(distanceToTitan())
         {
-           // addAcceleration(engine.createOrbitalVector(state.p[11],state.p[8]));
+            System.out.println("It's inside the trigger range!");
+            Vector3dInterface forceVector = engine.createOrbitalVector(state.p[11],state.p[8]);
+            addAcceleration(engine.transformForceToAcceleration(forceVector));
         }
         for(int i =0; i< a.length; i++){
             newA[i] = a[i];
         }
-
         return newA;
     }
 
@@ -66,13 +66,13 @@ public class Change implements RateInterface{
     private boolean distanceToTitan()
     {
         //should be 3e5
-        if(state.p[8].sub(state.p[11]).norm() > 3e11)
+        if(state.p[8].sub(state.p[11]).norm() < 3e10)
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     }
 

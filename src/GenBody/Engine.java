@@ -22,22 +22,23 @@ public class Engine {
     public Engine(StateOfSolarSystem s, double h){
         this.state = s;
         stepsize = h;
-        System.out.println(totalMass);
+        //System.out.println(totalMass);
+        //System.out.println(totalMass);
     }
 
     // F#resulting = F#G + F#engine
     // F#G = F#resulting - F#engine
     public Vector3dInterface takeOff(Vector3dInterface posShip, Vector3dInterface posTarget) {
 
-        called+=1;
-        System.out.println("called:"+ called);
+     /*   called+=1;
+        System.out.println("called:"+ called); */
 
        Vector3dInterface FResulting = posTarget.sub(posShip);
 
 
        FResulting = FResulting.unitVector().mul(maxThrust);
 
-       return transformForceToAccelaration(FResulting);
+       return transformForceToAcceleration(FResulting);
 
     }
 
@@ -79,7 +80,7 @@ public class Engine {
         @param force: scaled force vector in direction in which the ship should move
         @return: accelaration vector
      */
-    private Vector3dInterface transformForceToAccelaration(Vector3dInterface force){
+    public Vector3dInterface transformForceToAcceleration(Vector3dInterface force){
 
         double weight = totalMass;
 
@@ -107,5 +108,5 @@ public class Engine {
         forceOnShip = accelerationOnShip.mul(totalMass);
     }
 
-    //TODO: State is public, do defensive copying
+    //NOTE: State is public, do defensive copying
 }

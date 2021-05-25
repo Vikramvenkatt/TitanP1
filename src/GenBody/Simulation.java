@@ -42,6 +42,8 @@ public class Simulation implements ProbeSimulatorInterface {
 
         StateInterface[] arr = solve.solve(n,state, tf,h);// contains position of all planets every 1000 secs
 
+
+
         positionOfPlanets = arr;
 
         StateOfSolarSystem[] arr2 =  new StateOfSolarSystem[arr.length];
@@ -51,11 +53,12 @@ public class Simulation implements ProbeSimulatorInterface {
         for (int g = 0; g < arr.length; g++) {
             arr2[g] = (StateOfSolarSystem) arr[g];
             vectorShip[g] =  arr2[g].getP();
-
         }
+
        // System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
         return vectorShip;
     }
+
 
     public StateInterface[] getPositionOfPlanets() {
         return positionOfPlanets;
