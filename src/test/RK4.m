@@ -1,7 +1,7 @@
 %RUNGE KUTTA 4TH ORDER TESTING
 
 GC = 6.67408e-11;%value of gravitational constant
-MS = 1.988500e30; % Mass of central body
+MS = 1.988500e30;%mass of the sun
 
 %initial co-ordinates of spaceship when it is launched
 xi = [-1.4718861838613153E11; -2.8615219147677864E10 ;8174296.311571818];% NASA HORIZONS DEV
