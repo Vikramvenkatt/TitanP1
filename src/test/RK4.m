@@ -1,56 +1,45 @@
-close all; clear; clc;
 %RUNGE KUTTA 4TH ORDER TESTING
-G = 6.674e-11;%value of gravitational constant
-mC = 1.989e30; % Mass of central body
 
-origin = zeros(3,1);
+GC = 6.67408e-11;%value of gravitational constant
+MS = 1.988500e30; % Mass of central body
 
 %initial co-ordinates of spaceship when it is launched
-x0 = [-1.4718861838613153E11, -2.8615219147677864E10 ,8174296.311571818];% NASA HORIZONS DEV
-y0 = [27978.003182957942, -62341.39349461967 ,-651.590970913659];
+xi = [-1.4718861838613153E11; -2.8615219147677864E10 ;8174296.311571818];% NASA HORIZONS DEV
+yi = [27978.003182957942; -62341.39349461967 ;-651.590970913659];
 
-tf = 365 * 24 * 60 * 60;  %time calculation-NUMBER OF DAYS INTO DURATION * MINUTES*SECONDS
-n = 365 * 24;
-h = tf/n; % first step size calculation
+s = 365*24;%iteration
+ss = 60*60; % first step size
 
-ts = linspace(0, tf, n+1);%for generating the 100 or so linearly spaced vectors
-ys = zeros(6, n+1);%initializing the array of zeros
-ys(:, 1) = [x0;y0];%filling up every element in the array
+yf = zeros(6, s+1);%creates a matrix of 6 rows and s+1 columns(not sure about s+1, thanks youtube)
+yf(:, 1) = [xi;yi];%filling up every element in the array
 
-ys2 = zeros(6, n+1);%creates a matrix of 6 rows and n+1 columns(not sure about n+1, thanks youtube)
-ys2(:, 1) = [x0;y0];
-
-for i = 1:n
-     ys(:, i+1) = ys(:, i) + deriv(ys(:, i), G, mC, origin) * h;%taken from my understanding of lecture slides and Haoran's rk solver
-     ys2(:, i+1) = ys2(:, i) + rk4(ys2(:, i), G, mC, origin, h);
+start = zeros(3,1);
+for i = 1:s
+     yf(:,i+1) = yf(:,i) + step(GC,start, yf(:,i),MS,ss);
 end
-
-figure;
-
-plot3(ys(1, :), ys(2, :), ys(3, :), 'r');
-title("Runge Kutta Testing");
-figure;
-plot3(ys2(1, :), ys2(2, :), ys2(3, :), 'b');
+clc;
+plot3(yf(1, :), yf(2, :), yf(3, :), 'BLACK');
 title("RUNGE KUTTA TEST");
 
- 
-%EULER PART, COMPARISONS
-function [doty] = derivCalc(y, G, mC, origin)
-    doty = zeros(6, 1);
-    doty(1:3) = y(4:6);
-    s = origin - y(1:3);
-    r3 = norm(s)^3;
-    doty(4:6) = s * G * mC / r3;
+%Runge-Kutta
+function [slope] = step(GC,start,yf,MS, ss)
+    y1 = ss * derivCalc(GC, start, yf, MS);
+    yn1 = yf + 1/2*y1;
+    y2 = ss * derivCalc(GC,start, yn1, MS);
+    yn2 = yf + 1/2*y2;
+    y3 = ss * derivCalc(GC, start, yn2, MS);
+    yn3 = yf + y3;
+    y4 = ss * derivCalc(GC,start,yn3,MS);
+    %When the four slopes are averaged, the slope of the
+    %midpoint has greater weight
+    slope =(y1+2*y2+2*y3+y4)*1/6;
 end
 
-
-function [doty] = rk4(y,G,mC,origin, h)
-    k1 = h * derivCalc(y, G, mC, origin);
-    yp = y + 1/2*k1;
-    k2 = h * derivCalc(yp, G, mC, origin);
-    yp = y + 1/2*k2;
-    k3 = h * derivCalc(yp, G, mC, origin);
-    yp = y + k3;
-    k4 = h * derivCalc(yp,G,mC,origin);
-    doty =1/6*(k1+2*(k2+k3)+k4);
+%EULER PART, COMPARISONS
+function [slope] = derivCalc(GC, start, yf, MS)
+    slope = zeros(6, 1);%creates a matrix of 6 rows and s+1 columns
+    slope(1:3) = yf(4:6);
+    s = start - yf(1:3);
+    dis = norm(s)^3;
+    slope(4:6) = GC * MS * s/dis;
 end
