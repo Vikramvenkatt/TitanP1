@@ -54,7 +54,7 @@ public class Simulation implements ProbeSimulatorInterface {
             arr2[g] = (StateOfSolarSystem) arr[g];
             vectorShip[g] =  arr2[g].getP();
         }
-
+        System.out.println(arr2[arr.length-1].p[8].toString());
        // System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
         return vectorShip;
     }

@@ -59,7 +59,8 @@ public class Engine {
         }
         else
         {
-            Vector3dInterface force = direction.mul((state.a[11].norm() * (state.mass[8]/squareRootDistance)));
+            //TODO: state.a[11] returns null
+            Vector3dInterface force = direction.mul((forceOnShip.norm() * (state.mass[8]/squareRootDistance)));
             force = force.mul(1/state.mass[11]);
             return force;
         }
