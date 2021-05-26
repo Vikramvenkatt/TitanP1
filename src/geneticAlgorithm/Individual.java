@@ -7,9 +7,6 @@ public class Individual {
     private Vector targetPosition;
     private Vector velocity;
 
-
-
-
     public double getFitness() {
         return fitness;
     }
@@ -17,6 +14,8 @@ public class Individual {
     public void setFitness(double fitness){
         this.fitness = fitness;
     }
+
+
 
     public Vector getTargetPosition() {
         return targetPosition;
