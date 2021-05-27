@@ -111,7 +111,6 @@ public class StateOfSolarSystem implements StateInterface {
      * return the new position.
      */
     public StateInterface addMul(double step, RateInterface rate) {
-
         Change v2 = (Change) rate;
 
         Vector3dInterface[] a = v2.getA();
@@ -127,6 +126,8 @@ public class StateOfSolarSystem implements StateInterface {
     }
 
     public StateInterface addMulVerlet(double step, RateInterface rate) {
+
+
 
         Change v2 = (Change) rate;
 

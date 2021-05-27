@@ -22,6 +22,7 @@ public class Engine {
     public Engine(StateOfSolarSystem s, double h){
         this.state = s;
         stepsize = h;
+        System.out.println(totalMass);
     }
 
     // F#resulting = F#G + F#engine
@@ -29,7 +30,7 @@ public class Engine {
     public Vector3dInterface takeOff(Vector3dInterface posShip, Vector3dInterface posTarget) {
 
         called+=1;
-
+        System.out.println("called:"+ called);
 
        Vector3dInterface FResulting = posTarget.sub(posShip);
 
