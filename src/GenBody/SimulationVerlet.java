@@ -4,7 +4,7 @@ import interfaces.ProbeSimulatorInterface;
 import interfaces.StateInterface;
 import interfaces.Vector3dInterface;
 
-public class Simulation implements ProbeSimulatorInterface {
+public class SimulationVerlet implements ProbeSimulatorInterface {
 
     public StateInterface[] positionOfPlanets = null;
 
@@ -28,9 +28,7 @@ public class Simulation implements ProbeSimulatorInterface {
 
         Planets planets = new Planets();
 
-      //  EulerSolver solve = new EulerSolver();
-
-        RungeKutta solve = new RungeKutta();
+        VerletSolver solve = new VerletSolver();
 
         NewtonsLawofGravity n = new NewtonsLawofGravity();
 
@@ -52,7 +50,7 @@ public class Simulation implements ProbeSimulatorInterface {
 
         }
         System.out.println(arr2[arr.length-1].p[8].toString());
-       // System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
+        // System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
         return vectorShip;
     }
 

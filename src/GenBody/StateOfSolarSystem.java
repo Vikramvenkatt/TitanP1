@@ -39,7 +39,7 @@ public class StateOfSolarSystem implements StateInterface {
         }
         p = new Vector[previousP.length];
         v = new Vector[previousV.length];
-       // System.out.println(mass[11]);
+
     }
 
     public Vector3dInterface[] getAccelerationOfPlanets() {

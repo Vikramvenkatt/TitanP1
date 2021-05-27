@@ -20,12 +20,6 @@ public class VerletSolver implements ODESolverInterface {
 
         solarSystemOverCourseOfTime[0] = y0;
 
-        //RungeKutta bootstrap = new RungeKutta();
-
-       // StateInterface[] temp =  bootstrap.solve(f,y0, 10000,h); // ones step
-
-       // solarSystemOverCourseOfTime[1] = temp[1];
-
         double time = 0;
 
         for (int i = 1; i < solarSystemOverCourseOfTime.length; i++) {

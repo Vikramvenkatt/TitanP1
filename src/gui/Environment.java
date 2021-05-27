@@ -18,7 +18,7 @@ public class Environment extends Canvas  {
     Calendar startDate;
     long start;
     Calendar current;
-    private Simulation sim = new Simulation();
+    private SimulationVerlet sim = new SimulationVerlet();
     private StateOfSolarSystem[] positionsOfPlanets;
     private Vector3dInterface[] positionOfSpacechip;
 
