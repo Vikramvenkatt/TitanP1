@@ -11,17 +11,15 @@ import java.util.List;
 public class GeneticAlgorithm {
     private List<Planet> planetsList;
     private Vector3dInterface[] positionOfSpacechip;
-    private Vector titanFinalPosition = new Vector(8.790206157956954E11, -1.2037722320318977E12, -1.4411708984699354E10);
-    final int popSize = 40;
-    final int cycles = 1000;
-    final double mutationRate = 0.3;
-    final double mutationFactor = 1e11;
-    final double tf = 31536000;
-    final double h = 1000;
+    private static Vector titanFinalPosition = new Vector(8.790206157956954E11, -1.2037722320318977E12, -1.4411708984699354E10);
+    final static int popSize = 40;
+    final static int cycles = 1000;
     private MiniSimulation sim;
 
 
-    public void run() {
+
+
+    public static void main(String[] args) {
         Population pop = new Population(popSize);
         MiniSimulation sim = new MiniSimulation();
         pop.setTargetPosition(titanFinalPosition);
@@ -30,6 +28,7 @@ public class GeneticAlgorithm {
         {
             pop.calculateFitnessOfPopulation();
             System.out.println(pop.getBestIndividual().getVelocity());
+            System.out.println(pop.getBestIndividual().getFitness());
             Individual[] nextGen = pop.getNewGeneration(pop.getIndividuals());
             pop.setIndividuals(nextGen);
         }

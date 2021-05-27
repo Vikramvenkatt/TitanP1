@@ -20,7 +20,8 @@ public class Individual {
         double x = a.velocity.getX();
         double y = a.velocity.getY();
         double z = a.velocity.getZ();
-        Vector newVel = new Vector(x + (Math.random() * (200)-100)/1000,y + (Math.random() * (200)-100)/1000,z + (Math.random() * (200)-100)/1000);
+        //OLD MUTATE METHOD x + (Math.random() * (20000)-10000)/1000,y + (Math.random() * (20000)-10000)/1000,z + (Math.random() * (20000)-10000)/1000
+        Vector newVel = new Vector((x + Math.random() * (20000)-10000)/1000,(y + Math.random() * (20000)-10000)/1000,(z + Math.random() * (20000)-10000)/1000);
         return new Individual(newVel);
     }
 

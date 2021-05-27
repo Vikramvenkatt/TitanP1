@@ -7,7 +7,7 @@ public class Population {
 
     private Individual[] individuals;
     private int popSize;
-    private MiniSimulation sim;
+    private MiniSimulation sim = new MiniSimulation();
     private Vector targetPosition;
     static boolean first = true;
     private final double chance = 0.34;
@@ -36,6 +36,7 @@ public class Population {
         Individual bestIndividual = individuals[0];
         for(int i = 0; i < popSize; i++)
         {
+            //if our individuals fitness is smaller that also means the distance between it and titan is closer
             if(individuals[i].getFitness() < bestIndividual.getFitness())
             {
                 bestIndividual = individuals[i];

@@ -26,7 +26,8 @@ public class Environment extends Canvas  {
     public Environment(){
         Planets planets = new Planets();
         this.planetsList=planets.getPlanets();
-        positionOfSpacechip = sim.trajectory(  new Vector(6371e3,0,0), new Vector(0.5896979523584819, -0.8075660030972522, -0.0096682793579059),31556926, 1000);
+        //0.5896979523584819, -0.8075660030972522, -0.0096682793579059
+        positionOfSpacechip = sim.trajectory(  new Vector(6371e3,0,0), new Vector(1.0519798448579987, 9.78871953507167, -9.152967539273916  ),31556926, 1000);
        StateInterface[] arr = sim.getPositionOfPlanets(); // vector before  new Vector(-1.471922101663588e+11+6371e3,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01)
         positionsOfPlanets = new StateOfSolarSystem[arr.length];
         for (int m = 0; m < positionsOfPlanets.length; m++) {
