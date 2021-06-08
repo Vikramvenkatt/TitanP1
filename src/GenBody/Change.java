@@ -44,7 +44,7 @@ public class Change implements RateInterface{
         {
             System.out.println("It's inside the trigger range!");
             Vector3dInterface forceVector = engine.createOrbitalVector(state.p[11],state.p[8]);
-            addAcceleration(engine.transformForceToAcceleration(forceVector));
+            addAcceleration(engine.transformForceToAccelaration(forceVector));
         }
         for(int i =0; i< a.length; i++){
             newA[i] = a[i];

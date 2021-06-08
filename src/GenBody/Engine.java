@@ -79,7 +79,7 @@ public class Engine {
         @param force: scaled force vector in direction in which the ship should move
         @return: accelaration vector
      */
-    private Vector3dInterface transformForceToAccelaration(Vector3dInterface force){
+    public Vector3dInterface transformForceToAccelaration(Vector3dInterface force){
 
         double weight = totalMass;
 
