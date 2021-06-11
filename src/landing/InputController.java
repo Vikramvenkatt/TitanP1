@@ -1,4 +1,4 @@
-package GenBody;
+package landing;
 
 public class InputController {
     /**
