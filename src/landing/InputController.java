@@ -25,11 +25,11 @@ public class InputController {
     //public double v;    // the torque provided by the side thrusters
     public final double gravityOnTitan = 1.352;//JUST THE CONSTANT ACCELERATION, NO CALCULATIONS REQUIRED
 
-    public InputController(double x, double y, double eta, double XVelocity, double YVelocity, double etader) {
+    public InputController(double x, double y, double theta, double XVelocity, double YVelocity, double etader) {
 
         this.x = x;
         this.y = y;
-        this.theta = eta;
+        this.theta = theta;
         this.velocityOfX = XVelocity;
         this.velocityOfY = YVelocity;
         this.thetaDerivative = etader;
