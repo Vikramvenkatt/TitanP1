@@ -4,7 +4,7 @@ public class InputController {
     /**
      * @author Vikram
      * define (not specific-open)inputs for controller such as x,y,theta,velocities
-     * why do we need derivative?
+     * why do we need state class?
      * Ans:that will be the angle when spaceship falls out of orbit and crashes on titan(i think)
      */
     private double x; // horizontal orientation/ position of spaceship
@@ -25,14 +25,14 @@ public class InputController {
     //public double v;    // the torque provided by the side thrusters
     public final double gravityOnTitan = 1.352;//JUST THE CONSTANT ACCELERATION, NO CALCULATIONS REQUIRED
 
-    public InputController(double x, double y, double eta, double XVelocity, double YVelocity, double etader) {
+    public InputController(double x, double y, double theta, double XVelocity, double YVelocity, double thetaDerivative) {
 
         this.x = x;
         this.y = y;
-        this.theta = eta;
+        this.theta = theta;
         this.velocityOfX = XVelocity;
         this.velocityOfY = YVelocity;
-        this.thetaDerivative = etader;
+        this.thetaDerivative = thetaDerivative;
 
     }
 
