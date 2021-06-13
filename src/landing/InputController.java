@@ -21,8 +21,8 @@ public class InputController {
     private final double yDerTolerance = 0.1;
     private final double thetaDerivativeTolerance = 0.01;
 
-    //public double u;    // acceleration provided by the main thruster
-    //public double v;    // the torque provided by the side thrusters
+    //public double u;
+    //public double v;
     public final double gravityOnTitan = 1.352;//JUST THE CONSTANT ACCELERATION, NO CALCULATIONS REQUIRED
 
     public InputController(double x, double y, double theta, double XVelocity, double YVelocity, double thetaDerivative) {
