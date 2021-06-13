@@ -111,6 +111,11 @@ public class Vector implements Vector3dInterface {
 		this.z = z;
 	}
 
+	public Vector3dInterface createUnitVector()
+	{
+		return mul(1.0/norm());
+	}
+
 	@Override
 	public Vector3dInterface add(Vector3dInterface other) {
 		return new Vector(x + other.getX(), y + other.getY(), z + other.getZ());

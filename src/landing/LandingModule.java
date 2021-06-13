@@ -1,8 +1,11 @@
 package landing;
 
+import GenBody.Vector;
+
 public class LandingModule {
     //gravity in m/s^2, for reference it's LOWER than earth's
-    protected double g = 1.352;
+    protected Vector position;
+    protected Vector acceleration;
 
     //mass of lander according to announcement
     protected double massOfLander = 6000; //kg
@@ -33,4 +36,8 @@ public class LandingModule {
     }
 
 
+    public double getMassOfLander() {
+        calculateMass();
+        return massOfLander;
+    }
 }
