@@ -56,7 +56,7 @@ public class InputController {
     }
 
     public boolean testAllAtPositionY0() {
-        if(testX() && testEta() && testDerX() && testDerY() && testDerEta()) {
+        if(testX() && testTheta() && testDerX() && testDerY() && testThetaDerivative()) {
             return true;
         }
         return false;
@@ -73,7 +73,7 @@ public class InputController {
         return false;
     }
 
-    public boolean testEta() {
+    public boolean testTheta() {
         if(Math.abs(this.theta % 2*Math.PI) <= thetaTolerance) {
             return true;
         }
@@ -94,7 +94,7 @@ public class InputController {
         return false;
     }
 
-    public boolean testDerEta() {
+    public boolean testThetaDerivative() {
         if(Math.abs(this.thetaDerivative) == thetaDerivativeTolerance) {
             return true;
         }
