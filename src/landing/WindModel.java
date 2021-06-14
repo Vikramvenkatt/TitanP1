@@ -55,9 +55,10 @@ class WindModel extends LandingModule {
         double windForce = areaContact * atmosphereDensity * appliedWindSpeed;
         windAcceleration = windForce/totalMass;
         //System.out.println("Landing acceleration: " + acceleration.getX());
-        //System.out.println("Wind acceleration: " + windAcc);
-        //System.out.println();
-        //acceleration.setX(acceleration.getX() + windAcceleration);
+        //System.out.println("Wind acceleration: " + windAcceleration);
+        System.out.println();
+        acceleration.setX(acceleration.getX() + windAcceleration);
+        //System.out.println(acceleration.getX());
 
     }
 

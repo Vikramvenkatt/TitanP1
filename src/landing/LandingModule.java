@@ -14,6 +14,7 @@ public class LandingModule {
     protected double mainThrusters; //aft thrusters/rear thrusters
     protected double sideThrusters; //we have 4 side thrusters
     private double dt; //deltaTime
+    protected double g = 1.352;
 
     protected double totalMass = massOfFuel +massOfLander;
 
@@ -24,7 +25,26 @@ public class LandingModule {
         this.position = position;
         acceleration = new Vector(1,0,0);
     }
-    
+    public double calculateX()
+    {
+        /* TODO: IMPLEMENT THETA
+        return mainThrusters*Math.sin(theta);
+        */
+        return mainThrusters * 1;
+    }
+
+    public double calculateY()
+    {
+        /* TODO: IMPLEMENT THETA
+        return mainThrusters * Math.cos(theta) - g
+         */
+        return mainThrusters * 1 - g;
+    }
+
+    public double calculateZ()
+    {
+        return sideThrusters;
+    }
     public void calculateMass()
     {
         //NOTE: sideThrusters can't generate NEGATIVE thrust, so only two sideThrusters SHOULD be accounted for

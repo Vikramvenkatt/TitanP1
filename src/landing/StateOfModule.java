@@ -38,13 +38,16 @@ public class StateOfModule{
     {
         //applies wind to module
         updateVelocity();
-        System.out.println(module.getPosition().toString());
+        module.getPosition().setX(module.getPosition().getX() + module.getAcceleration().getX());
+        //System.out.println(module.getPosition().toString());
     }
     public void updateVelocity()
     {
         applyWind();
         Vector updatedVelocity = getGravitationalVector();
-        module.setAcceleration(updatedVelocity);
+        //TODO: why in god's name is it X???? Change it to y
+        module.getAcceleration().setY(updatedVelocity.getX());
+        module.getPosition().setY(module.getPosition().getY() + module.getAcceleration().getX());
     }
 
     public boolean hasModuleLanded()
@@ -52,6 +55,7 @@ public class StateOfModule{
         if(module.getPosition().getY() <= 0)
         {
             module.setLanded(true);
+            System.out.println(module.getPosition().toString());
             return true;
         }
         else
@@ -59,5 +63,7 @@ public class StateOfModule{
             return false;
         }
     }
+
+
 
 }
