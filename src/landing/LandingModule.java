@@ -35,6 +35,45 @@ public class LandingModule {
         totalMass = massOfLander + massOfFuel;
     }
 
+    public Vector getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector position) {
+        this.position = position;
+    }
+
+    public Vector getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public double getMainThrusters() {
+        return mainThrusters;
+    }
+
+    public void setMainThrusters(double mainThrusters) {
+        this.mainThrusters = mainThrusters;
+    }
+
+    public double getSideThrusters() {
+        return sideThrusters;
+    }
+
+    public void setSideThrusters(double sideThrusters) {
+        this.sideThrusters = sideThrusters;
+    }
+
+    public boolean isLanded() {
+        return isLanded;
+    }
+
+    public void setLanded(boolean landed) {
+        isLanded = landed;
+    }
 
     public double getMassOfLander() {
         calculateMass();
