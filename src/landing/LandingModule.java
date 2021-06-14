@@ -18,6 +18,11 @@ public class LandingModule {
     protected double totalMass = massOfFuel +massOfLander;
 
     protected boolean isLanded = false;
+
+    public LandingModule(Vector position)
+    {
+        this.position = position;
+    }
     
     public void calculateMass()
     {

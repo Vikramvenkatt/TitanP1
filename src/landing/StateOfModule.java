@@ -13,6 +13,11 @@ public class StateOfModule{
     private Vector3dInterface gravity;
     private WindModel module;
 
+    public StateOfModule()
+    {
+        module = new WindModel(new Vector(8000,8000,0));
+    }
+
     public Vector getGravitationalVector()
     {
         return module.gravitationalForces((Vector) titanPos);
@@ -20,7 +25,6 @@ public class StateOfModule{
 
     public void applyWind()
     {
-        module.windFirstInitialization();
         module.windForceOnLander();
     }
 
@@ -39,5 +43,21 @@ public class StateOfModule{
     public void updateVelocity()
     {
         applyWind();
+        Vector updatedVelocity = getGravitationalVector();
+        module.setAcceleration(updatedVelocity);
     }
+
+    public boolean hasModuleLanded()
+    {
+        if(module.getPosition().getY() <= 0)
+        {
+            module.setLanded(true);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

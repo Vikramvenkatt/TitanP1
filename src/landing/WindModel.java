@@ -24,11 +24,18 @@ class WindModel extends LandingModule {
     private double appliedWindSpeed; // current wind speed after noise has been applied
     private double windAcceleration; // acceleration caused by wind, only for appliedWindSpeed
 
+    public WindModel(Vector position) {
+        super(position);
 
-    public WindModel(){
         windFirstInitialization();
         windForceOnLander();
     }
+
+    /*
+    public WindModel(){
+        windFirstInitialization();
+        windForceOnLander();
+    } */
 
 
     public void windFirstInitialization() {
