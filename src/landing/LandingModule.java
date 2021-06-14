@@ -22,6 +22,7 @@ public class LandingModule {
     public LandingModule(Vector position)
     {
         this.position = position;
+        acceleration = new Vector(1,0,0);
     }
     
     public void calculateMass()
