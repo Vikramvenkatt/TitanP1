@@ -7,9 +7,10 @@ import interfaces.*;
 public class Change implements RateInterface{
 
     public Vector3dInterface[] a = new Vector3dInterface[12];
+   // public Vector3dInterface[] aUpdated = new Vector3dInterface[12];
     //contains position and velocities
     private StateOfSolarSystem state;
-    private Vector finaltitan = new Vector(8.790206157956954E11, -1.2037722320318977E12, -1.4411708984699354E10);
+   // private Vector finaltitan = new Vector(8.790206157956954E11, -1.2037722320318977E12, -1.4411708984699354E10);
     private Vector earth = new Vector(6371e3,0,0);
 
     private Engine engine;
@@ -34,18 +35,30 @@ public class Change implements RateInterface{
     //Gets triggered every time a step is taken
     //Checks distance for the spaceship & titan/saturn
     public Vector3dInterface[] getA(){
-
         Vector3dInterface[] newA = new Vector3dInterface[12];
+
         if(calculatedistance()) {
-            addAcceleration(engine.takeOff(earth, finaltitan));
+            addAcceleration(engine.takeOff());
             state.updateMassShip(engine.getTotalMass());
         }
-        if(distanceToTitan())
-        {
-            System.out.println("It's inside the trigger range!");
-            Vector3dInterface forceVector = engine.createOrbitalVector(state.p[11],state.p[8]);
-            addAcceleration(engine.transformForceToAccelaration(forceVector));
+
+        if(distanceToTitan()){
+            addAcceleration(engine.slowDown());
+            if(engine.isPerpendicular((Vector) state.v[8])){
+                System.out.println("true");
+            }
         }
+
+        for(int i =0; i< a.length; i++){
+            newA[i] = a[i];
+        }
+        return newA;
+    }
+
+    public Vector3dInterface[] getARG(){
+
+        Vector3dInterface[] newA = new Vector3dInterface[12];
+
         for(int i =0; i< a.length; i++){
             newA[i] = a[i];
         }
@@ -58,31 +71,16 @@ public class Change implements RateInterface{
     }
 
     private boolean calculatedistance(){
-       if(state.p[5].sub(state.p[11]).norm() > 8e9) //3e7 meters, 30 000 km
+       if(state.p[5].sub(state.p[11]).norm() > 5e9) //3e7 meters, 30 000 km
            return false;
        else
            return true;
     }
-    private boolean distanceToTitan()
-    {
-        //should be 3e5
-        if(state.p[8].sub(state.p[11]).norm() < 3e10)
-        {
+    private boolean distanceToTitan() {
+        if(state.p[8].sub(state.p[11]).norm() < 3e7)
             return true;
-        }
         else
-        {
             return false;
-        }
     }
-
-    private boolean calculatedistanceSaturn(){
-        //should be 3e10 but deactived for now for testing
-        if( state.p[7].sub(state.p[11]).norm() > 3e1)
-            return false;
-        else
-            return true;
-    }
-
 
 }

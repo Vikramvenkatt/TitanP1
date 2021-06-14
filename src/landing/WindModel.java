@@ -57,7 +57,7 @@ class WindModel extends LandingModule {
         //System.out.println("Landing acceleration: " + acceleration.getX());
         //System.out.println("Wind acceleration: " + windAcc);
         //System.out.println();
-        acceleration.setX(acceleration.getX() + windAcceleration);
+        //acceleration.setX(acceleration.getX() + windAcceleration);
 
     }
 

@@ -39,21 +39,21 @@ public class RungeKutta implements ODESolverInterface {
     public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
         //step
         NewtonsLawofGravity n = (NewtonsLawofGravity) f;
-        RateInterface a1 = n.call(t,y);
+        Change a1 = (Change) n.call(t,y);
         StateOfSolarSystem y1 = (StateOfSolarSystem) y;
-        StateOfSolarSystem yn1 = update(y1, ((Change)a1).getA(), y1.getVelocityOfPlanets(), h/6);
+        StateOfSolarSystem yn1 = update(y1, a1.getA(), y1.getVelocityOfPlanets(), h/6);
 
         //step2
-        StateOfSolarSystem y2 = update(y1, ((Change)a1).getA(), y1.getVelocityOfPlanets(), h/2);
-        StateOfSolarSystem yn2 = update(yn1, ((Change)a1).getA(), y2.getVelocityOfPlanets(), h/3);
+        StateOfSolarSystem y2 = update(y1, a1.getARG(), y1.getVelocityOfPlanets(), h/2);
+        StateOfSolarSystem yn2 = update(yn1, a1.getARG(), y2.getVelocityOfPlanets(), h/3);
 
         //step3
-        StateOfSolarSystem y3 = update(y1, ((Change)a1).getA(), y2.getVelocityOfPlanets(), h/2);
-        StateOfSolarSystem yn3 = update(yn2, ((Change)a1).getA(), y3.getVelocityOfPlanets(), h/3);
+        StateOfSolarSystem y3 = update(y1, a1.getARG(), y2.getVelocityOfPlanets(), h/2);
+        StateOfSolarSystem yn3 = update(yn2, a1.getARG(), y3.getVelocityOfPlanets(), h/3);
 
         //step4
-        StateOfSolarSystem y4 = update(y1, ((Change)a1).getA(), y3.getVelocityOfPlanets(), h);
-        StateOfSolarSystem yn4 = update(yn3, ((Change)a1).getA(), y4.getVelocityOfPlanets(), h/6);
+        StateOfSolarSystem y4 = update(y1, a1.getARG(), y3.getVelocityOfPlanets(), h);
+        StateOfSolarSystem yn4 = update(yn3, a1.getARG(), y4.getVelocityOfPlanets(), h/6);
 
         return yn4;
     }

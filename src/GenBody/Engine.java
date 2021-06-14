@@ -6,10 +6,10 @@ import static java.lang.Math.abs;
 
 public class Engine {
 
-    private final Vector startVector = new Vector(0.5896979523584819, -0.8075660030972522, -0.00966827935790599);
+   // private final Vector startVector = new Vector(0.5896979523584819, -0.8075660030972522, -0.00966827935790599);
     private final double massOfCraft = 78000;
     private final double massOfLander = 6000;
-    private static double massOfFuel = 3.5E8;
+    private static double massOfFuel = 20E8;
     private double totalMass = massOfCraft + massOfFuel + massOfLander;
     private final double effectiveExhaustVelocity = 2e4;
     private final double maxThrust = 3e7;
@@ -18,26 +18,48 @@ public class Engine {
     private static int called = 0;
     private double stepsize;
     private Vector3dInterface forceOnShip;
+    private double velocityTakeOff = 38933.52651661361;
+    private Vector angle;
+    private static double velAdded;
+
 
     public Engine(StateOfSolarSystem s, double h){
         this.state = s;
         stepsize = h;
-        System.out.println(totalMass);
+        angle = StartVel.start;
+
+       // System.out.println(totalMass);
     }
 
     // F#resulting = F#G + F#engine
     // F#G = F#resulting - F#engine
-    public Vector3dInterface takeOff(Vector3dInterface posShip, Vector3dInterface posTarget) {
+    public Vector3dInterface takeOff() {
 
-        called+=1;
-        System.out.println("called:"+ called);
+        double fuelburned=0;
 
-       Vector3dInterface FResulting = posTarget.sub(posShip);
+        if (velAdded<velocityTakeOff) {
 
+            fuelburned = fuelBurnedPerSecondMax * stepsize;
 
-       FResulting = FResulting.unitVector().mul(maxThrust);
+            double weight = totalMass;
 
-       return transformForceToAccelaration(FResulting);
+            massOfFuel -= fuelburned;
+
+            totalMass = massOfCraft + massOfFuel + massOfLander;
+
+            if (massOfFuel < 0)
+                throw new RuntimeException("Run out of fuel!");
+
+            Vector acc = (Vector) angle.mul((fuelBurnedPerSecondMax * effectiveExhaustVelocity) / ((totalMass + weight) / 2));
+
+            velAdded = acc.norm() * stepsize;
+
+            return angle.mul((fuelBurnedPerSecondMax * effectiveExhaustVelocity) / ((totalMass + weight) / 2));
+        }
+
+        System.out.println("VelAdded");
+
+        return new Vector(0,0,0);
 
     }
 
@@ -65,9 +87,32 @@ public class Engine {
     }
 
     //Initially this was Vector3dInterface but it doesn't have the dot() method
-    private boolean isPerpendicular(Vector vector)
+    public boolean isPerpendicular(Vector vector)
     {
-        return (vector.dot((Vector) state.v[11]) == 0);
+        return (vector.dot((Vector) state.v[8]) == 0);
+    }
+
+    public Vector3dInterface slowDown(){
+
+        double fuelburned=0;
+
+        fuelburned = fuelBurnedPerSecondMax * stepsize;
+
+        double weight = totalMass;
+
+        massOfFuel -= fuelburned;
+
+        totalMass = massOfCraft + massOfFuel + massOfLander;
+
+        if (massOfFuel < 0)
+            throw new RuntimeException("Run out of fuel!");
+
+        Vector acc = (Vector) angle.mul((fuelBurnedPerSecondMax * effectiveExhaustVelocity) / ((totalMass + weight) / 2));
+
+       Vector3dInterface slowDown = state.v[11].unitVector().mul(-1);
+
+       return slowDown.mul((fuelBurnedPerSecondMax * effectiveExhaustVelocity) / ((totalMass + weight) / 2));
+
     }
 
     public double getTotalMass(){
@@ -107,5 +152,11 @@ public class Engine {
         forceOnShip = accelerationOnShip.mul(totalMass);
     }
 
-    //TODO: State is public, do defensive copying
+    public void setBack() {
+        velAdded =0;
+        massOfFuel = 20E8;
+        totalMass = massOfCraft+ massOfFuel+ massOfLander;
+    }
+
+
 }

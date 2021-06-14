@@ -28,11 +28,9 @@ public class Simulation implements ProbeSimulatorInterface {
 
         Planets planets = new Planets();
 
-        VerletSolver solve = new VerletSolver();
+        EulerSolver solve = new EulerSolver();
 
-       // EulerSolver solve = new EulerSolver();
-
-       //RungeKutta solve = new RungeKutta();
+        StartVel s = new StartVel((Vector) v0);
 
         NewtonsLawofGravity n = new NewtonsLawofGravity();
 

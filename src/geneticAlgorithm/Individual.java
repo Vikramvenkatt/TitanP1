@@ -2,6 +2,8 @@ package geneticAlgorithm;
 
 import GenBody.Vector;
 
+import java.util.Random;
+
 public class Individual {
     private double fitness;
     private Vector velocity;
@@ -27,10 +29,10 @@ public class Individual {
 
     public Individual getRandomIndividual()
     {
-        double x = 0.5896979523584819;
-        double y = -0.8075660030972522;
-        double z = -0.0096682793579059;
-        Vector velocity = new Vector(Math.random()*x,Math.random()*y,Math.random()*z);
+        double x = 1;
+        double y = 1;
+        double z = 1;
+        Vector velocity = new Vector(Math.random()*x* getRandomSign(),Math.random()*y* getRandomSign(),Math.random()*z* getRandomSign());
         return new Individual(velocity);
     }
 
@@ -56,5 +58,12 @@ public class Individual {
 
     public void setVelocity(Vector velocity) {
         this.velocity = velocity;
+    }
+    public int getRandomSign() {
+        Random rand = new Random();
+        if(rand.nextBoolean())
+            return -1;
+        else
+            return 1;
     }
 }

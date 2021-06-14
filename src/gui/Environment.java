@@ -19,16 +19,17 @@ public class Environment extends Canvas {
     long start;
     Calendar current;
     private SimulationVerlet sim = new SimulationVerlet();
+   //private SimulationRungeKutta sim = new SimulationRungeKutta();
     private StateOfSolarSystem[] positionsOfPlanets;
     private Vector3dInterface[] positionOfSpacechip;
 
-    //old angle for the rocket = 0.5896979523584819, -0.8075660030972522, -0.00966827935790599
+    // angle for the rocket computed by Newton Raphson = with adapted fuel new Vector(1.5739450522683016, -6.062006574679788, -0.17575725363009373)
+   //  // angle for the rocket computed by Newton Raphson without out an engine = new Vector(27603.05279102997, -27445.29068487018, -804.3524467856054)
     public Environment() {
         Planets planets = new Planets();
         this.planetsList = planets.getPlanets();
-        //0.5896979523584819, -0.8075660030972522, -0.0096682793579059
-        positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0), new Vector(1.0519798448579987, 9.78871953507167, -9.152967539273916), 31556926, 1000);
-        StateInterface[] arr = sim.getPositionOfPlanets(); // vector before  new Vector(-1.471922101663588e+11+6371e3,-2.860995816266412e+10,8.278183193596080e+06),new Vector(5.427193405797901e+03,-2.931056622265021e+04,6.575428158157592e-01)
+        positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0),new Vector(1.5575086679258936, -6.030629715979966, -0.1866458031673369), 31556926+10000, 1000);
+        StateInterface[] arr = sim.getPositionOfPlanets();
         positionsOfPlanets = new StateOfSolarSystem[arr.length];
         for (int m = 0; m < positionsOfPlanets.length; m++) {
             positionsOfPlanets[m] = (StateOfSolarSystem) arr[m];
@@ -61,10 +62,12 @@ public class Environment extends Canvas {
 
 //SPACESHIP IN THE MIDDLE
 
-        for (int m = 0; m < planetsList.size(); m++) {
-            planetsList.get(m).setX(pPlanets[m].getX() - pPlanets[11].getX());
-            planetsList.get(m).setY(pPlanets[m].getY() - pPlanets[11].getY());
-            planetsList.get(m).draw(g);
+        for (int k = 0; k < planetsList.size(); k++) {
+
+                planetsList.get(k).setX(pPlanets[k].getX() - pPlanets[11].getX());
+                planetsList.get(k).setY(pPlanets[k].getY() - pPlanets[11].getY());
+                planetsList.get(k).draw(g);
+
         }
         /*    if(planetsList.get(8).getInitialPosition().sub(planetsList.get(11).getInitialPosition()).norm() < 3e9)
             {

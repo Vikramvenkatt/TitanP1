@@ -28,6 +28,12 @@ public class SimulationVerlet implements ProbeSimulatorInterface {
 
         Planets planets = new Planets();
 
+       StartVel s = new StartVel((Vector) v0);
+
+       Engine e = new Engine(null,0);
+
+       e.setBack();
+
         VerletSolver solve = new VerletSolver();
 
         NewtonsLawofGravity n = new NewtonsLawofGravity();
@@ -49,8 +55,8 @@ public class SimulationVerlet implements ProbeSimulatorInterface {
             vectorShip[g] =  arr2[g].getP();
 
         }
-        System.out.println(arr2[arr.length-1].p[8].toString());
-        // System.out.println("Vector: "+vectorShip[vectorShip.length-1].toString());
+       // System.out.println("Distance: "+arr2[arr.length-1].p[8].sub(vectorShip[vectorShip.length-1]).norm());
+        // System.out.println("mass: "+arr2[arr.length-1].mass[11]);
         return vectorShip;
     }
 
