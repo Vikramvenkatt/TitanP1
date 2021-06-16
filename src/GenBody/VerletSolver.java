@@ -5,12 +5,30 @@ import interfaces.ODESolverInterface;
 import interfaces.RateInterface;
 import interfaces.StateInterface;
 
+import java.util.Arrays;
+
 //TO-DO:BOOTSTRAPPING-RUNGE KUTTA, TESTING PATH TRAJECTORY WITHIN 1, 10, 1000 M ETC
 
 public class VerletSolver implements ODESolverInterface {
     @Override
     public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double[] ts) {
-        return new StateInterface[0];
+        StateInterface[] solarSystemOverCourseOfTime = new StateInterface[(ts.length)];
+
+        //System.out.println(Arrays.toString(ts));
+
+        solarSystemOverCourseOfTime[0] = y0;
+
+        double time = 0;
+
+        for (int i = 1; i < solarSystemOverCourseOfTime.length; i++) {
+
+            solarSystemOverCourseOfTime[i] = step(f,time,solarSystemOverCourseOfTime[i-1], ts[i]-ts[i-1]);
+
+            time+=ts[i]-ts[i-1];
+
+        }
+
+        return solarSystemOverCourseOfTime;
     }
 
     @Override

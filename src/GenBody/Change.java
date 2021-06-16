@@ -43,9 +43,13 @@ public class Change implements RateInterface{
         }
 
         if(distanceToTitan()){
-            addAcceleration(engine.slowDown());
-            if(engine.isPerpendicular((Vector) state.v[8])){
-                System.out.println("true");
+            //addAcceleration(engine.slowDown());
+            //System.out.println(state.p[8].sub(state.p[11]).norm());
+            if(InOrbit()) {
+                System.out.println("Inorbit");
+                if (engine.isPerpendicular((Vector) state.v[8])) {
+                    System.out.println("true");
+                }
             }
         }
 
@@ -77,7 +81,14 @@ public class Change implements RateInterface{
            return true;
     }
     private boolean distanceToTitan() {
-        if(state.p[8].sub(state.p[11]).norm() < 3e7)
+        if(state.p[8].sub(state.p[11]).norm() < 3e10)
+            return true;
+        else
+            return false;
+    }
+
+    private boolean InOrbit() {
+        if(state.p[8].sub(state.p[11]).norm() < 300000+2.575e6 )
             return true;
         else
             return false;

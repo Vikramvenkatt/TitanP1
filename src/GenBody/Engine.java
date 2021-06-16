@@ -27,8 +27,6 @@ public class Engine {
         this.state = s;
         stepsize = h;
         angle = StartVel.start;
-
-       // System.out.println(totalMass);
     }
 
     // F#resulting = F#G + F#engine
@@ -48,6 +46,7 @@ public class Engine {
             totalMass = massOfCraft + massOfFuel + massOfLander;
 
             if (massOfFuel < 0)
+                //return new Vector(0,0,0);
                 throw new RuntimeException("Run out of fuel!");
 
             Vector acc = (Vector) angle.mul((fuelBurnedPerSecondMax * effectiveExhaustVelocity) / ((totalMass + weight) / 2));
@@ -89,7 +88,7 @@ public class Engine {
     //Initially this was Vector3dInterface but it doesn't have the dot() method
     public boolean isPerpendicular(Vector vector)
     {
-        return (vector.dot((Vector) state.v[8]) == 0);
+        return (vector.dot((Vector) state.v[8]) <10 && vector.dot((Vector) state.v[8]) > -10);
     }
 
     public Vector3dInterface slowDown(){
@@ -105,9 +104,8 @@ public class Engine {
         totalMass = massOfCraft + massOfFuel + massOfLander;
 
         if (massOfFuel < 0)
-            throw new RuntimeException("Run out of fuel!");
-
-        Vector acc = (Vector) angle.mul((fuelBurnedPerSecondMax * effectiveExhaustVelocity) / ((totalMass + weight) / 2));
+            return new Vector(0,0,0);
+           // throw new RuntimeException("Run out of fuel! breaking");
 
        Vector3dInterface slowDown = state.v[11].unitVector().mul(-1);
 

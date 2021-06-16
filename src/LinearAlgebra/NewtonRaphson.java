@@ -12,7 +12,7 @@ public class NewtonRaphson {
     private SimulationVerlet sim = new SimulationVerlet();
     private Vector3dInterface[] positionOfSpacechip;
     private Vector finaltitan =
-    new Vector(8.762645269228055E11, -1.2032278963443552E12, -1.441830190223172E10);
+    new Vector(8.762645269228055E11+300000+2.575e6, -1.2032278963443552E12, -1.441830190223172E10);
 
     public Vector3dInterface findstartingVelocity(){
 
@@ -22,7 +22,7 @@ public class NewtonRaphson {
         positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0), v0, 31556926, 1000);
         Vector distanceVector = distanceVector(positionOfSpacechip);
         int iteration =1;
-        while(distanceVector.norm()>300000+2.575e6){
+        while(distanceVector.norm()>100){
             v0 = step(v0,distanceVector);
             positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0), v0, 31556926, 1000);
             distanceVector = distanceVector(positionOfSpacechip);

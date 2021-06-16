@@ -12,6 +12,7 @@ public class StateOfModule{
     private Vector3dInterface titanPos = new Vector(0,0,0);
     private Vector3dInterface gravity;
     private WindModel module;
+    private EulerLanding landing;
 
     public StateOfModule()
     {

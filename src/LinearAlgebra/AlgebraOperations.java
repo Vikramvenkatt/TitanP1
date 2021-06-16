@@ -67,7 +67,7 @@ public class AlgebraOperations {
     }
 
     public static void main(String[] args) {
-
+      // System.out.println(Math.sqrt((1.34553e23 * 6.674e-11)/300000));
 
         long start = System.nanoTime();
         NewtonRaphson Newton = new NewtonRaphson();

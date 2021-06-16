@@ -1,17 +1,19 @@
 package landing;
 
 public class InputController {
+
     /**
      * @author Vikram
      * define (not specific-open)inputs for controller such as x,y,theta,velocities
      * why do we need state class?
      * Ans:that will be the angle when spaceship falls out of orbit and crashes on titan(i think)
      */
-    private double x; // horizontal orientation/ position of spaceship
-    private double y; // vertical orientation of spaceship
-    private double theta;// angle of rotation
-    public double velocityOfX; 	// velocity of horizontal component during orbit
-    public double velocityOfY; // velocity of vertical component
+
+    private double x;               // horizontal orientation/ position of spaceship
+    private double y;               // vertical orientation of spaceship
+    private double theta;           // angle of rotation
+    public double velocityOfX;   	// velocity of horizontal component during orbit
+    public double velocityOfY;      // velocity of vertical component
     public double thetaDerivative; // first derivative of theta for
 
     //tolerance values in the project manual PAGE 12
@@ -23,6 +25,7 @@ public class InputController {
 
     //public double u;
     //public double v;
+
     public final double gravityOnTitan = 1.352;//JUST THE CONSTANT ACCELERATION, NO CALCULATIONS REQUIRED
 
     public InputController(double x, double y, double theta, double XVelocity, double YVelocity, double thetaDerivative) {

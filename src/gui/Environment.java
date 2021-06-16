@@ -25,10 +25,12 @@ public class Environment extends Canvas {
 
     // angle for the rocket computed by Newton Raphson = with adapted fuel new Vector(1.5739450522683016, -6.062006574679788, -0.17575725363009373)
    //  // angle for the rocket computed by Newton Raphson without out an engine = new Vector(27603.05279102997, -27445.29068487018, -804.3524467856054)
+    // new Vector(1.5575225992772161, -6.030633230550018, -0.1866297565456477);
+//    new Vector(1.5575086679258936, -6.030629715979966, -0.1866458031673369)
     public Environment() {
         Planets planets = new Planets();
         this.planetsList = planets.getPlanets();
-        positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0),new Vector(1.5575086679258936, -6.030629715979966, -0.1866458031673369), 31556926+10000, 1000);
+        positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0),new Vector(1.5575225992772161, -6.030633230550018, -0.1866297565456477), 31556926*2, 1000);
         StateInterface[] arr = sim.getPositionOfPlanets();
         positionsOfPlanets = new StateOfSolarSystem[arr.length];
         for (int m = 0; m < positionsOfPlanets.length; m++) {

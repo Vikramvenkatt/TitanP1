@@ -26,7 +26,7 @@ public class StateOfSolarSystem implements StateInterface {
 
     public final String[] names = {"sun", "venus", " mercury", "jupiter", "mars", "earth", "uranus", "saturn", "titan", "moon", "neptune", "spaceship"};
 
-    //order of planets is sun[0],venus[1],mercury[2], jupiter[3], mars[4],earth[5], uranus[6], saturn[7],titan[8],moon[9],neptune[10]
+    //order of planets is sun[0],venus[1],mercury[2], jupiter[3], mars[4],earth[5], uranus[6], saturn[7],titan[8],moon[9],neptune[10],spaceship[11]
 
     public StateOfSolarSystem(StateOfSolarSystem s) {
         Vector3dInterface[] previousP = s.getPositionOfPlanets();
@@ -51,6 +51,7 @@ public class StateOfSolarSystem implements StateInterface {
             if(a!= null)
             newA[i] = newA[i].add(a[i]);
         }
+
         return newA;
     }
 
@@ -99,8 +100,6 @@ public class StateOfSolarSystem implements StateInterface {
     public double[] getMass() {
         return mass;
     }
-
-    public void updateMass(double massShip){mass[mass.length-1]=massShip;}
 
     @Override
     /**
@@ -152,11 +151,6 @@ public class StateOfSolarSystem implements StateInterface {
         return this;
     }
 
-    public void print() {
-
-        System.out.println("Mass" + " : " + mass[11]);
-
-    }
 }
 
 
