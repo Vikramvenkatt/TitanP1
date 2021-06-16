@@ -11,7 +11,7 @@ public class FeedbackController {
     public FeedbackController(WindModel module)
     {
         this.module = module;
-        activationHeight = calculateThrustHeight();
+        calculateThrustHeight();
     }
 
     /**
