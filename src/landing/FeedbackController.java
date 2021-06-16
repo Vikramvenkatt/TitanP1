@@ -51,7 +51,7 @@ public class FeedbackController {
 
 
     //Called once and then saved
-    public double calculateThrustHeight()
+    public void calculateThrustHeight()
     {
         //calculates the height at which the thrusters should give max thrust to stop in time
         //the maximum thrust will be applied at the point where the y velocity will be zero at y = 0

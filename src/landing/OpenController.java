@@ -12,7 +12,10 @@ public class OpenController {
     public InputController u;
     public InputController v;
 
-    public double landEuler
+    public double landEuler()
+    {
+        return -1;
+    }
 
 
 /*
