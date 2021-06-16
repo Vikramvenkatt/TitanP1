@@ -12,6 +12,10 @@ public class OpenController {
     public InputController u;
     public InputController v;
 
+    public double landEuler
+
+
+/*
     public InputController LandingEuler(State initialLaunch) {
         /**
          * method for euler wind controls/solver
@@ -19,7 +23,7 @@ public class OpenController {
          * eta created
          * @return u of type inputcontroller after control statements are implemented
          */
-
+/*
         int shipWhenDistanceIsClosest = 0;
         Vector positionLaunch = initialLaunch.getPosition()[shipWhenDistanceIsClosest];
         Vector velocityLaunch = initialLaunch.getVelocity()[shipWhenDistanceIsClosest];
@@ -39,7 +43,7 @@ public class OpenController {
         /**
          * same as previous method, but this is for verlet
          */
-
+/*
         int spaceshipWhenDistanceIsClosest = 0;
         Vector positionLaunch = initialLaunchState.getPosition()[spaceshipWhenDistanceIsClosest];
         Vector velocityLaunch = initialLaunchState.getVelocity()[spaceshipWhenDistanceIsClosest];
@@ -55,4 +59,6 @@ public class OpenController {
 
         return v;
     }
+
+    */
 }

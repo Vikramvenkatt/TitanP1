@@ -1,5 +1,7 @@
 package landing;
 
+import GenBody.Vector;
+
 public class InputController {
 
     /**
@@ -11,10 +13,13 @@ public class InputController {
 
     private double x;               // horizontal orientation/ position of spaceship
     private double y;               // vertical orientation of spaceship
-    private double theta;           // angle of rotation
+    private double theta;           // angle of rotation / z
     public double velocityOfX;   	// velocity of horizontal component during orbit
     public double velocityOfY;      // velocity of vertical component
     public double thetaDerivative; // first derivative of theta for
+    double xDist;
+    double yDist;
+    protected Vector positionOfTitan = new Vector(0,0,0);
 
     //tolerance values in the project manual PAGE 12
     private final double xTolerance = 0.1;
@@ -28,16 +33,20 @@ public class InputController {
 
     public final double gravityOnTitan = 1.352;//JUST THE CONSTANT ACCELERATION, NO CALCULATIONS REQUIRED
 
-    public InputController(double x, double y, double theta, double XVelocity, double YVelocity, double thetaDerivative) {
 
+    //Add Vector titanPos as parameter later;
+    public InputController(double x, double y, double theta, double XVelocity, double YVelocity, double thetaDerivative) {
         this.x = x;
         this.y = y;
         this.theta = theta;
         this.velocityOfX = XVelocity;
         this.velocityOfY = YVelocity;
         this.thetaDerivative = thetaDerivative;
-
+        xDist = positionOfTitan.getX() + x;
+        yDist = positionOfTitan.getY() + y;
     }
+
+
 
     /**
      * getter methods for x,y,theta
@@ -63,6 +72,14 @@ public class InputController {
             return true;
         }
         return false;
+    }
+
+    public double getxDist() {
+        return positionOfTitan.getX() + x;
+    }
+
+    public double getyDist() {
+        return positionOfTitan.getY() + y;
     }
 
     /**
@@ -103,5 +120,6 @@ public class InputController {
         }
         return false;
     }
+
 
 }

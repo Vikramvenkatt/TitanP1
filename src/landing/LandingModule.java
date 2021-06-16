@@ -15,6 +15,7 @@ public class LandingModule {
     protected double sideThrusters; //we have 4 side thrusters
     private double dt; //deltaTime
     protected double g = 1.352;
+    public static final double maxMainThrust = 45000;
 
     protected double totalMass = massOfFuel +massOfLander;
 
@@ -25,26 +26,16 @@ public class LandingModule {
         this.position = position;
         acceleration = new Vector(1,0,0);
     }
-    public double calculateX()
+
+    /**
+     * Sets the mainThrusters to the maximum power : 45000 Newton
+     * Value taken from https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C
+     */
+    public void setMainThrustersToMax()
     {
-        /* TODO: IMPLEMENT THETA
-        return mainThrusters*Math.sin(theta);
-        */
-        return mainThrusters * 1;
+        mainThrusters = 45000;
     }
 
-    public double calculateY()
-    {
-        /* TODO: IMPLEMENT THETA
-        return mainThrusters * Math.cos(theta) - g
-         */
-        return mainThrusters * 1 - g;
-    }
-
-    public double calculateZ()
-    {
-        return sideThrusters;
-    }
     public void calculateMass()
     {
         //NOTE: sideThrusters can't generate NEGATIVE thrust, so only two sideThrusters SHOULD be accounted for
