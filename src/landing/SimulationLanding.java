@@ -11,7 +11,6 @@ public class SimulationLanding  {
          System.out.println(n[i].toString());
         }
     }
-
     private PIDtest closedControllerX = new PIDtest(0,0,0,0,0,0);
     private PIDtest closedControllerY = new PIDtest(0.0001,0.0001,0.0001,0,0,0);
 
