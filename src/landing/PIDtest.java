@@ -87,16 +87,16 @@ package landing;
             }
             else if(totalErrorOfPos < outMin) totalErrorOfPos = outMin;
         }
-
+        //METHOD WHEN THERE IS ONLY POSITION INPUT I THINK
         public double calculateOutput(double input, double dt) {
             errorInPosition = input - targetPosition;
 
-            // For P gain
-            double pError = Kp * errorInPosition;
+            // For kp
+            double kpError = Kp * errorInPosition;
 
             // For D gain
-            double derivatator = (errorInPosition - oldError)/dt;
-            double dError = Kd * derivatator;
+            double kdD = (errorInPosition - oldError)/dt;
+            double kdError = Kd * kdD;
             oldError = errorInPosition;
 
             // for I gain with anti windup
@@ -105,17 +105,17 @@ package landing;
                 totalErrorOfPos = outMax;}
             else if(totalErrorOfPos < outMin) {
                 totalErrorOfPos = outMin;}
-            double integrator = totalErrorOfPos *dt;
-            double iError = Ki * integrator;
+            double kiIntegrator = totalErrorOfPos *dt;
+            double kiError = Ki * kiIntegrator;
 
-            double output = pError + dError + iError;
+            double output = kpError + kdError + kiError;
             if(output > outMax) {output = outMax;}
             if(output < outMin) {output = outMin;}
 
 
             return output;
         }
-
+        //WHEN THERE IS BOTH POS AND VELOCITY
         public double calculateOutput(double pos_input, double vel_input, double dt) {
             errorInPosition = pos_input - targetPosition;//initial conditions when probe enters/leaves orbit
             errorInVelocity = vel_input - targetVelocity;//same
