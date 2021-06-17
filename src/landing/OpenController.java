@@ -11,12 +11,12 @@ public class OpenController {
      */
     public InputController u;
     public InputController v;
-
+    LandingModule module;
     public InputController LandingEuler(State initialLaunch) {
         /**
          * method for euler wind controls/solver
          * x and y provided in project manual
-         * eta created
+         * theta created
          * @return u of type inputcontroller after control statements are implemented
          */
 
@@ -33,6 +33,11 @@ public class OpenController {
         double theta2 = 0;//I THINK THIS IS FOR THE DERIVATIVE
         InputController f = new InputController(x, y, theta1, vx, vy, theta2);
         return u;
+    }
+
+    public void update(Vector module) {
+        module.setX((int) (module.getX()/(1E9)) );
+        module.setY((int) (module.getY()/(1E9)) );
     }
 
     public InputController LandingVerlet(State initialLaunchState) {
