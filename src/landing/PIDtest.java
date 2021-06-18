@@ -93,8 +93,8 @@ package landing;
         public double calculateOutput(double input, double dt) {
             errorInPosition = input - targetPosition;
             errorInPosition = initialPos -errorInPosition;
-            if(errorInPosition<0)
-                errorInPosition=-errorInPosition;
+            //if(errorInPosition<0)
+                //errorInPosition=-errorInPosition;
 
             // For kp
             double kpError = Kp * errorInPosition;
