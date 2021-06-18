@@ -25,6 +25,7 @@ package landing;
         private double tolerance;
         private double outMin = -Double.MAX_VALUE;//UPPER BOUND OF ALLOWED ERROR
         private double outMax = Double.MAX_VALUE;//LOWER BOUND
+        private double initialPos;
 
         /**
          * create constructors for k's
@@ -35,17 +36,18 @@ package landing;
          * @param target_vel
          * @param tolerance
          */
-        public PIDtest(double Kp, double Ki, double Kd, double target_pos, double target_vel, double tolerance) {
+        public PIDtest(double Kp, double Ki, double Kd, double target_pos, double target_vel, double tolerance, double inita) {
             this.Kp = Kp;
             this.Ki = Ki;
             this.Kd = Kd;
+            this.initialPos =inita;
             setTargetPosition(target_pos);
             setTargetVelocity(target_vel);
             setTolerance(tolerance);
         }
 
         public PIDtest(double Kp, double Ki, double Kd) {
-            this(Kp, Ki, Kd, 0, 0, 0);
+            this(Kp, Ki, Kd, 0, 0, 0,0);
         }
 
         public void setTolerance(double tolerance) {
@@ -90,6 +92,9 @@ package landing;
         //METHOD WHEN THERE IS ONLY POSITION INPUT I THINK
         public double calculateOutput(double input, double dt) {
             errorInPosition = input - targetPosition;
+            errorInPosition = initialPos -errorInPosition;
+            if(errorInPosition<0)
+                errorInPosition=-errorInPosition;
 
             // For kp
             double kpError = Kp * errorInPosition;
@@ -117,8 +122,9 @@ package landing;
         }
         //WHEN THERE IS BOTH POS AND VELOCITY
         public double calculateOutput(double pos_input, double vel_input, double dt) {
-            errorInPosition = pos_input - targetPosition;//initial conditions when probe enters/leaves orbit
-            errorInVelocity = vel_input - targetVelocity;//same
+              errorInPosition = pos_input - targetPosition;//initial conditions when probe enters/leaves orbit
+              errorInVelocity = vel_input - targetVelocity;//same
+
 
             // For kp gain
             double pError = Kp * errorInVelocity;
