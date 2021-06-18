@@ -21,9 +21,9 @@ public class FuelCost {
 
     //mass
     private static final double massOfCraft = 7.8e4;//Mass of craft in kg
-    private static final double massOfFuel = 100e4;//Assume we bring 7.8e4 kg fuel
+    private static final double massOfFuel = 100e4;//Assume we bring 100e4 kg fuel
     private static double massTotal =massOfCraft+massOfFuel;//Mass of craft + fuel
-    private static double costOfFuel;// mass that lost this time
+    private static double costOfFuel;
     private static double currentMassOfFuel;
 
     //velocity
