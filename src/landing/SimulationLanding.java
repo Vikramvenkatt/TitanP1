@@ -6,7 +6,7 @@ import interfaces.Vector3dInterface;
 public class SimulationLanding  {
 
     private PIDtest closedControllerX = new PIDtest(0.0001,0.003,0.195,0,0,0,8000);
-    private PIDtest closedControllerY = new PIDtest(0.00000001,0.00000001,0.1998,0,0,0,30000);
+    private PIDtest closedControllerY = new PIDtest(0.000021,0.00061,0.3998,0,0,0,30000);
 
     public Vector[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 
@@ -28,9 +28,10 @@ public class SimulationLanding  {
 
             trajectory[i] = (Vector) p0;
 
-            if(p0.getY()<0)
+            if(p0.getY()<0) {
+                //System.out.println(p0.getY());
                 break;
-
+            }
             time+=h;
 
         }

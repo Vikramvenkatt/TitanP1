@@ -35,6 +35,7 @@ public class EulerLanding {
         postStepVel = new Vector(deltaX,deltaY,deltaTheta);
         postStepPos = new Vector(x,y,theta);
 
+        //System.out.println(preStepPos.getY()-postStepPos.getY());
         return;
     }
 
