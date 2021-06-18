@@ -28,7 +28,7 @@ public class FuelCost {
 
     //velocity
     private Vector currentVelocity;//vel before use of fuel
-    private Vector finalVelocity;//vel after use of fuel
+    private Vector postVelocity;//vel after use of fuel
     private Vector changeOfVelocity;//delta vel
 
     //engine
@@ -43,12 +43,12 @@ public class FuelCost {
     private double accValue;
 
     //constructor
-    public FuelCost(Vector currentVelocity, Vector finalVelocity) {
+    public FuelCost(Vector currentVelocity, Vector postVelocity) {
         //initial velocity before combustion
         this.currentVelocity=currentVelocity;
 
         //velocity in the end
-        this.finalVelocity=finalVelocity;
+        this.postVelocity =postVelocity;
 
         if(currentMassOfFuel<0) {
             throw new RuntimeException("There is no fuel left! ");
@@ -58,8 +58,8 @@ public class FuelCost {
     public Vector calDeltaOfVelocity(){
 
         //delta of velocity
-        changeOfVelocity=(Vector)finalVelocity.sub(currentVelocity);
-        //System.out.println(finalVelocity);
+        changeOfVelocity=(Vector) postVelocity.sub(currentVelocity);
+        //System.out.println(postVelocity);
         //System.out.println(currentVelocity);
         return changeOfVelocity;
     }
@@ -147,3 +147,4 @@ public class FuelCost {
     }
 
 }
+
