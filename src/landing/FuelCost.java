@@ -139,7 +139,7 @@ public class FuelCost {
         Vector acc=c.calAcc();
         double fuelLeft=c.getCurrentMassOfFuel();
 
-        System.out.println("TEST FUEL USE\n");
+        System.out.println("TEST FUEL COST\n");
         System.out.println("FuelCost: "+fuelCost+" kg");
         System.out.println("The acceleration after thrust is :"+ acc);
         System.out.println("Mass of fuel left: "+fuelLeft+" kg");
