@@ -15,6 +15,8 @@ public interface Vector3dInterface {
     public void setY(double y);
     public double getZ();
     public void setZ(double z);
+    public double getAngle();
+    public void setAngle(double angle);
 
     public Vector3dInterface add(Vector3dInterface other);
     public Vector3dInterface sub(Vector3dInterface other);

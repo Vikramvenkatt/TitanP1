@@ -11,6 +11,7 @@ public abstract class Bdata{
     protected final String Name;//name of object
     protected final Vector initialVelocity;//final velocity??
     protected final Vector initialPosition;//initial for stationary as well as for spaceship in that vector position
+    protected Vector angle;//angle of spaceship
     protected final double mass;//mass of object
     protected double radius;
     protected final Color Color;//les go with neon gray lol
@@ -58,6 +59,6 @@ public abstract class Bdata{
 		this.Color = Color;
         
     }
-	
+
 
 }
