@@ -3,9 +3,6 @@ package landing;
 import GenBody.Vector;
 
 /**
- * class calculate the fuel cost
- *
- * NOT USED FOR NOW!
  *
  * The formulae we used:
  * First calculate the acceleration
@@ -15,20 +12,23 @@ import GenBody.Vector;
  * t = (v1 - v0)/a
  *
  * Third calculate the fuel cost
+ * fuel = mass flow rate*fuel burning time
+ *
  *
  */
+
 public class FuelCost {
 
     //mass
     private static final double massOfCraft = 7.8e4;//Mass of craft in kg
-    private static final double massOfFuel = 100e4;//Assume we bring 100e4 kg fuel
+    private static final double massOfFuel = 100e4;//Assumption
     private static double massTotal =massOfCraft+massOfFuel;//Mass of craft + fuel
     private static double costOfFuel;
     private static double currentMassOfFuel;
 
     //velocity
-    private Vector currentVelocity;//vel before use of fuel
-    private Vector postVelocity;//vel after use of fuel
+    private Vector currentVelocity;//velocity before use of fuel
+    private Vector postVelocity;//velocity after use of fuel
     private Vector changeOfVelocity;//delta vel
 
     //engine
@@ -38,8 +38,6 @@ public class FuelCost {
 
     private static double fuelUsageTime;
 
-    //acceleration
-    private Vector acceleration;
     private double accValue;
 
     //constructor
@@ -74,7 +72,6 @@ public class FuelCost {
 
     public double calcTime(){
 
-
         fuelUsageTime=(changeOfVelocity.norm())/accValue;
 
         return fuelUsageTime;
@@ -83,8 +80,8 @@ public class FuelCost {
 
     //calculate the acceleration
     public Vector calAcc() {
-        acceleration=(Vector)changeOfVelocity.mul(1/fuelUsageTime);
-        return acceleration;
+        //acceleration
+        return (Vector) changeOfVelocity.mul(1 / fuelUsageTime);
     }
 
 
@@ -98,18 +95,12 @@ public class FuelCost {
         calcTime();
         calAcc();
 
-        //prints
-        System.out.println("exhaust velocity: "+exhaustVelocity);
-        System.out.println("max thrust: "+maxThrust);
-        System.out.println("mass flow rate: "+massFlowRate);
-
         costOfFuel=fuelUsageTime*massFlowRate;//the mass cost
 
         currentMassOfFuel=(currentMassOfFuel)-(costOfFuel);
         if(currentMassOfFuel<0) {
             System.out.println("Not enough fuel! ");
         }
-
 
     }
 
