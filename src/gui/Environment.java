@@ -18,19 +18,20 @@ public class Environment extends Canvas {
     Calendar startDate;
     long start;
     Calendar current;
-    private SimulationVerlet sim = new SimulationVerlet();
+    private Simulation sim = new Simulation();
+    //private SimulationVerlet sim = new SimulationVerlet();
     //private SimulationRungeKutta sim = new SimulationRungeKutta();
     private StateOfSolarSystem[] positionsOfPlanets;
     private Vector3dInterface[] positionOfSpacechip;
+    private boolean shipInTheMiddle = true;
+    private boolean sunInTheMiddle = false;
 
     // angle for the rocket computed by Newton Raphson = with adapted fuel new Vector(1.5739450522683016, -6.062006574679788, -0.17575725363009373)
-    //  // angle for the rocket computed by Newton Raphson without out an engine = new Vector(27603.05279102997, -27445.29068487018, -804.3524467856054)
-    // new Vector(1.5575225992772161, -6.030633230550018, -0.1866297565456477);
-//    new Vector(1.5575086679258936, -6.030629715979966, -0.1866458031673369)
+
     public Environment() {
         Planets planets = new Planets();
         this.planetsList = planets.getPlanets();
-        positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0), new Vector(1.5575225992772161, -6.030633230550018, -0.1866297565456477), 31556926 * 2, 1000);
+        positionOfSpacechip = sim.trajectory(new Vector(6371e3, 0, 0), new Vector( 27504.859599408537, -27424.05053464619, -856.4670897953141 ), 31556926*2 , 1000);
         StateInterface[] arr = sim.getPositionOfPlanets();
         positionsOfPlanets = new StateOfSolarSystem[arr.length];
         for (int m = 0; m < positionsOfPlanets.length; m++) {
@@ -50,38 +51,32 @@ public class Environment extends Canvas {
         Vector3dInterface[] pPlanets = positionsOfPlanets[index].getPositionOfPlanets();
 
 
-/*/////////////////////////////////SUN IN THE MIDDLE
-            for (int m = 0 ; m< planetsList.size(); m++) {
-//
-//                planetsList.get(m).setX(pPlanets[m].getX());
-//                planetsList.get(m).setY(pPlanets[m].getY());
-//                   planetsList.get(m).draw((Graphics2D) g);
-//
-//
-//
+/////////////////////////////////SUN IN THE MIDDLE
+        if(sunInTheMiddle) {
+            for (int m = 0; m < planetsList.size(); m++) {
 
-        if (m == 8 || m == 11) {
-            planetsList.get(m).setX(pPlanets[m].getX());
-            planetsList.get(m).setY(pPlanets[m].getY());
-            planetsList.get(m).drawLanding((Graphics2D) g, pPlanets[m].getAngle());
+                planetsList.get(m).setX(pPlanets[m].getX());
+                planetsList.get(m).setY(pPlanets[m].getY());
+                planetsList.get(m).draw((Graphics2D) g);
+            }
         }
 
-    }
-*/
 /////////////////////////////////SPACESHIP IN THE MIDDLE
 
-        /*for (int k = 0; k < planetsList.size(); k++) {
+        if(shipInTheMiddle) {
+            for (int k = 0; k < planetsList.size(); k++) {
 
                 planetsList.get(k).setX(pPlanets[k].getX() - pPlanets[11].getX());
                 planetsList.get(k).setY(pPlanets[k].getY() - pPlanets[11].getY());
                 planetsList.get(k).draw((Graphics2D) g);
 
-        }*/
+            }
+        }
 
 
 /////////////////////////////////Testing
 
-        for (int m = 0 ; m< planetsList.size(); m++) {
+        /*for (int m = 0 ; m< planetsList.size(); m++) {
             if (m == 8 || m == 11) {
                 planetsList.get(m).setX(pPlanets[m].getX()-pPlanets[8].getX());
                 planetsList.get(m).setY(pPlanets[m].getY()-pPlanets[8].getY());

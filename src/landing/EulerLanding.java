@@ -18,8 +18,15 @@ public class EulerLanding {
         this.preStepVel = (Vector) preStepVel;
     }
 
-    public void setAngle(){postStepPos.setZ(0);}
-
+    /**
+     * calculate an euler step, for this equation:
+     *  ̈x=usin(θ)
+     *  ̈y=ucos(θ)−g
+     *  ̈θ=v
+     * @param v thrust for the side engine, used to rotate the spaceship
+     * @param u thrust for the main thrusters
+     * @param h time-step
+     */
     public void step(double v,double u, double h){
 
         double deltaTheta = preStepVel.getZ()+v*h;
@@ -37,7 +44,6 @@ public class EulerLanding {
         postStepVel = new Vector(deltaX,deltaY,deltaTheta);
         postStepPos = new Vector(x,y,theta);
 
-        //System.out.println(preStepPos.getY()-postStepPos.getY());
         return;
     }
 

@@ -7,15 +7,11 @@ import interfaces.*;
 public class Change implements RateInterface{
 
     public Vector3dInterface[] a = new Vector3dInterface[12];
-   // public Vector3dInterface[] aUpdated = new Vector3dInterface[12];
-    //contains position and velocities
     private StateOfSolarSystem state;
    // private Vector finaltitan = new Vector(8.790206157956954E11, -1.2037722320318977E12, -1.4411708984699354E10);
     private Vector earth = new Vector(6371e3,0,0);
-
+    private boolean engineON = false;
     private Engine engine;
-
-
     //order of planets is sun[0],venus[1],mercury[2], jupiter[3], mars[4],earth[5], uranus[6], saturn[7],titan[8],moon[9],neptune[10]
 
     public void addA(Vector3dInterface[] a){
@@ -37,18 +33,20 @@ public class Change implements RateInterface{
     public Vector3dInterface[] getA(){
         Vector3dInterface[] newA = new Vector3dInterface[12];
 
-        if(calculatedistance()) {
-            addAcceleration(engine.takeOff());
-            state.updateMassShip(engine.getTotalMass());
-        }
+        if(engineON){
 
-        if(distanceToTitan()){
-            //addAcceleration(engine.slowDown());
-            //System.out.println(state.p[8].sub(state.p[11]).norm());
-            if(InOrbit()) {
-                System.out.println("Inorbit");
-                if (engine.isPerpendicular((Vector) state.v[8])) {
-                    System.out.println("true");
+            if (calculatedistance()) {
+                addAcceleration(engine.takeOff());
+                state.updateMassShip(engine.getTotalMass());
+            }
+
+            if (distanceToTitan()) {
+                //addAcceleration(engine.slowDown());
+                if (InOrbit()) {
+                    System.out.println("Inorbit");
+                    if (engine.isPerpendicular((Vector) state.v[8])) {
+                        System.out.println("true");
+                    }
                 }
             }
         }
