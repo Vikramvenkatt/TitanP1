@@ -18,6 +18,8 @@ public class EulerLanding {
         this.preStepVel = (Vector) preStepVel;
     }
 
+    public void setAngle(){postStepPos.setZ(0);}
+
     public void step(double v,double u, double h){
 
         double deltaTheta = preStepVel.getZ()+v*h;

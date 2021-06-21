@@ -50,29 +50,44 @@ public class Environment extends Canvas {
         Vector3dInterface[] pPlanets = positionsOfPlanets[index].getPositionOfPlanets();
 
 
-
-/////////////////////////////////SUN IN THE MIDDLE
-//            for (int m = 0 ; m< planetsList.size(); m++) {
+/*/////////////////////////////////SUN IN THE MIDDLE
+            for (int m = 0 ; m< planetsList.size(); m++) {
 //
 //                planetsList.get(m).setX(pPlanets[m].getX());
 //                planetsList.get(m).setY(pPlanets[m].getY());
-//                planetsList.get(m).draw((Graphics2D) g);
+//                   planetsList.get(m).draw((Graphics2D) g);
 //
 //
-//            }
+//
 
+        if (m == 8 || m == 11) {
+            planetsList.get(m).setX(pPlanets[m].getX());
+            planetsList.get(m).setY(pPlanets[m].getY());
+            planetsList.get(m).drawLanding((Graphics2D) g, pPlanets[m].getAngle());
+        }
+
+    }
+*/
 /////////////////////////////////SPACESHIP IN THE MIDDLE
 
-        for (int k = 0; k < planetsList.size(); k++) {
+        /*for (int k = 0; k < planetsList.size(); k++) {
 
                 planetsList.get(k).setX(pPlanets[k].getX() - pPlanets[11].getX());
                 planetsList.get(k).setY(pPlanets[k].getY() - pPlanets[11].getY());
                 planetsList.get(k).draw((Graphics2D) g);
 
-        }
+        }*/
 
 
 /////////////////////////////////Testing
+
+        for (int m = 0 ; m< planetsList.size(); m++) {
+            if (m == 8 || m == 11) {
+                planetsList.get(m).setX(pPlanets[m].getX()-pPlanets[8].getX());
+                planetsList.get(m).setY(pPlanets[m].getY()-pPlanets[8].getY());
+                planetsList.get(m).drawLanding((Graphics2D) g, pPlanets[m].getAngle());
+            }
+        }
 
 //        for (int m = 0; m < planetsList.size(); m++) {
 //            if (m == 8 || m == 11) {
@@ -107,11 +122,11 @@ public class Environment extends Canvas {
                 System.out.println("");
 
 
-            if (m == 8 || m == 11) {
+           /* if (m == 8 || m == 11) {
                 planetsList.get(m).setX(pPlanets[m].getX());
                 planetsList.get(m).setY(pPlanets[m].getY());
                 planetsList.get(m).drawLanding((Graphics2D) g,pPlanets[m].getAngle());
-            }
+            }*/
 
 
             } else {
