@@ -137,11 +137,11 @@ public class SimulationLanding  {
      */
     private EulerLanding closedLoopStep(Vector3dInterface p0, Vector3dInterface v0, double h) {
         AltWindModel a = new AltWindModel(true);
-
-        v0.setX(v0.getX()+a.simulateWind(p0.getY()));
+        double windforce = a.simulateWind(p0.getY());
+        v0.setX(v0.getX()+windforce);
         EulerLanding n = new EulerLanding(p0,v0);
         double u = closedControllerX.calculateOutput(p0.getX(),h);
-        if(p0.getX()==0)
+        if(p0.getX() > -15 && p0.getX() < 15)
             u = closedControllerY.calculateOutput(p0.getY(),h);
         n.step(0,u,h);
         return n;
