@@ -37,8 +37,11 @@ public class FuelCost {
     private static final double thrustIron=1e-1;//0.1N
 
     //3. Magnetoplasmadynamic
-    private static final double ex_Vel_Magneto=Math.random()*(60000-15000+1)+15000;//15000-60000 m/s
-    private static final double thrustMagneto=Math.random()*(25-2.5+1)+2.5;//2.5-25N
+    //private static final double ex_Vel_Magneto=Math.random()*(60000-15000+1)+15000;//15000-60000 m/s
+    //private static final double thrustMagneto=Math.random()*(25-2.5+1)+2.5;//2.5-25N
+
+    private static final double ex_Vel_Magneto=60000;//15000-60000 m/s
+    private static final double thrustMagneto=25;//2.5-25N
 
 
     private final double massFlowRate;//(kg/s)
@@ -51,8 +54,8 @@ public class FuelCost {
     private static final double massOfSpaceShip = 7.8e4;//Mass of spaceship inkg
     private static final double massOfLander = 6e3;//kg
     private static double currentMassOfFuel = 1e4;//Assumption
-    
-    private static double currentMassTotal = massOfSpaceShip + currentMassOfFuel;//Mass of spaceship + fuel
+
+    private static double currentMassTotal = massOfSpaceShip + currentMassOfFuel + massOfLander ;//Mass of spaceship + fuel
     private double costOfFuel;
 
 
@@ -161,7 +164,7 @@ public class FuelCost {
 
     public void setCurrentMassOfFuel(double newMass) {
         currentMassOfFuel=newMass;
-        currentMassTotal = massOfSpaceShip +currentMassOfFuel; //current mass of fuel + Spaceship
+        currentMassTotal = massOfSpaceShip +currentMassOfFuel+ massOfLander; //current mass of fuel + Spaceship + lander
 
     }
 
@@ -170,11 +173,13 @@ public class FuelCost {
     }
 
     public static void main(String[] args) throws Exception {
-        Vector v0=new Vector(0,0,0);//Velocity before burning of fuel
-        Vector v1=new Vector(0,25000,0);//Velocity after burning of fuel
 
-        FuelCost conbustion=new FuelCost(v0,v1,1);
-        conbustion.setCurrentMassOfFuel(1e6);
+        //take-off
+        Vector v0=new Vector(0, 0, 0);//Velocity before burning of fuel
+        Vector vt=new Vector(0, 60000, 0);//Velocity after burning of fuel
+
+        FuelCost conbustion=new FuelCost(v0,vt,1);
+        conbustion.setCurrentMassOfFuel(1e11);
         conbustion.fuelCost();
         double fuelCost1=conbustion.getFuelCost();
         Vector acc1=conbustion.calAcc();
@@ -188,18 +193,20 @@ public class FuelCost {
         System.out.println("The time required: "+time1 +"s");
         System.out.println();
 
+        //We only use fuel for the take Off, we don't have any in-flight corrections,
+        //Cannot use iron fuel thruster
 
+        /*Vector v0=new Vector(0,0,0);//Velocity before burning of fuel
+        Vector vt=new Vector(0,60000,0);//Velocity after burning of fuel
 
-        Vector v2=new Vector(0,50000,0);//Velocity before burning of fuel
+        FuelCost comb=new FuelCost(v0,vt,2);
+        comb.fuelCost();
+        double fuelCost2=comb.getFuelCost();
+        Vector acc2=comb.calAcc();
+        double fuelLeft2=comb.getCurrentMassOfFuel();
+        double time2 = comb.getFuelBurningTime();
 
-        FuelCost iron=new FuelCost(v1,v2,2);
-        iron.fuelCost();
-        double fuelCost2=iron.getFuelCost();
-        Vector acc2=iron.calAcc();
-        double fuelLeft2=iron.getCurrentMassOfFuel();
-        double time2 = iron.getFuelBurningTime();
-
-        System.out.println("IRON FUEL TEST\n");
+        System.out.println("COMBUSTION FUEL TEST\n");
         System.out.println("Fuel Consumption: "+fuelCost2+" kg");
         System.out.println("The acc after burning of fuel is :"+ acc2);
         System.out.println("Mass of fuel left: "+fuelLeft2+" kg");
@@ -208,9 +215,10 @@ public class FuelCost {
 
 
 
-        Vector v3=new Vector(0,70000,0);//Velocity after burning of fuel
-
-        FuelCost magneto=new FuelCost(v2,v3,3);
+        Vector v0=new Vector(50000,50000,50000);
+        Vector vt=new Vector(40000,40000,40000);
+        FuelCost magneto=new FuelCost(v0,vt,3);
+        magneto.setCurrentMassOfFuel(1e7);
         magneto.fuelCost();
         double fuelCost3=magneto.getFuelCost();
         Vector acc3=magneto.calAcc();
@@ -221,9 +229,8 @@ public class FuelCost {
         System.out.println("Fuel Consumption: "+fuelCost3+" kg");
         System.out.println("The acc after is :"+ acc3);
         System.out.println("Mass of fuel left: "+fuelLeft3+" kg");
-        System.out.println("The time required: "+time3 +"s");
+        System.out.println("The time required: "+time3 +"s");*/
 
     }
 
 }
-
