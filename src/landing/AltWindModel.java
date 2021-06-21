@@ -6,18 +6,37 @@ import java.util.Random;
 
 public class AltWindModel {
 
+    //make true to make the windModel stochastic/randomized
+    private boolean isStochastic;
+
+    public AltWindModel(boolean isStochastic)
+    {
+        this.isStochastic = isStochastic;
+    }
     //multiplier = strength variation of wind as %
     //height is given as meters --> convert to km
-    public double simulateWind(double height, double multiplier)
+    public double simulateWind(double height)
     {
         height = height/1000;
         Random rand = new Random();
         //gives an average number --> less likely to encounter extreme winds
         double randomGauss = rand.nextGaussian();
-        // insert Math.abs check for randomGauss to prevent multiplier > 1 or < 0
+        // insert Math.abs check for randomGauss to prevent multiplier > 1
+        if(Math.abs(randomGauss) > 1)
+        {
+            randomGauss = 1;
+        }
 
         //true = wind goes to the right, false = wind goes left
-        boolean direction = true;
+        double randomDirectionVal = Math.random();
+        boolean direction;
+        if(randomDirectionVal < 0.5)
+        {
+            direction = false;
+        }
+        else { direction = true; }
+
+
         double windVelocity = 0;  //in m/s
         if(height > 120)
         {
@@ -36,6 +55,10 @@ public class AltWindModel {
             windVelocity = 1;
         }
 
+        if(isStochastic)
+        {
+            windVelocity *= randomGauss;
+        }
         if(direction)
         {
             return windVelocity;
