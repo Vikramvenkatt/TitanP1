@@ -5,7 +5,7 @@ import GenBody.Vector;
 /**
  *
  * The formulae we used:
- * First calculate the acceleration
+ * First calculate the acceleration value
  * a=Ve*mass flow rate/M
  *
  * Second calculate fuel usage time
@@ -19,52 +19,98 @@ import GenBody.Vector;
 
 public class FuelCost {
 
-    //mass
-    private static final double massOfCraft = 7.8e4;//Mass of craft in kg
-    private static final double massOfFuel = 100e4;//Assumption
-    private static double massTotal =massOfCraft+massOfFuel;//Mass of craft + fuel
-    private static double costOfFuel;
-    private static double currentMassOfFuel;
-
     //velocity
     private Vector currentVelocity;//velocity before use of fuel
     private Vector postVelocity;//velocity after use of fuel
     private Vector changeOfVelocity;//delta vel
 
     //engine
-    private static final double exhaustVelocity = 2e3;//(m/s)
-    private static final double massFlowRate = 500;//(kg/s)
-    private static double maxThrust = 3e7;//(N)
+    private final double effectiveExhaustVelocity;//(m/s)
+    private final double thrust;//(N)
 
-    private static double fuelUsageTime;
+    //1. Combustion fuel
+    private static final double ex_Vel_Combustion=4e3;//4000m/s
+    private static final double thrustCombustion=3e7;//30000000N
 
-    private double accValue;
+    //2. Ion fuel
+    private static final double ex_Vel_Iron=2e4;//20000m/s
+    private static final double thrustIron=1e-1;//0.1N
+
+    //3. Magnetoplasmadynamic
+    private static final double ex_Vel_Magneto=Math.random()*(60000-15000+1)+15000;//15000-60000 m/s
+    private static final double thrustMagneto=Math.random()*(25-2.5+1)+2.5;//2.5-25N
+
+
+    private final double massFlowRate;//(kg/s)
+
+    private double fuelBurningTime;
+
+    private double accValue;//acceleration.norm()
+
+    //mass
+    private static final double massOfSpaceShip = 7.8e4;//Mass of spaceship inkg
+    private static final double massOfLander = 6e3;//kg
+    private static double currentMassOfFuel = 1e4;//Assumption
+    
+    private static double currentMassTotal = massOfSpaceShip + currentMassOfFuel;//Mass of spaceship + fuel
+    private double costOfFuel;
+
 
     //constructor
-    public FuelCost(Vector currentVelocity, Vector postVelocity) {
-        //initial velocity before combustion
+    public FuelCost(Vector currentVelocity, Vector postVelocity, int n) throws Exception {
+        //initial velocity before
         this.currentVelocity=currentVelocity;
 
-        //velocity in the end
-        this.postVelocity =postVelocity;
+        //velocity after
+        this.postVelocity=postVelocity;
 
         if(currentMassOfFuel<0) {
             throw new RuntimeException("There is no fuel left! ");
         }
+
+        switch(n)
+        {
+            case 1:
+                //Combustion fuel
+                this.effectiveExhaustVelocity =ex_Vel_Combustion;
+                this.thrust =thrustCombustion;
+                this.massFlowRate=thrust/effectiveExhaustVelocity;
+                break;
+
+            case 2:
+                //Ion fuel
+                this.effectiveExhaustVelocity=ex_Vel_Iron;
+                this.thrust=thrustIron;
+                this.massFlowRate=thrust/effectiveExhaustVelocity;
+                break;
+
+            case 3:
+                //Magnetoplasmadynamic
+                this.effectiveExhaustVelocity=ex_Vel_Magneto;
+                this.thrust=thrustMagneto;
+                this.massFlowRate=thrust/effectiveExhaustVelocity;
+                break;
+
+            default:
+                throw new Exception("Please input a valid number from one to three");
+
+        }
+
+
     }
 
     public Vector calDeltaOfVelocity(){
 
         //delta of velocity
         changeOfVelocity=(Vector) postVelocity.sub(currentVelocity);
-        //System.out.println(postVelocity);
-        //System.out.println(currentVelocity);
+
         return changeOfVelocity;
+
     }
 
     public double calAccValue() {
 
-        accValue=exhaustVelocity*massFlowRate/massOfCraft;
+        accValue= effectiveExhaustVelocity *massFlowRate/ massOfSpaceShip;
 
         return accValue;
 
@@ -72,34 +118,35 @@ public class FuelCost {
 
     public double calcTime(){
 
-        fuelUsageTime=(changeOfVelocity.norm())/accValue;
+        fuelBurningTime =(changeOfVelocity.norm())/accValue;
 
-        return fuelUsageTime;
+        return fuelBurningTime;
     }
 
 
     //calculate the acceleration
     public Vector calAcc() {
         //acceleration
-        return (Vector) changeOfVelocity.mul(1 / fuelUsageTime);
+        return (Vector) changeOfVelocity.mul(1D / fuelBurningTime);
     }
 
 
 
     //calculate the fuel cost
     //fuel cost=usage time * mass flow rate
-    public void fuelCost() {
+    public void fuelCost() throws Exception {
 
         calAccValue();
         calDeltaOfVelocity();
         calcTime();
         calAcc();
 
-        costOfFuel=fuelUsageTime*massFlowRate;//the mass cost
+        costOfFuel= fuelBurningTime *massFlowRate;//the mass cost
 
         currentMassOfFuel=(currentMassOfFuel)-(costOfFuel);
         if(currentMassOfFuel<0) {
-            System.out.println("Not enough fuel! ");
+            throw new Exception("Not enough fuel left");
+
         }
 
     }
@@ -112,29 +159,70 @@ public class FuelCost {
         return currentMassOfFuel;
     }
 
-    public void setMassOfFuel(double newMass) {
+    public void setCurrentMassOfFuel(double newMass) {
         currentMassOfFuel=newMass;
-        massTotal=massOfCraft+currentMassOfFuel; //current mass of fuel + craft
+        currentMassTotal = massOfSpaceShip +currentMassOfFuel; //current mass of fuel + Spaceship
 
-        System.out.println("The mass of fuel is set to: "+newMass+" kg");
     }
 
-    public static void main(String[] args){
-        Vector v0=new Vector(0,0,0);//Velocity before combustion of fuel
-        Vector v1=new Vector(0,50000,0);//Velocity after combustion of fuel
+    public double getFuelBurningTime() {
+        return fuelBurningTime;
+    }
 
-        FuelCost c=new FuelCost(v0,v1);
-        c.setMassOfFuel(2500000);
-        c.fuelCost();
-        double fuelCost=c.getFuelCost();
-        Vector acc=c.calAcc();
-        double fuelLeft=c.getCurrentMassOfFuel();
+    public static void main(String[] args) throws Exception {
+        Vector v0=new Vector(0,0,0);//Velocity before burning of fuel
+        Vector v1=new Vector(0,25000,0);//Velocity after burning of fuel
 
-        System.out.println("TEST FUEL COST\n");
-        System.out.println("FuelCost: "+fuelCost+" kg");
-        System.out.println("The acceleration after thrust is :"+ acc);
-        System.out.println("Mass of fuel left: "+fuelLeft+" kg");
-        System.out.println("The time required to speed up: "+fuelUsageTime +"s");
+        FuelCost conbustion=new FuelCost(v0,v1,1);
+        conbustion.setCurrentMassOfFuel(1e6);
+        conbustion.fuelCost();
+        double fuelCost1=conbustion.getFuelCost();
+        Vector acc1=conbustion.calAcc();
+        double fuelLeft1=conbustion.getCurrentMassOfFuel();
+        double time1 = conbustion.getFuelBurningTime();
+
+        System.out.println("COMBUSTION FUEL TEST\n");
+        System.out.println("Fuel consumption: "+fuelCost1+" kg");
+        System.out.println("The acc after burning of fuel is :"+ acc1);
+        System.out.println("Mass of fuel left: "+fuelLeft1+" kg");
+        System.out.println("The time required: "+time1 +"s");
+        System.out.println();
+
+
+
+        Vector v2=new Vector(0,50000,0);//Velocity before burning of fuel
+
+        FuelCost iron=new FuelCost(v1,v2,2);
+        iron.fuelCost();
+        double fuelCost2=iron.getFuelCost();
+        Vector acc2=iron.calAcc();
+        double fuelLeft2=iron.getCurrentMassOfFuel();
+        double time2 = iron.getFuelBurningTime();
+
+        System.out.println("IRON FUEL TEST\n");
+        System.out.println("Fuel Consumption: "+fuelCost2+" kg");
+        System.out.println("The acc after burning of fuel is :"+ acc2);
+        System.out.println("Mass of fuel left: "+fuelLeft2+" kg");
+        System.out.println("The time required: "+time2 +"s");
+        System.out.println();
+
+
+
+        Vector v3=new Vector(0,70000,0);//Velocity after burning of fuel
+
+        FuelCost magneto=new FuelCost(v2,v3,3);
+        magneto.fuelCost();
+        double fuelCost3=magneto.getFuelCost();
+        Vector acc3=magneto.calAcc();
+        double fuelLeft3=magneto.getCurrentMassOfFuel();
+        double time3 = magneto.getFuelBurningTime();
+
+        System.out.println("Magnetoplasmadynamic TEST\n");
+        System.out.println("Fuel Consumption: "+fuelCost3+" kg");
+        System.out.println("The acc after is :"+ acc3);
+        System.out.println("Mass of fuel left: "+fuelLeft3+" kg");
+        System.out.println("The time required: "+time3 +"s");
+
     }
 
 }
