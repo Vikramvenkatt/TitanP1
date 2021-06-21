@@ -28,13 +28,7 @@ public class AltWindModel {
         }
 
         //true = wind goes to the right, false = wind goes left
-        double randomDirectionVal = Math.random();
-        boolean direction;
-        if(randomDirectionVal < 0.5)
-        {
-            direction = false;
-        }
-        else { direction = true; }
+
 
 
         double windVelocity = 0;  //in m/s
@@ -55,9 +49,16 @@ public class AltWindModel {
             windVelocity = 1;
         }
 
+        boolean direction = true;
         if(isStochastic)
         {
             windVelocity *= randomGauss;
+            double randomDirectionVal = Math.random();
+            if(randomDirectionVal < 0.5)
+            {
+                direction = false;
+            }
+            else { direction = true; }
         }
         if(direction)
         {
