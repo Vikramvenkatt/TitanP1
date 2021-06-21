@@ -7,6 +7,7 @@ public class Vector implements Vector3dInterface {
 	private double x;
 	private double y;
 	private double z;
+	private double angle;
 
 	
 	public Vector() {
@@ -111,6 +112,15 @@ public class Vector implements Vector3dInterface {
 		this.z = z;
 	}
 
+
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
+	public double getAngle() {
+		return angle;
+	}
+
 	public Vector3dInterface createUnitVector()
 	{
 		return mul(1.0/norm());
@@ -144,4 +154,5 @@ public class Vector implements Vector3dInterface {
 	public String toString() {
 		return "( "+x + ", " + y + ", " + z+" )";
 	}
+
 }

@@ -107,7 +107,7 @@ public class UserInterface extends Canvas implements ActionListener, Runnable {
     public void run() {
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
-        final double ns = 1000000000.0/10000;
+        final double ns = 1000000000.0/1000;
         double delta = 0;
         int frames = 0;
         while (true) {

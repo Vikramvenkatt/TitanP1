@@ -31,6 +31,10 @@ public class Planet extends Bdata {
         maximumThrust = 3e7;
     }
 
+    public void setAngle(double angle){
+        this.angle.setAngle(angle);
+    }
+
     public void setX(double x) {
         this.initialPosition.setX(x);
     }
@@ -39,18 +43,19 @@ public class Planet extends Bdata {
         this.initialPosition.setY(y);
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
+
 
         double scale = 1e8;
         double radius = getRadius() * 2e2;
         int sunSize = 35;
         int venusEarthSize = 9;
-        int mercuryMarsMoonTitanSize = 5;
+        int mercuryMarsMoonTitanSize = 6;
         int jupiterSaturnSize = 24;
         int uranusNeptuneSize = 25;
         double spaceshipSize = 4;
 
-        Font myFont = new Font("Aerial", 1, 8);
+        Font myFont = new Font("Aerial", 1, 9);
         g.setFont(myFont);
 
 
@@ -80,11 +85,41 @@ public class Planet extends Bdata {
             g.fillOval((int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) (changePosY(initialPosition)-(int) (radius / scale/2)), (int)(uranusNeptuneSize*sizeFactor), (int)(uranusNeptuneSize*sizeFactor));
             g.drawString(getName(), (int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) changePosY(initialPosition)-(int) (radius / scale/2));
         }else if(this.getName().equals("spaceship")){
+            int angle = 45;
+            double radian = Math.toRadians(angle);
             g.setColor(this.getColor());
-            g.fillOval((int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) (changePosY(initialPosition)-(int) (radius / scale/2)), (int)(spaceshipSize*sizeFactor), (int)(spaceshipSize*sizeFactor));
-            g.drawString(getName(), (int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) changePosY(initialPosition)-(int) (radius / scale/2));
+            g.drawString(getName(), (int) (changePosX(initialPosition)-(int) (radius / scale/2)+5), (int) changePosY(initialPosition)-(int) (radius / scale/2)+5);
+            g.rotate(radian, (int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) (changePosY(initialPosition)-(int) (radius / scale/2)));
+            g.fillRect((int) (changePosX(initialPosition)-(int) (radius / scale/2)),(int) (changePosY(initialPosition)-(int) (radius / scale/2)),(int)(spaceshipSize*sizeFactor),(int)(spaceshipSize*sizeFactor/1.2));
+            //g.fillOval((int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) (changePosY(initialPosition)-(int) (radius / scale/2)), (int)(spaceshipSize*sizeFactor), (int)(spaceshipSize*sizeFactor));
+            g.setColor(java.awt.Color.GREEN);
         }
+    }
 
+    public void drawLanding(Graphics2D g,double theta) {
+
+
+        double scale = 1e8;
+        double radius = getRadius() * 2e2;
+        double spaceshipSize = 4;
+        Font myFont = new Font("Aerial", 1, 9);
+        g.setFont(myFont);
+
+
+        if (this.getName().equals("Titan")) {
+            g.setColor(this.getColor());
+            g.drawLine(0,1000/2,1500,1000/2);
+        } else if(this.getName().equals("spaceship")){
+            double angle = theta;
+            double radian = Math.toRadians(angle);
+            g.setColor(this.getColor());
+            g.drawString(getName(), (int) (changePosX(initialPosition)-(int) (radius / scale/2)+5), (int) changePosY(initialPosition)-(int) (radius / scale/2)+5);
+            g.rotate(radian, (int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) (changePosY(initialPosition)-(int) (radius / scale/2)));
+            g.fillRect((int) (changePosX(initialPosition)-(int) (radius / scale/2)),(int) (changePosY(initialPosition)-(int) (radius / scale/2)),(int)(spaceshipSize*sizeFactor*5),(int)(spaceshipSize*sizeFactor*3));
+            //g.fillOval((int) (changePosX(initialPosition)-(int) (radius / scale/2)), (int) (changePosY(initialPosition)-(int) (radius / scale/2)), (int)(spaceshipSize*sizeFactor), (int)(spaceshipSize*sizeFactor));
+        }
+        g.fillOval(750,500,5,5);
+        g.drawOval(750, 500, 5, 5);
     }
 
 
