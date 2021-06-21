@@ -22,9 +22,9 @@ public class AltWindModel {
         //gives an average number --> less likely to encounter extreme winds
         double randomGauss = rand.nextGaussian();
         // insert Math.abs check for randomGauss to prevent multiplier > 1
-        if(Math.abs(randomGauss) > 1)
+        if(Math.abs(randomGauss) > 1.33)
         {
-            randomGauss = 1;
+            randomGauss = 1.33;
         }
 
         //true = wind goes to the right, false = wind goes left
