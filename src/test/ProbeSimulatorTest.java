@@ -1,6 +1,7 @@
 package test;
 
 import GenBody.Simulation;
+import GenBody.SimulationRungeKutta;
 import GenBody.Vector;
 import interfaces.ProbeSimulatorInterface;
 import interfaces.Vector3dInterface;
@@ -110,7 +111,7 @@ public class ProbeSimulatorTest {
         Vector3dInterface probe_relative_velocity = new Vector(52500.0,-27000.0,0); // 12.0 months
         double day = 24*60*60;
         double year = 365.25*day;
-        ProbeSimulatorInterface simulator = new Simulation();
+        ProbeSimulatorInterface simulator = new SimulationRungeKutta();
         Vector3dInterface[] trajectory = simulator.trajectory(probe_relative_position, probe_relative_velocity, year, day);
         return trajectory;
 
